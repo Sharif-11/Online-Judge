@@ -1,11 +1,15 @@
 import React, { useRef, useState } from "react";
 import {
+  useAuthState,
   useCreateUserWithEmailAndPassword,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
 import { useUpdateProfile } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import PreLoader from "./PreLoader";
+import { ClipLoader } from "react-spinners";
 const Register = () => {
   const navigate = useNavigate("");
   const handleRef = useRef("");
@@ -13,7 +17,7 @@ const Register = () => {
   const passwordRef = useRef("");
   const confirmPasswordRef = useRef("");
   const [handleError, setHandleError] = useState(false);
-
+  const [person, userLoading, userError] = useAuthState(auth);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth, {
@@ -32,14 +36,42 @@ const Register = () => {
       setConfirmPasswordError(true);
       return;
     } else setConfirmPasswordError(false);
+    axios
+      .get("https://lit-meadow-72602.herokuapp.com/users/" + handle)
+      .then(({ data }) => {
+        if (data?.handle === handle) {
+          setHandleError(true);
+          return;
+        } else {
+          setHandleError(false);
+        }
+      });
+    if (handleError) {
+      return;
+    }
     await createUserWithEmailAndPassword(email, password);
     await updateProfile({ displayName: handle });
   };
 
-  if (loading || updating || googleLoading) {
+  if (updating || googleLoading || userLoading) {
     return <p>Loading...</p>;
   }
-
+  if (person) {
+    fetch("https://lit-meadow-72602.herokuapp.com/users", {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        email: person?.email,
+        handle: person?.displayName,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }
   if (user) {
     navigate("/login");
   }
@@ -48,16 +80,9 @@ const Register = () => {
   }
   return (
     <div>
-      <h6 className="text-md font-bold mt-10">
-        Fill in the form to register in Coders Playground.
-      </h6>
-      <p className="font-semibold">
-        You can skip this step and login with your{" "}
-        <button className="text-primary underline">Gmail</button>.
-      </p>
       <div className="register rounded-sm border w-96 mx-auto mt-8">
         <h2 className="p-1 font-semibold text-[blue]">
-          Register in Coders Playground
+          Register in Coding playground
         </h2>
         <hr />
         <form className="my-8" onSubmit={handleSubmit}>
@@ -134,7 +159,9 @@ const Register = () => {
               </p>
             </div>
           </div>
-
+          <div className="flex justify-center my-[8px]">
+            <ClipLoader loading={loading} size={24} />
+          </div>
           <button
             type="submit"
             className="mx-auto border block font-semibold px-5"
