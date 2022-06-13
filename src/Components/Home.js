@@ -15,9 +15,9 @@ const Home = () => {
           <Route index element={"announcement"}></Route>
           <Route path="profile/:handle" element={"profile"}></Route>
           <Route path="problemset" element={"problemset"}></Route>
-          <Route path="dashboard" element={<Dashboard />}>
-            <Route index element={<ArrangeContest />}></Route>
-          </Route>
+        </Route>
+        <Route path="dashboard" element={<Dashboard />}>
+          <Route index element={<ArrangeContest />}></Route>
         </Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>

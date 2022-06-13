@@ -15,20 +15,20 @@ const Dashboard = () => {
   }
 
   return (
-    <div class="drawer drawer-mobile">
+    <div class="drawer drawer-mobile my-3">
       <input id="my-drawer-7" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content">
-        {/* <label
+        <label
           for="my-drawer-7"
           class="btn btn-primary drawer-button lg:hidden"
         >
           Open drawer
-        </label> */}
+        </label>
         <Outlet />
       </div>
       <div class="drawer-side">
         <label for="my-drawer-7" class="drawer-overlay"></label>
-        <ul class="menu p-4 overflow-y-auto w-60 bg-[lightblue] text-base-content">
+        <ul class="menu p-4 overflow-y-auto w-60 text-base-content">
           <li>
             <button className="btn btn-dark text-white">
               <Link to="/dashboard">Arrange contest</Link>
