@@ -1,9 +1,14 @@
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../firebase.init";
 import SetProblem from "./SetProblem";
 
 const ArrangeContest = () => {
+  const [user, loading] = useAuthState(auth);
   const [cnt, setCnt] = useState(1);
   const [display, setDisplay] = useState(false);
+  const [finalContest, setFinalContest] = useState({});
   const [problems, setProblems] = useState([]);
   useEffect(() => {
     let arr = [];
@@ -18,7 +23,7 @@ const ArrangeContest = () => {
   const hourRef = useRef("");
   const minuteRef = useRef("");
   const announceRef = useRef("");
-  const announceTypeRef = useRef("text");
+  const formRef = useRef();
   const handleSubmit = (e) => {
     e.preventDefault();
     const id = idRef.current.value;
@@ -34,6 +39,8 @@ const ArrangeContest = () => {
       startTime: d.getTime(),
       duration: parseInt(hour) * 60 * 60 * 1000 + parseInt(minute) * 60000,
       announcement: announce,
+      status: "pending",
+      email: user?.email,
       problems: [],
     };
 
@@ -53,12 +60,15 @@ const ArrangeContest = () => {
       }
       contest.problems.push(obj);
     }
-    console.dir(contest);
+    axios
+      .post("http://localhost:5000/contests", contest)
+      .then(({ data }) => {});
   };
   return (
     <div className="flex justify-center my-4">
       <form
         className="w-4/5 flex flex-col align-items-center"
+        ref={formRef}
         onSubmit={handleSubmit}
       >
         <div className="p-8 shadow-lg m-4" style={{ borderRadius: "16px" }}>
@@ -176,12 +186,13 @@ const ArrangeContest = () => {
           {display && (
             <button
               type="button"
-              className="btn btn-dark my-5 max-w-xs mx-3"
+              className="btn btn-dark my-5 max-w-xs mr-3"
               onClick={() => setDisplay(false)}
             >
               Previous
             </button>
           )}
+
           {display && (
             <button type="submit" className="btn btn-dark my-5 max-w-xs">
               Submit
@@ -189,6 +200,8 @@ const ArrangeContest = () => {
           )}
         </div>
       </form>
+
+      <input type="checkbox" id="my-modal-5" class="modal-toggle" />
     </div>
   );
 };

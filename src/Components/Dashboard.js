@@ -28,15 +28,35 @@ const Dashboard = () => {
       </div>
       <div class="drawer-side">
         <label for="my-drawer-7" class="drawer-overlay"></label>
-        <ul class="menu p-4 overflow-y-auto w-60 text-base-content">
-          <li>
-            <button className="btn btn-dark text-white">
-              <Link to="/dashboard">Arrange contest</Link>
-            </button>
-          </li>
-          <li>
-            <a>Sidebar Item 2</a>
-          </li>
+        <ul class="menu p-4 overflow-y-auto w-60 bg-[lightblue] text-base-content">
+          {(role == "admin" || role == "problemSetter") && (
+            <>
+              <li>
+                <button className="btn btn-dark text-white">
+                  <Link to="/dashboard">Arrange contest</Link>
+                </button>
+              </li>
+              <li className="mt-2">
+                <button className="btn btn-dark text-white">
+                  <Link to="/dashboard/arrange-contest">My contest</Link>
+                </button>
+              </li>
+            </>
+          )}
+          {role == "admin" && (
+            <li className="mt-2">
+              <button className="btn btn-dark text-white">
+                <Link to="/dashboard/all-contest">All Contest</Link>
+              </button>
+            </li>
+          )}
+          {role == "admin" && (
+            <li className="mt-2">
+              <button className="btn btn-dark text-white">
+                <Link to="/dashboard/all-user">All User</Link>
+              </button>
+            </li>
+          )}
         </ul>
       </div>
     </div>
