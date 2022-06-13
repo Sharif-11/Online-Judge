@@ -8,6 +8,7 @@ import download from "../Images/download.png";
 import final_logo from "../Images/final_logo.png";
 const Header = () => {
   const [user, loading, error] = useAuthState(auth);
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -58,7 +59,7 @@ const Header = () => {
         <Link to="/problemset" className="mx-1">
           PROBLEMSET
         </Link>
-        <Link to="/admin" className="mx-1">
+        <Link to="/dashboard" className="mx-1">
           DASHBOARD
         </Link>
       </div>
