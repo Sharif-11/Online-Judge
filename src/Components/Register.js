@@ -79,18 +79,18 @@ const Register = () => {
     navigate("/");
   }
   return (
-    <div>
-      <div className="register rounded-sm border w-96 mx-auto mt-8">
+    <div className="mb-8">
+      <div className="register rounded-sm border w-96 max-w-[85vw] mx-auto mt-8">
         <h2 className="p-1 font-semibold text-[blue]">
           Register in Coding playground
         </h2>
         <hr />
-        <form className="my-8" onSubmit={handleSubmit}>
-          <div className=" w-4/5 mx-auto flex">
-            <span className="mr-4 text-md font-semibold w-1/4 text-right">
+        <form className="my-8 px-4" onSubmit={handleSubmit}>
+          <div className=" lg:w-4/5 mx-auto flex">
+            <span className="pr-4 text-md font-semibold w-2/6 text-right">
               Handle
             </span>
-            <div className="w-3/4">
+            <div className="w-4/6">
               <input
                 type="text"
                 name=""
@@ -104,11 +104,11 @@ const Register = () => {
               </p>
             </div>
           </div>
-          <div className=" w-4/5 mx-auto flex my-3">
-            <span className="mr-4 text-md font-semibold w-1/4 text-right">
+          <div className=" lg:w-4/5 mx-auto flex my-3">
+            <span className="pr-4 text-md font-semibold w-2/6 text-right">
               Email
             </span>
-            <div className="w-3/4">
+            <div className="w-4/6">
               <input
                 type="email"
                 name=""
@@ -122,11 +122,11 @@ const Register = () => {
               </p>
             </div>
           </div>
-          <div className=" w-4/5 mx-auto flex my-3">
-            <span className="mr-4 text-md font-semibold w-1/4 text-right">
+          <div className=" lg:w-4/5 mx-auto flex my-3">
+            <span className="pr-4 text-md font-semibold w-1/3 text-right">
               Password
             </span>
-            <div className="w-3/4">
+            <div className="w-2/3">
               <input
                 type="password"
                 name=""
@@ -141,11 +141,11 @@ const Register = () => {
               </p>
             </div>
           </div>
-          <div className=" w-4/5 mx-auto flex my-3">
-            <span className="mr-4 text-md font-semibold w-1/4 text-right">
+          <div className=" lg:w-4/5 mx-auto flex my-3">
+            <span className="pr-4 text-md font-semibold w-1/3 text-right">
               Confirm Password
             </span>
-            <div className="w-3/4 flex flex-col justify-center">
+            <div className="w-2/3 flex flex-col justify-center">
               <input
                 type="password"
                 name=""

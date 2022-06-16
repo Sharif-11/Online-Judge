@@ -32,23 +32,23 @@ const Login = () => {
     navigate("/");
   }
   return (
-    <div>
-      <div className="register rounded-sm border w-96 mx-auto mt-8">
+    <div className="mb-8">
+      <div className="register rounded-sm border w-96 max-w-[85vw] mx-auto mt-8">
         <h2 className="p-1 font-semibold text-[blue]">
           Log into Coding playground
         </h2>
         <hr />
-        <form className="my-8" onSubmit={handleSubmit}>
-          <div className=" w-4/5 mx-auto flex my-3">
-            <span className="mr-4 text-md font-semibold w-1/4 text-right">
+        <form className="my-8 px-4 lg:px-0" onSubmit={handleSubmit}>
+          <div className=" lg:w-4/5 mx-auto flex my-3 ">
+            <span className="pr-4 text-md font-semibold w-2/6  text-right">
               Email
             </span>
-            <div className="w-3/4">
+            <div className="w-4/6 border">
               <input
                 type="email"
                 name=""
                 id=""
-                className="border w-full"
+                className=" w-full"
                 ref={emailRef}
                 required
               />
@@ -57,16 +57,16 @@ const Login = () => {
               </p>
             </div>
           </div>
-          <div className=" w-4/5 mx-auto flex my-3">
-            <span className="mr-4 text-md font-semibold w-1/4 text-right">
+          <div className=" lg:w-4/5 mx-auto flex my-3">
+            <span className="pr-4 text-md font-semibold w-2/6 text-right">
               Password
             </span>
-            <div className="w-3/4">
+            <div className="w-4/6">
               <input
                 type="password"
                 name=""
                 id=""
-                className="border w-full"
+                className=" w-full"
                 ref={passwordRef}
                 required
               />
@@ -88,7 +88,7 @@ const Login = () => {
 
           <button
             type="button"
-            className="text-[blue] text-sm underline block ml-auto mr-4 mt-4"
+            className="text-[blue] text-sm underline block ml-auto mr-2 lg:mr-4  mt-4"
             onClick={async () => {
               await sendPasswordResetEmail(emailRef.current.value);
             }}
