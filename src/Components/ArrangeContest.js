@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 import SetProblem from "./SetProblem";
-
+import { toast } from "react-toastify";
 const ArrangeContest = () => {
   const [user, loading] = useAuthState(auth);
   const [cnt, setCnt] = useState(1);
@@ -34,47 +34,74 @@ const ArrangeContest = () => {
       .then((data) => {
         if (data[0]?.id == parseInt(idRef?.current.value)) {
           setError(true);
-        } else setError(false);
+          return false;
+        } else {
+          setError(false);
+          return true;
+        }
       });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const id = parseInt(idRef.current.value);
+
+    const id = idRef.current.value;
     const date = dateRef.current.value;
     const hour = parseInt(hourRef.current.value);
     const minute = parseInt(minuteRef.current.value);
     const announce = announceRef.current.value;
     var d = new Date(date);
+    fetch("https://lit-meadow-72602.herokuapp.com/contests?id=" + id)
+      .then((res) => res.json())
+      .then((data) => {
+        if (parseInt(data[0]?.id) == parseInt(idRef?.current.value)) {
+          setError(true);
+        } else {
+          setError(false);
+          const contest = {
+            id,
+            startTime: d.getTime(),
+            duration:
+              parseInt(hour) * 60 * 60 * 1000 + parseInt(minute) * 60000,
+            announcement: announce,
+            status: "pending",
+            email: user?.email,
+            problems: [],
+          };
 
-    const contest = {
-      id,
-      startTime: d.getTime(),
-      duration: parseInt(hour) * 60 * 60 * 1000 + parseInt(minute) * 60000,
-      announcement: announce,
-      status: "pending",
-      email: user?.email,
-      problems: [],
-    };
-
-    for (let i = 0; i < problems.length; i++) {
-      let obj = {
-        title: e.target["title" + i].value,
-        description: e.target["description" + i].value,
-        sampleInput: e.target["sample-in" + i].value,
-        sampleOutput: e.target["sample-out" + i].value,
-        testCnt: parseInt(e.target["tc" + i].value),
-        testInputSet: [],
-        testOutputSet: [],
-      };
-      for (let j = 0; j < obj.testCnt; j++) {
-        obj.testInputSet.push(e.target["test-case-in" + i + "-" + j].value);
-        obj.testOutputSet.push(e.target["test-case-out" + i + "-" + j].value);
-      }
-      contest.problems.push(obj);
-    }
-    axios
-      .post("https://lit-meadow-72602.herokuapp.com/contests", contest)
-      .then(({ data }) => {});
+          for (let i = 0; i < problems.length; i++) {
+            let obj = {
+              title: e.target["title" + i].value,
+              description: e.target["description" + i].value,
+              sampleInput: e.target["sample-in" + i].value,
+              sampleOutput: e.target["sample-out" + i].value,
+              testCnt: parseInt(e.target["tc" + i].value),
+              testInputSet: [],
+              testOutputSet: [],
+            };
+            for (let j = 0; j < obj.testCnt; j++) {
+              obj.testInputSet.push(
+                e.target["test-case-in" + i + "-" + j].value
+              );
+              obj.testOutputSet.push(
+                e.target["test-case-out" + i + "-" + j].value
+              );
+            }
+            contest.problems.push(obj);
+          }
+          axios
+            .post("https://lit-meadow-72602.herokuapp.com/contests", contest)
+            .then(({ data }) => {
+              console.log(data);
+              if (data?.acknowledged) {
+                setError(false);
+                toast.success("Contest added successfully");
+              } else {
+                setError(true);
+                toast.error(`Contest can't be added successfully`);
+              }
+            });
+        }
+      });
   };
   return (
     <div className="flex justify-center my-8">

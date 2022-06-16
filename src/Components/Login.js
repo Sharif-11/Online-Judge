@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { toast } from "react-toastify";
 import {
   useSendPasswordResetEmail,
   useSignInWithEmailAndPassword,
@@ -27,9 +28,26 @@ const Login = () => {
   const [sendPasswordResetEmail, sending, sendingError] =
     useSendPasswordResetEmail(auth);
   if (sending) {
+    toast("password reset email send");
   }
   if (user || googleUser) {
     navigate("/");
+  }
+  if (googleUser) {
+    fetch("https://lit-meadow-72602.herokuapp.com/users", {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        email: googleUser?.user?.email,
+        handle: googleUser?.user?.displayName,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
   }
   return (
     <div className="mb-8">
@@ -90,7 +108,9 @@ const Login = () => {
             type="button"
             className="text-[blue] text-sm underline block ml-auto mr-2 lg:mr-4  mt-4"
             onClick={async () => {
-              await sendPasswordResetEmail(emailRef.current.value);
+              if (emailRef.current.value) {
+                await sendPasswordResetEmail(emailRef.current.value);
+              }
             }}
           >
             Forgot your password?

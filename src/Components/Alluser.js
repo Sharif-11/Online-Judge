@@ -22,7 +22,7 @@ const Alluser = () => {
       });
   };
   return (
-    <div className=" my-5 mx-2 lg:m-5">
+    <div className=" my-5 mx-2 lg:m-5" onMouseOver={() => refetch()}>
       <div class="overflow-x-auto ">
         <table class="table w-full max-w-[96vw] mx-auto overflow-x-scroll">
           <thead>
@@ -43,22 +43,22 @@ const Alluser = () => {
                 <td>{user?.role || "user"}</td>
                 {user?.role === "admin" ? (
                   ""
-                ) : user?.role === "user" ? (
-                  <td>
-                    <button
-                      className="btn btn-xs text-[white]"
-                      onClick={() => updateRole(user?._id, "problemSetter")}
-                    >
-                      Make problemsetter
-                    </button>
-                  </td>
-                ) : (
+                ) : user?.role === "problemSetter" ? (
                   <td>
                     <button
                       className="btn btn-xs text-[white]"
                       onClick={() => updateRole(user?._id, "user")}
                     >
                       Make user
+                    </button>
+                  </td>
+                ) : (
+                  <td>
+                    <button
+                      className="btn btn-xs text-[white]"
+                      onClick={() => updateRole(user?._id, "problemSetter")}
+                    >
+                      Make problemsetter
                     </button>
                   </td>
                 )}
