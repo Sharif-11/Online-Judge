@@ -25,30 +25,38 @@ const Dashboard = () => {
         <ul class="menu p-4 overflow-y-auto w-60 bg-[lightblue] text-base-content">
           {(role == "admin" || role == "problemSetter") && (
             <>
-              <li>
-                <button className="btn btn-dark text-white">
-                  <Link to="/dashboard">Arrange contest</Link>
-                </button>
+              <li className="flex flex-col p-0">
+                <Link to="/dashboard" className=" p-0">
+                  <button className="btn btn-dark text-white w-full">
+                    Arrange contest
+                  </button>
+                </Link>
               </li>
               <li className="mt-2">
-                <button className="btn btn-dark text-white">
-                  <Link to="/dashboard/arrange-contest">My contest</Link>
-                </button>
+                <Link to="/dashboard/arrange-contest" className="p-0">
+                  <button className="btn btn-dark text-white w-full">
+                    My contest
+                  </button>
+                </Link>
               </li>
             </>
           )}
           {role == "admin" && (
             <li className="mt-2">
-              <button className="btn btn-dark text-white">
-                <Link to="/dashboard/all-contest">All Contest</Link>
-              </button>
+              <Link to="/dashboard/all-contest" className="p-0">
+                <button className="btn btn-dark text-white w-full">
+                  All Contest
+                </button>
+              </Link>
             </li>
           )}
           {role == "admin" && (
             <li className="mt-2">
-              <button className="btn btn-dark text-white">
-                <Link to="/dashboard/all-user">All User</Link>
-              </button>
+              <Link to="/dashboard/all-user" className="p-0">
+                <button className="btn btn-dark text-white w-full">
+                  All User
+                </button>
+              </Link>
             </li>
           )}
         </ul>

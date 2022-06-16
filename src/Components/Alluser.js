@@ -7,6 +7,10 @@ const Alluser = () => {
     )
   );
   const updateRole = (id, role) => {
+    const confirm = window.confirm("Do you want to proceed?");
+    if (!confirm) {
+      return;
+    }
     fetch(`https://lit-meadow-72602.herokuapp.com/users/${id}`, {
       method: "PUT",
       headers: { "content-type": "application/json" },
@@ -14,9 +18,7 @@ const Alluser = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data?.updatedCount) {
-          refetch();
-        }
+        refetch();
       });
   };
   return (
@@ -29,8 +31,7 @@ const Alluser = () => {
               <th>Name</th>
               <th>Handle</th>
               <th>Role</th>
-              <th></th>
-              <th></th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -40,7 +41,9 @@ const Alluser = () => {
                 <td>{user?.email}</td>
                 <td>{user?.handle}</td>
                 <td>{user?.role || "user"}</td>
-                {user?.role !== "admin" && (
+                {user?.role === "admin" ? (
+                  ""
+                ) : user?.role === "user" ? (
                   <td>
                     <button
                       className="btn btn-xs text-[white]"
@@ -49,8 +52,7 @@ const Alluser = () => {
                       Make problemsetter
                     </button>
                   </td>
-                )}
-                {user?.role !== "admin" && (
+                ) : (
                   <td>
                     <button
                       className="btn btn-xs text-[white]"

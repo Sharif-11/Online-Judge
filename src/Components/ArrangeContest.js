@@ -10,6 +10,7 @@ const ArrangeContest = () => {
   const [display, setDisplay] = useState(false);
   const [finalContest, setFinalContest] = useState({});
   const [problems, setProblems] = useState([]);
+  const [error, setError] = useState(false);
   useEffect(() => {
     let arr = [];
     for (let i = 0; i < parseInt(cnt); i++) {
@@ -24,16 +25,27 @@ const ArrangeContest = () => {
   const minuteRef = useRef("");
   const announceRef = useRef("");
   const formRef = useRef();
+  const handleNext = () => {
+    fetch(
+      "https://lit-meadow-72602.herokuapp.com/contests?id=" +
+        idRef?.current.value
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data[0]?.id == parseInt(idRef?.current.value)) {
+          setError(true);
+        } else setError(false);
+      });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const id = idRef.current.value;
+    const id = parseInt(idRef.current.value);
     const date = dateRef.current.value;
-    const hour = hourRef.current.value;
-    const minute = minuteRef.current.value;
+    const hour = parseInt(hourRef.current.value);
+    const minute = parseInt(minuteRef.current.value);
     const announce = announceRef.current.value;
-    console.clear();
     var d = new Date(date);
-    console.log(id, date, hour, minute, announce);
+
     const contest = {
       id,
       startTime: d.getTime(),
@@ -87,17 +99,20 @@ const ArrangeContest = () => {
             </label>
             <input
               type="number"
+              onChange={handleNext}
               min={100}
               placeholder="Enter Contest Id"
               ref={idRef}
               required
               class="input input-bordered w-full max-w-xs"
             />
-            <label class="label">
-              <span class="label-text-alt text-[red] text-xs">
-                *Contest with this id already exists
-              </span>
-            </label>
+            {error && (
+              <label class="label">
+                <span class="label-text-alt text-[red] text-xs">
+                  *Contest with this id already exists
+                </span>
+              </label>
+            )}
           </div>
           <div class={display ? "hidden" : "form-control w-full max-w-xs"}>
             <label class="label">
@@ -122,6 +137,7 @@ const ArrangeContest = () => {
             <div>
               <input
                 type="number"
+                step={1}
                 class="input input-bordered w-[60px]"
                 min={0}
                 max={3}
@@ -131,6 +147,7 @@ const ArrangeContest = () => {
               <span className="mx-2">Hours</span>
               <input
                 type="number"
+                step={15}
                 class="input input-bordered w-[75px]"
                 min={0}
                 max={60}
@@ -165,6 +182,7 @@ const ArrangeContest = () => {
               min={1}
               name="number"
               max={3}
+              value={cnt}
               onChange={(e) => setCnt(e.target.value)}
               class="input input-bordered w-full max-w-xs"
             />
@@ -179,6 +197,7 @@ const ArrangeContest = () => {
         <div className="flex justify-center">
           <button
             type="button"
+            disabled={error}
             className={display ? "hidden" : "btn btn-dark my-3"}
             onClick={() => setDisplay(true)}
           >

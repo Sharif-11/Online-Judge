@@ -14,6 +14,10 @@ const MyContest = () => {
     return <p>Loading....</p>;
   }
   const handleDelete = (id) => {
+    const confirm = window.confirm("Do you want to delete this contest?");
+    if (!confirm) {
+      return;
+    }
     fetch(`https://lit-meadow-72602.herokuapp.com/contests/${id}`, {
       method: "DELETE",
       headers: {

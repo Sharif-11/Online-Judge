@@ -9,7 +9,29 @@ const AllContest = () => {
       res.json()
     )
   );
-
+  const handleStatus = (id, status) => {
+    fetch("https://lit-meadow-72602.herokuapp.com/contests/" + id, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ status: status + "ed" }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        refetch();
+      });
+  };
+  const handleAction = (id, action) => {
+    if (action == "delete") {
+    } else {
+      const confirm = window.confirm("Do you want to publish this contest?");
+      if (!confirm) {
+        return;
+      }
+      handleStatus(id, action);
+    }
+  };
   return (
     <div>
       <div class="overflow-x-auto m-4">
@@ -17,32 +39,43 @@ const AllContest = () => {
           <thead>
             <tr>
               <th></th>
-              <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
+              <th>Id</th>
+              <th>Email</th>
+              <th>Start Time</th>
+              <th>Status</th>
+              <th className="text-center">Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th>1</th>
-              <td>Cy Ganderton</td>
-              <td>Quality Control Specialist</td>
-              <td>Blue</td>
-            </tr>
-
-            <tr>
-              <th>2</th>
-              <td>Hart Hagerty</td>
-              <td>Desktop Support Technician</td>
-              <td>Purple</td>
-            </tr>
-
-            <tr>
-              <th>3</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
+            {data?.map((contest, idx) => (
+              <tr>
+                <th>{idx + 1}</th>
+                <td>{contest?.id}</td>
+                <td>{contest?.email}</td>
+                <td>
+                  {new Date(contest?.startTime)
+                    .toString()
+                    .replace("(Bangladesh Standard Time)", "")}
+                </td>
+                <td>{contest?.status}</td>
+                {contest?.status == "pending" && (
+                  <td className="flex justify-center">
+                    {contest?.status === "pending" && (
+                      <button className="btn btn-xs">Preview</button>
+                    )}
+                    <button
+                      className="btn btn-xs"
+                      onClick={() => handleAction(contest?._id, "publish")}
+                    >
+                      Publish
+                    </button>
+                    {contest?.status === "pending" && (
+                      <button className="btn btn-xs">Delete</button>
+                    )}{" "}
+                  </td>
+                )}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
