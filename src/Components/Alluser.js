@@ -18,9 +18,9 @@ const Alluser = () => {
       });
   };
   return (
-    <div className="m-5">
+    <div className=" my-5 mx-2 lg:m-5">
       <div class="overflow-x-auto ">
-        <table class="table w-full">
+        <table class="table w-full max-w-[96vw] mx-auto overflow-x-scroll">
           <thead>
             <tr>
               <th></th>

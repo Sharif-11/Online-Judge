@@ -14,12 +14,18 @@ const SetProblem = ({ id, display }) => {
   }, [cnt]);
   return (
     <div
-      className={display ? "w-full  my-6 shadow-xl p-5" : "hidden"}
+      className={
+        display
+          ? "w-full  my-6 shadow-xl lg:p-5 border-2 max-w-[90vw]"
+          : "hidden"
+      }
       style={{ borderRadius: "16px" }}
     >
       <div className="p-5">
-        <h1 className="text-2xl font-semibold text-center">Problem {id + 1}</h1>
-        <div class="form-control w-full max-w-xs w-1/2">
+        <h1 className="text-xl lg:text-2xl font-semibold text-center py-2 lg:py-0">
+          Problem {id + 1}
+        </h1>
+        <div class="form-control w-full max-w-xs lg:w-1/2">
           <label class="label">
             <span class="label-text font-semibold">
               Enter Title for Problem {id + 1}?
@@ -46,7 +52,7 @@ const SetProblem = ({ id, display }) => {
             required
           ></textarea>
         </div>
-        <div class="form-control w-3/4">
+        <div class="form-control lg:w-3/4">
           <label class="label">
             <span class="label-text font-semibold">
               Enter Sample Test Case(input) for problem {id + 1}
@@ -59,7 +65,7 @@ const SetProblem = ({ id, display }) => {
             required
           ></textarea>
         </div>
-        <div class="form-control w-3/4">
+        <div class="form-control lg:w-3/4">
           <label class="label">
             <span class="label-text font-semibold">
               Enter Sample Test Case(output) for problem {id + 1}
@@ -95,7 +101,7 @@ const SetProblem = ({ id, display }) => {
         </div>
         {tc.map((t, i) => (
           <>
-            <div class="form-control w-3/4">
+            <div class="form-control lg:w-3/4">
               <label class="label">
                 <span class="label-text">Enter Test Case(input) {i + 1}</span>
               </label>
@@ -105,7 +111,7 @@ const SetProblem = ({ id, display }) => {
                 required
               ></textarea>
             </div>
-            <div class="form-control w-3/4">
+            <div class="form-control lg:w-3/4">
               <label class="label">
                 <span class="label-text">Enter Test Case(output) {i + 1}</span>
               </label>

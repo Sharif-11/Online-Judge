@@ -43,12 +43,12 @@ const Login = () => {
             <span className="pr-4 text-md font-semibold w-2/6  text-right">
               Email
             </span>
-            <div className="w-4/6 border">
+            <div className="w-4/6">
               <input
                 type="email"
                 name=""
                 id=""
-                className=" w-full"
+                className="w-full border"
                 ref={emailRef}
                 required
               />
@@ -66,7 +66,7 @@ const Login = () => {
                 type="password"
                 name=""
                 id=""
-                className=" w-full"
+                className="w-full border"
                 ref={passwordRef}
                 required
               />

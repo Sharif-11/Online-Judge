@@ -110,7 +110,7 @@ const Header = () => {
         </div>
         <div class="navbar-center hidden lg:flex w-[100%]">
           <ul
-            class="menu menu-horizontal w-[100%] p-0 border justify-start bg-[rgba(61,63,75,0.8)] text-white"
+            class="menu menu-horizontal w-[100%] p-0  justify-start bg-[rgba(61,63,75,0.8)] text-white"
             style={{ borderRadius: "16px" }}
           >
             <li>

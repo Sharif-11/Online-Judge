@@ -65,17 +65,23 @@ const ArrangeContest = () => {
       .then(({ data }) => {});
   };
   return (
-    <div className="flex justify-center my-4">
+    <div className="flex justify-center my-8">
       <form
-        className="w-4/5 flex flex-col align-items-center"
+        className="lg:w-4/5 flex flex-col align-items-center"
         ref={formRef}
         onSubmit={handleSubmit}
       >
-        <div className="p-8 shadow-lg m-4" style={{ borderRadius: "16px" }}>
-          <h1 className="text-3xl font-semibold text-center">
+        <div
+          className="p-4 lg:p-8 shadow-lg mx-0 lg:m-4  border-2 "
+          style={{ borderRadius: "16px" }}
+        >
+          <h1 className=" text-xl lg:text-3xl font-semibold text-center mx-3 lg:mx-0">
             Contest Information
           </h1>
-          <div class={display ? "hidden" : "form-control w-full max-w-xs"}>
+
+          <div
+            class={display ? "hidden" : "form-control  my-2 w-full max-w-xs"}
+          >
             <label class="label">
               <span class="label-text font-semibold">Enter Contest Id?</span>
             </label>
@@ -88,7 +94,7 @@ const ArrangeContest = () => {
               class="input input-bordered w-full max-w-xs"
             />
             <label class="label">
-              <span class="label-text-alt text-[red]">
+              <span class="label-text-alt text-[red] text-xs">
                 *Contest with this id already exists
               </span>
             </label>
@@ -134,7 +140,7 @@ const ArrangeContest = () => {
               <span className="mx-2">Minutes</span>
             </div>
           </div>
-          <div class={display ? "hidden" : "form-control w-1/2 my-1"}>
+          <div class={display ? "hidden" : "form-control lg:w-1/2 my-1"}>
             <label class="label">
               <span class="label-text font-semibold">Enter Announcement</span>
             </label>
