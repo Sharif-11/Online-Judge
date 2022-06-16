@@ -6,15 +6,15 @@ const MyContest = () => {
   const [user, loading] = useAuthState(auth);
 
   const { data, isLoading, refetch } = useQuery("myContest", () =>
-    fetch("http://localhost:5000/contests/" + user?.email).then((res) =>
-      res.json()
-    )
+    fetch(
+      "https://lit-meadow-72602.herokuapp.com/contests/" + user?.email
+    ).then((res) => res.json())
   );
   if (loading || isLoading) {
     return <p>Loading....</p>;
   }
   const handleDelete = (id) => {
-    fetch(`http://localhost:5000/contests/${id}`, {
+    fetch(`https://lit-meadow-72602.herokuapp.com/contests/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",

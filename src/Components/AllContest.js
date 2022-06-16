@@ -5,7 +5,9 @@ import { useQuery } from "react-query";
 const AllContest = () => {
   const [user, loading] = useAuthState(auth);
   const { data, isLoading, refetch } = useQuery("allContest", () =>
-    fetch("http://localhost:5000/contests").then((res) => res.json())
+    fetch("https://lit-meadow-72602.herokuapp.com/contests").then((res) =>
+      res.json()
+    )
   );
 
   return (

@@ -2,10 +2,12 @@ import React from "react";
 import { useQuery } from "react-query";
 const Alluser = () => {
   const { data, isLoading, refetch } = useQuery("allUsers", () =>
-    fetch("http://localhost:5000/users").then((res) => res.json())
+    fetch("https://lit-meadow-72602.herokuapp.com/users").then((res) =>
+      res.json()
+    )
   );
   const updateRole = (id, role) => {
-    fetch(`http://localhost:5000/users/${id}`, {
+    fetch(`https://lit-meadow-72602.herokuapp.com/users/${id}`, {
       method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ role }),

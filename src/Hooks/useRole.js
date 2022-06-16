@@ -4,7 +4,7 @@ const useRole = (handle) => {
   const [role, setRole] = useState("user");
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch(`http://localhost:5000/users/${handle}`)
+    fetch(`https://lit-meadow-72602.herokuapp.com/users/${handle}`)
       .then((res) => res.json())
       .then((data) => {
         if (data?.role == "admin" || data?.role == "problemSetter") {

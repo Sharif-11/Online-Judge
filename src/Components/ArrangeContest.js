@@ -61,7 +61,7 @@ const ArrangeContest = () => {
       contest.problems.push(obj);
     }
     axios
-      .post("http://localhost:5000/contests", contest)
+      .post("https://lit-meadow-72602.herokuapp.com/contests", contest)
       .then(({ data }) => {});
   };
   return (
