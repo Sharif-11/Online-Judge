@@ -65,6 +65,7 @@ const Register = () => {
       body: JSON.stringify({
         email: person?.email,
         handle: person?.displayName,
+        role: "user",
       }),
     })
       .then((res) => res.json())

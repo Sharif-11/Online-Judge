@@ -6,17 +6,21 @@ import {
   useSignInWithGoogle,
   useUpdateEmail,
 } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate, useLocation } from "react-router-dom";
 import auth from "../firebase.init";
 import ClipLoader from "react-spinners/ClipLoader";
 const Login = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
   const navigate = useNavigate();
+  const location = useLocation();
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
+  const [sendPasswordResetEmail, sending, sendingError] =
+    useSendPasswordResetEmail(auth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,14 +29,11 @@ const Login = () => {
 
     signInWithEmailAndPassword(email, password);
   };
-  const [sendPasswordResetEmail, sending, sendingError] =
-    useSendPasswordResetEmail(auth);
+
   if (sending) {
     toast("password reset email send");
   }
-  if (user || googleUser) {
-    navigate("/");
-  }
+
   if (googleUser) {
     fetch("https://lit-meadow-72602.herokuapp.com/users", {
       method: "PUT",
@@ -42,12 +43,17 @@ const Login = () => {
       body: JSON.stringify({
         email: googleUser?.user?.email,
         handle: googleUser?.user?.displayName,
+        role: "user",
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
       });
+  }
+  let from = location.state?.from?.pathname || "/";
+  if (user || googleUser) {
+    navigate(from, { replace: true });
   }
   return (
     <div className="mb-8">

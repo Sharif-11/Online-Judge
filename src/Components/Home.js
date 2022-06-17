@@ -10,17 +10,30 @@ import TimeNow from "./TimeNow";
 import MyContest from "./MyContest";
 import AllContest from "./AllContest";
 import Alluser from "./Alluser";
+import RequireAuth from "./RequireAuth";
+import RequireAdmin from "./RequireAdmin";
+import Announcements from "./Announcements";
+import Contest from "./Contest";
+import Problem from "./Problematic";
+import Problems from "./Problems";
 const Home = () => {
   return (
     <div className="lg:mx-[100px]">
       <Header />
       <Routes>
         <Route path="/" element={<HomeDrawer />}>
-          <Route index element={"announcement"}></Route>
+          <Route index element={<Announcements />}></Route>
           <Route path="profile/:handle" element={"profile"}></Route>
           <Route path="problemset" element={<TimeNow />}></Route>
         </Route>
-        <Route path="dashboard" element={<Dashboard />}>
+        <Route
+          path="dashboard"
+          element={
+            <RequireAdmin>
+              <Dashboard />
+            </RequireAdmin>
+          }
+        >
           <Route index element={<ArrangeContest />}></Route>
           <Route
             path="/dashboard/arrange-contest"
@@ -31,6 +44,16 @@ const Home = () => {
         </Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/contests/:id" element={<Contest />}>
+          <Route index element={<Problems />}></Route>
+          <Route
+            path="/contests/:id/problem/:ch"
+            element={"problem(a)"}
+          ></Route>
+          <Route path="/contests/:id/submit" element={"submit"}></Route>
+          <Route path="/contests/:id/my" element={"my-submissions"}></Route>
+          <Route path="/contests/:id/standing" element={"standing"}></Route>
+        </Route>
       </Routes>
     </div>
   );

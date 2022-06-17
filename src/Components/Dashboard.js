@@ -5,7 +5,7 @@ import auth from "../firebase.init";
 import useRole from "../Hooks/useRole";
 const Dashboard = () => {
   const [user, loading] = useAuthState(auth);
-  const [role, isLoading] = useRole(user?.displayName);
+  const [role, isLoading] = useRole(user);
   if (loading || isLoading) {
     return <p>Loading...</p>;
   }

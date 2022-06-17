@@ -7,12 +7,15 @@ import { signOut } from "firebase/auth";
 import download from "../Images/download.png";
 import final_logo from "../Images/final_logo.png";
 import Ellipsis from "../Images/Ellipsis.svg";
+import useRole from "../Hooks/useRole";
+import RequireAuth from "./RequireAuth";
 const Header = () => {
   const [user, loading, error] = useAuthState(auth);
-
-  if (loading) {
+  const [role, rLoading] = useRole(user);
+  if (loading || rLoading) {
     return <p>Loading...</p>;
   }
+
   return (
     <div className="flex flex-col-reverse lg:flex-col">
       <div className="flex justify-between align-items-center pb-0 lg:py-3 ">
@@ -30,20 +33,20 @@ const Header = () => {
           </h1>
         </div>
         <div className="btn-container flex align-items-center mt-3 mr-4 lg:mr-0 lg:mt-6">
-          {user ? (
+          {!!user && (
             <Link
               to={`/profile/${user?.displayName}`}
               className="mx-3 underline text-[blue]"
             >
               {user?.displayName}
             </Link>
-          ) : (
+          )}
+          {!user && (
             <Link to="/login" className="mx-3 underline text-[blue]">
               Login
             </Link>
           )}
-
-          {user ? (
+          {!!user && (
             <Link
               to="/register"
               className="underline text-[blue] mx-2"
@@ -51,7 +54,8 @@ const Header = () => {
             >
               Logout
             </Link>
-          ) : (
+          )}
+          {!user && (
             <Link to="/register" className="underline text-[blue]">
               Register
             </Link>
@@ -100,11 +104,14 @@ const Header = () => {
                   PROBLEMSET
                 </Link>
               </li>
-              <li>
-                <Link to="/dashboard" className="mx-1">
-                  DASHBOARD
-                </Link>
-              </li>
+
+              {(role == "admin" || role == "problemSetter") && (
+                <li>
+                  <Link to="/dashboard" className="mx-1">
+                    DASHBOARD
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>
@@ -124,11 +131,13 @@ const Header = () => {
                 PROBLEMSET
               </Link>
             </li>
-            <li>
-              <Link to="/dashboard" className="mx-1">
-                DASHBOARD
-              </Link>
-            </li>
+            {(role == "admin" || role == "problemSetter") && (
+              <li>
+                <Link to="/dashboard" className="mx-1">
+                  DASHBOARD
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>

@@ -26,17 +26,13 @@ const HomeDrawer = () => {
       <div class="drawer-side">
         <label for="my-drawer-4" class="drawer-overlay"></label>
         <ul class="p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
-          {/* <li className="my-5">
+          <li className="my-5">
             <PayAttension />
           </li>
-          {user && (
-            <li>
-              <UserInfo user={user} />
-            </li>
-          )}
+
           <li className="my-5">
             <FindUser />
-          </li> */}
+          </li>
         </ul>
       </div>
     </div>

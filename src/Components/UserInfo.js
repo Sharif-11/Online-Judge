@@ -5,8 +5,6 @@ import auth from "../firebase.init";
 import rating from "../Images/rating.png";
 import avatar from "../Images/avatar.jpg";
 const UserInfo = ({ user }) => {
-  //   const [user, loading, error] = useAuthState(auth);
-
   return (
     <div className="border border-rounded-sm" style={{ borderRadius: "8px" }}>
       <div className="pl-3 font-semibold text-[blue] px-3 py-1">

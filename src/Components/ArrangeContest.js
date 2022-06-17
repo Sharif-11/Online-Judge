@@ -26,13 +26,18 @@ const ArrangeContest = () => {
   const announceRef = useRef("");
   const formRef = useRef();
   const handleNext = () => {
-    fetch(
-      "https://lit-meadow-72602.herokuapp.com/contests?id=" +
-        idRef?.current.value
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        if (data[0]?.id == parseInt(idRef?.current.value)) {
+    axios
+      .get(
+        "https://lit-meadow-72602.herokuapp.com/contests?id=" +
+          parseInt(idRef?.current.value)
+      )
+
+      .then(({ data }) => {
+        if (data.length == 0) {
+          setError(false);
+          return true;
+        }
+        if (parseInt(data[0]?.id) == parseInt(idRef?.current.value)) {
           setError(true);
           return false;
         } else {
@@ -50,6 +55,7 @@ const ArrangeContest = () => {
     const minute = parseInt(minuteRef.current.value);
     const announce = announceRef.current.value;
     var d = new Date(date);
+
     fetch("https://lit-meadow-72602.herokuapp.com/contests?id=" + id)
       .then((res) => res.json())
       .then((data) => {
@@ -108,6 +114,7 @@ const ArrangeContest = () => {
       <form
         className="lg:w-4/5 flex flex-col align-items-center"
         ref={formRef}
+        noValidate
         onSubmit={handleSubmit}
       >
         <div
@@ -130,7 +137,6 @@ const ArrangeContest = () => {
               min={100}
               placeholder="Enter Contest Id"
               ref={idRef}
-              required
               class="input input-bordered w-full max-w-xs"
             />
             {error && (
@@ -150,7 +156,6 @@ const ArrangeContest = () => {
             <input
               type="datetime-local"
               class="input input-bordered w-full max-w-xs"
-              required
               ref={dateRef}
             />
           </div>
@@ -168,7 +173,6 @@ const ArrangeContest = () => {
                 class="input input-bordered w-[60px]"
                 min={0}
                 max={3}
-                required
                 ref={hourRef}
               />
               <span className="mx-2">Hours</span>
@@ -179,7 +183,6 @@ const ArrangeContest = () => {
                 min={0}
                 max={60}
                 ref={minuteRef}
-                required
               />
               <span className="mx-2">Minutes</span>
             </div>
@@ -192,7 +195,6 @@ const ArrangeContest = () => {
             <textarea
               class="textarea textarea-bordered h-24"
               placeholder="Enter Announcement here"
-              required
               ref={announceRef}
             ></textarea>
           </div>
@@ -205,7 +207,6 @@ const ArrangeContest = () => {
             <input
               type="number"
               placeholder="Type here"
-              required
               min={1}
               name="number"
               max={3}
