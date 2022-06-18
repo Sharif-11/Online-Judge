@@ -16,6 +16,7 @@ import Announcements from "./Announcements";
 import Contest from "./Contest";
 import Problem from "./Problematic";
 import Problems from "./Problems";
+import Question from "./Question";
 const Home = () => {
   return (
     <div className="lg:mx-[100px]">
@@ -44,11 +45,18 @@ const Home = () => {
         </Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/contests/:id" element={<Contest />}>
+        <Route
+          path="/contests/:id"
+          element={
+            <RequireAuth>
+              <Contest />
+            </RequireAuth>
+          }
+        >
           <Route index element={<Problems />}></Route>
           <Route
             path="/contests/:id/problem/:ch"
-            element={"problem(a)"}
+            element={<Question />}
           ></Route>
           <Route path="/contests/:id/submit" element={"submit"}></Route>
           <Route path="/contests/:id/my" element={"my-submissions"}></Route>

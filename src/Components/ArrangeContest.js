@@ -80,6 +80,8 @@ const ArrangeContest = () => {
               description: e.target["description" + i].value,
               sampleInput: e.target["sample-in" + i].value,
               sampleOutput: e.target["sample-out" + i].value,
+              timeLimit: e.target["time" + i].value,
+              memoryLimit: e.target["memory" + i].value,
               testCnt: parseInt(e.target["tc" + i].value),
               testInputSet: [],
               testOutputSet: [],

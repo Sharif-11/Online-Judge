@@ -26,7 +26,7 @@ const Submit = () => {
       inputValue,
     };
     axios
-      .post("http://localhost:5000", info)
+      .post(" https://lit-meadow-72602.herokuapp.com", info)
 
       .then(({ data }) => {
         console.log(data);

@@ -39,6 +39,36 @@ const SetProblem = ({ id, display }) => {
             class="input input-bordered w-full max-w-xs"
           />
         </div>
+        <div class="form-control w-full max-w-xs lg:w-1/2">
+          <label class="label">
+            <span class="label-text font-semibold">
+              Enter time limit for Problem {id + 1}?
+            </span>
+          </label>
+          <input
+            type="number"
+            name={"time" + id}
+            min={1}
+            max={4}
+            required
+            placeholder="Enter Time limit in seconds"
+            class="input input-bordered w-full max-w-xs"
+          />
+          <label class="label">
+            <span class="label-text font-semibold">
+              Enter memory limit for Problem {id + 1}?
+            </span>
+          </label>
+          <input
+            type="number"
+            name={"memory" + id}
+            required
+            min={1}
+            max={200}
+            placeholder="Enter memory limit in Mb"
+            class="input input-bordered w-full max-w-xs"
+          />
+        </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text font-semibold">

@@ -5,7 +5,11 @@ const Problems = () => {
 
   const [contest, setContest] = useState({});
   useEffect(() => {
-    fetch(` https://lit-meadow-72602.herokuapp.com/contests?id=${parseInt(id)}`)
+    fetch(
+      ` https://lit-meadow-72602.herokuapp.com/contests?status=published&id=${parseInt(
+        id
+      )}`
+    )
       .then((res) => res.json())
       .then((data) => setContest(data[0]));
   }, []);
@@ -31,7 +35,6 @@ const Problems = () => {
                   )}`}
                 >
                   <span className="text-[blue] underline">
-                    {" "}
                     {String.fromCharCode(idx + 65)}
                   </span>
                 </Link>
@@ -45,8 +48,8 @@ const Problems = () => {
                   <span className="text-[blue] underline">{problem.title}</span>
                 </Link>
               </td>
-              <td>{"1s"}</td>
-              <td>{"234MB"}</td>
+              <td>{problem.timeLimit}</td>
+              <td>{problem.memoryLimit}</td>
             </tr>
           ))}
         </tbody>

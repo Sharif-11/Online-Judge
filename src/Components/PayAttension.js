@@ -30,14 +30,14 @@ const PayAttension = () => {
     }
     return `${hours}:${minutes}:${seconds}`;
   };
-  useEffect(() => {
+  const reload = () => {
     fetch(" https://lit-meadow-72602.herokuapp.com/contests?status=published")
       .then((res) => res.json())
       .then((data) => {
         let arr = [];
         const now = new Date().getTime();
         for (let i = 0; i < data.length; i++) {
-          if (Math.abs(data[i].startTime - now) <= 12 * 3600000) {
+          if (Math.abs(data[i].startTime - now) <= 23 * 3600000) {
             if (data[i].startTime > now) {
               data[i].runningState = "upcoming";
               arr.push(data[i]);
@@ -52,8 +52,10 @@ const PayAttension = () => {
         }
         setContests(arr);
       });
+  };
+  useEffect(() => {
+    reload();
   }, []);
-  console.log(contests);
 
   return (
     <div className="border border-rounded-sm" style={{ borderRadius: "8px" }}>
@@ -82,7 +84,8 @@ const PayAttension = () => {
               msToTime(contest.startTime - time)) ||
               (contest?.runningState == "running" &&
                 msToTime(contest.startTime + contest.duration - time))}
-            {contest.startTime - time == 0 && setLoading({ load: true })}
+            {contest.startTime <= time && reload()}
+            {contest.startTime + contest.duration <= time && reload()}
           </div>
         </div>
       ))}
