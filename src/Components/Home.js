@@ -14,9 +14,11 @@ import RequireAuth from "./RequireAuth";
 import RequireAdmin from "./RequireAdmin";
 import Announcements from "./Announcements";
 import Contest from "./Contest";
-import Problem from "./Problematic";
+import Problem from "./MonacoEditor";
 import Problems from "./Problems";
 import Question from "./Question";
+
+import Submit from "./Submit";
 const Home = () => {
   return (
     <div className="lg:mx-[100px]">
@@ -58,7 +60,7 @@ const Home = () => {
             path="/contests/:id/problem/:ch"
             element={<Question />}
           ></Route>
-          <Route path="/contests/:id/submit" element={"submit"}></Route>
+          <Route path="/contests/:id/submit" element={<Submit />}></Route>
           <Route path="/contests/:id/my" element={"my-submissions"}></Route>
           <Route path="/contests/:id/standing" element={"standing"}></Route>
         </Route>

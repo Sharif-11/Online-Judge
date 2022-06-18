@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import Problem from "./Problematic";
+
 const Announcement = ({ id, announcement }) => {
   console.log(announcement);
   return (
