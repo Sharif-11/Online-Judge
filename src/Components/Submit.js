@@ -45,16 +45,18 @@ const Submit = () => {
       handle: user?.displayName,
       time: new Date().getTime(),
     };
-    fetch(` https://lit-meadow-72602.herokuapp.com/contests/${id}/submit`, {
+    fetch(`http://localhost:5000/contests/${id}/submit`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(info),
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data?.insertedId) {
-          setCode("");
-        }
+        // if (data?.insertedId) {
+        //   setCode("");
+        // }
+        console.clear();
+        console.log(JSON.parse(data?.body));
       });
   };
   const { problems } = contest;

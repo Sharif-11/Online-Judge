@@ -17,7 +17,7 @@ import Contest from "./Contest";
 import Problem from "./MonacoEditor";
 import Problems from "./Problems";
 import Question from "./Question";
-
+import RequireProblemsetter from "./RequireProblemsetter";
 import Submit from "./Submit";
 import MySubmission from "./MySubmission";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -35,18 +35,43 @@ const Home = () => {
         <Route
           path="dashboard"
           element={
-            <RequireAdmin>
+            <RequireProblemsetter>
               <Dashboard />
-            </RequireAdmin>
+            </RequireProblemsetter>
           }
         >
-          <Route index element={<ArrangeContest />}></Route>
+          <Route
+            index
+            element={
+              <RequireProblemsetter>
+                <ArrangeContest />
+              </RequireProblemsetter>
+            }
+          ></Route>
           <Route
             path="/dashboard/arrange-contest"
-            element={<MyContest />}
+            element={
+              <RequireProblemsetter>
+                <MyContest />
+              </RequireProblemsetter>
+            }
           ></Route>
-          <Route path="/dashboard/all-contest" element={<AllContest />}></Route>
-          <Route path="/dashboard/all-user" element={<Alluser />}></Route>
+          <Route
+            path="/dashboard/all-contest"
+            element={
+              <RequireAdmin>
+                <AllContest />
+              </RequireAdmin>
+            }
+          ></Route>
+          <Route
+            path="/dashboard/all-user"
+            element={
+              <RequireAdmin>
+                <Alluser />
+              </RequireAdmin>
+            }
+          ></Route>
         </Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>
