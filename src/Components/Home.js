@@ -19,6 +19,9 @@ import Problems from "./Problems";
 import Question from "./Question";
 
 import Submit from "./Submit";
+import MySubmission from "./MySubmission";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../firebase.init";
 const Home = () => {
   return (
     <div className="lg:mx-[100px]">
@@ -61,7 +64,7 @@ const Home = () => {
             element={<Question />}
           ></Route>
           <Route path="/contests/:id/submit" element={<Submit />}></Route>
-          <Route path="/contests/:id/my" element={"my-submissions"}></Route>
+          <Route path="/contests/:id/my" element={<MySubmission />}></Route>
           <Route path="/contests/:id/standing" element={"standing"}></Route>
         </Route>
       </Routes>

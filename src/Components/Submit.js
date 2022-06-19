@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import MonacoEditor from "./MonacoEditor";
-
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../firebase.init";
 const Submit = () => {
+  const [user, loading] = useAuthState(auth);
   const [code, setCode] = useState("");
   const [contest, setContest] = useState({});
   const [problem, setProblem] = useState(0);
@@ -29,18 +31,39 @@ const Submit = () => {
   // }, [outputRef]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(language + " " + problem + " " + code);
+
     // const sourceCode = code;
     // const info = {
     //   language: languageRef.current.value,
     //   sourceCode,
     // };
+    const info = {
+      email: user?.email,
+      code,
+      language,
+      problem,
+      handle: user?.displayName,
+      time: new Date().getTime(),
+    };
+    fetch(` https://lit-meadow-72602.herokuapp.com/contests/${id}/submit`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(info),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.insertedId) {
+          setCode("");
+        }
+      });
   };
   const { problems } = contest;
-
+  if (loading) {
+    return <p>loading...</p>;
+  }
   return (
     <div className="py-4 flex flex-col justify-center">
-      <form onClick={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <div class="flex w-full max-w-xs  gap-x-1 mx-auto my-2">
           <label class="label">
             <span class="label-text font-semibold">Select Problem</span>
