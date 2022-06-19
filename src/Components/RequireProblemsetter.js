@@ -15,7 +15,6 @@ const RequireProblemsetter = ({ children }) => {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
   if (role == "user") {
-    signOut(auth);
     return (
       <h1 className="text-center font-bold">
         403 <br />

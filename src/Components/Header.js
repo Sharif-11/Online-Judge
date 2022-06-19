@@ -29,7 +29,7 @@ const Header = () => {
           ></img>
           <h1 className="text-xs lg:text-2xl font-bold  flex flex-col justify-center ">
             <span>Coding</span>
-            <span>Playground</span>
+            <span>Battleground</span>
           </h1>
         </div>
         <div className="btn-container flex align-items-center mt-3 mr-4 lg:mr-0 lg:mt-6">

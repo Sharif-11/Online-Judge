@@ -48,8 +48,8 @@ const Problems = () => {
                   <span className="text-[blue] underline">{problem.title}</span>
                 </Link>
               </td>
-              <td>{problem.timeLimit}</td>
-              <td>{problem.memoryLimit}</td>
+              <td className="font-semibold">{problem.timeLimit + "s"}</td>
+              <td className="font-semibold">{problem.memoryLimit + "MB"}</td>
             </tr>
           ))}
         </tbody>

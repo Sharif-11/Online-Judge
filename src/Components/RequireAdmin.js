@@ -17,7 +17,6 @@ const RequireAdmin = ({ children }) => {
   }
 
   if (role !== "admin") {
-    signOut(auth);
     return (
       <h1 className="text-center font-bold">
         403 <br />

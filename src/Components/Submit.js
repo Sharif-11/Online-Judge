@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import MonacoEditor from "./MonacoEditor";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 const Submit = () => {
+  const navigate = useNavigate("");
   const [user, loading] = useAuthState(auth);
   const [code, setCode] = useState("");
   const [contest, setContest] = useState({});
@@ -45,16 +46,16 @@ const Submit = () => {
       handle: user?.displayName,
       time: new Date().getTime(),
     };
-    fetch(`http://localhost:5000/contests/${id}/submit`, {
+    fetch(` https://lit-meadow-72602.herokuapp.com/contests/${id}/submit`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(info),
     })
       .then((res) => res.json())
       .then((data) => {
-        // if (data?.insertedId) {
-        //   setCode("");
-        // }
+        setCode("");
+        navigate(`/contests/${id}/my`);
+
         console.clear();
         console.log(JSON.parse(data?.body));
       });

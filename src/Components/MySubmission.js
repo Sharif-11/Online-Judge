@@ -49,7 +49,7 @@ const MySubmission = () => {
                     .replace("(Bangladesh Standard Time)", "")}
                 </td>
                 <td>{submission?.handle}</td>
-                <td>{submission.problem}</td>
+                <td>{String.fromCharCode(submission.problem + 65)}</td>
                 <td>{submission.language.toUpperCase()}</td>
                 <td>{"Submitted"}</td>
                 <td></td>

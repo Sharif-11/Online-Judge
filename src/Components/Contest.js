@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Outlet, Link } from "react-router-dom";
+import { useParams, Outlet, Link, useLocation } from "react-router-dom";
 const Contest = () => {
   const { id } = useParams();
   const [contest, setContest] = useState({});
+  const location = useLocation();
   const [active, setActive] = useState("problems");
-
+  useEffect(() => {
+    let path = location.pathname.replaceAll("/", " ").split(" ")[3];
+    if (path == "my" || path == "standing" || path == "submit") {
+      setActive(path);
+    } else {
+      setActive("problems");
+    }
+  }, [location]);
   return (
     <div>
       <div className="flex justify-center">
@@ -40,7 +48,7 @@ const Contest = () => {
           >
             <a
               class={
-                active == "my-submission"
+                active == "my-submission" || active == "my"
                   ? "tab font-semibold tab-lg tab-bordered tab-active"
                   : "tab font-semibold tab-lg tab-bordered"
               }
