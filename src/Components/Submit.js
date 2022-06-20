@@ -4,6 +4,7 @@ import MonacoEditor from "./MonacoEditor";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 import useContest from "../Hooks/useContest";
+import { decode } from "js-base64";
 const Submit = () => {
   const navigate = useNavigate("");
   const [user, loading] = useAuthState(auth);
@@ -12,22 +13,32 @@ const Submit = () => {
   const [language, setLanguage] = useState("c");
   const { id } = useParams();
   const [contest, contestLoading] = useContest(id);
-
+  console.dir(contest);
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // const sourceCode = code;
-    // const info = {
-    //   language: languageRef.current.value,
-    //   sourceCode,
-    // };
+    let language_id = 52;
+    if (language == "c++") {
+      language_id = 54;
+    } else if (language == "java") {
+      language_id = 62;
+    } else if (language == "python") {
+      language_id = 71;
+    }
+    let selectedProblem = contest.problems[parseInt(problem)];
+    const { sampleInput, testInputSet, sampleOutput, testOutputSet } =
+      selectedProblem;
+    console.log(selectedProblem, sampleOutput, testOutputSet);
     const info = {
       email: user?.email,
-      code,
-      language,
-      problem,
       handle: user?.displayName,
       time: new Date().getTime(),
+      cpu_time_limit: parseFloat(selectedProblem.timeLimit),
+      memory_limit: parseFloat(selectedProblem.memoryLimit) * 1024,
+      cpu_extra_time: 2.0,
+      source_code: code,
+      language_id,
+      stdin: [sampleInput].concat(testInputSet),
+      output: [sampleOutput].concat(testOutputSet),
     };
     fetch(` https://lit-meadow-72602.herokuapp.com/contests/${id}/submit`, {
       method: "POST",
@@ -36,8 +47,10 @@ const Submit = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setCode("");
-        navigate(`/contests/${id}/my`);
+        console.dir(data?.result);
+        alert(data?.result?.verdict);
+        // const {stdin,source_code,stdout,}
+        // navigate(`/contests/${id}/my`);
       });
   };
   const { problems } = contest;
