@@ -58,7 +58,10 @@ const PayAttension = () => {
   }, []);
 
   return (
-    <div className="border border-rounded-sm" style={{ borderRadius: "8px" }}>
+    <div
+      className="border border-rounded-sm max-w-[100%]"
+      style={{ borderRadius: "8px" }}
+    >
       <div className="pl-3 font-semibold text-[blue] px-3 py-1">
         Upcoming Contest
       </div>

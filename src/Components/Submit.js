@@ -3,33 +3,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import MonacoEditor from "./MonacoEditor";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
+import useContest from "../Hooks/useContest";
 const Submit = () => {
   const navigate = useNavigate("");
   const [user, loading] = useAuthState(auth);
   const [code, setCode] = useState("");
-  const [contest, setContest] = useState({});
   const [problem, setProblem] = useState(0);
   const [language, setLanguage] = useState("c");
   const { id } = useParams();
-  useEffect(() => {
-    fetch(
-      `https://lit-meadow-72602.herokuapp.com/contests?status=published&id=${parseInt(
-        id
-      )}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setContest(data[0]);
-      });
-  }, []);
-  // useEffect(() => {
-  //   fetch("https://lit-meadow-72602.herokuapp.com/used")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setSubmission(data?.used);
-  //     });
-  // }, [outputRef]);
+  const [contest, contestLoading] = useContest(id);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -55,13 +38,10 @@ const Submit = () => {
       .then((data) => {
         setCode("");
         navigate(`/contests/${id}/my`);
-
-        console.clear();
-        console.log(JSON.parse(data?.body));
       });
   };
   const { problems } = contest;
-  if (loading) {
+  if (loading || contestLoading) {
     return <p>loading...</p>;
   }
   return (

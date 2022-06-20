@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Outlet, Link, useLocation } from "react-router-dom";
 const Contest = () => {
   const { id } = useParams();
-  const [contest, setContest] = useState({});
+
   const location = useLocation();
   const [active, setActive] = useState("problems");
   useEffect(() => {
@@ -13,6 +13,7 @@ const Contest = () => {
       setActive("problems");
     }
   }, [location]);
+
   return (
     <div>
       <div className="flex justify-center">

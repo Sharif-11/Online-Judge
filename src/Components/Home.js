@@ -22,6 +22,7 @@ import Submit from "./Submit";
 import MySubmission from "./MySubmission";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
+import ContestDrawer from "./ContestDrawer";
 const Home = () => {
   return (
     <div className="lg:mx-[100px]">
@@ -30,7 +31,7 @@ const Home = () => {
         <Route path="/" element={<HomeDrawer />}>
           <Route index element={<Announcements />}></Route>
           <Route path="profile/:handle" element={"profile"}></Route>
-          <Route path="problemset" element={<TimeNow />}></Route>
+          <Route path="problemset" element={"problemset"}></Route>
         </Route>
         <Route
           path="dashboard"
@@ -79,11 +80,11 @@ const Home = () => {
           path="/contests/:id"
           element={
             <RequireAuth>
-              <Contest />
+              <ContestDrawer />
             </RequireAuth>
           }
         >
-          <Route index element={<Problems />}></Route>
+          <Route index element={<Problems contest={Contest.contest} />}></Route>
           <Route
             path="/contests/:id/problem/:ch"
             element={<Question />}

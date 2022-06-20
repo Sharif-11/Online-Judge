@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import useContest from "../Hooks/useContest";
 const Problems = () => {
   const { id } = useParams();
+  const [contest, loading] = useContest(id);
 
-  const [contest, setContest] = useState({});
-  useEffect(() => {
-    fetch(
-      ` https://lit-meadow-72602.herokuapp.com/contests?status=published&id=${parseInt(
-        id
-      )}`
-    )
-      .then((res) => res.json())
-      .then((data) => setContest(data[0]));
-  }, []);
-  console.log(contest);
+  if (loading) {
+    return <p>Loading...</p>;
+  }
   return (
     <div class="overflow-x-auto">
       <table class="table table-compact w-full">
