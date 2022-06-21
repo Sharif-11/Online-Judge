@@ -7,7 +7,7 @@ const MyContest = () => {
 
   const { data, isLoading, refetch } = useQuery("myContest", () =>
     fetch(
-      "https://lit-meadow-72602.herokuapp.com/contests/" + user?.email
+      " https://lit-meadow-72602.herokuapp.com/contests/" + user?.email
     ).then((res) => res.json())
   );
   if (loading || isLoading) {
@@ -18,7 +18,7 @@ const MyContest = () => {
     if (!confirm) {
       return;
     }
-    fetch(`https://lit-meadow-72602.herokuapp.com/contests/${id}`, {
+    fetch(` https://lit-meadow-72602.herokuapp.com/contests/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",

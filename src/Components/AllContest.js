@@ -5,12 +5,12 @@ import { useQuery } from "react-query";
 const AllContest = () => {
   const [user, loading] = useAuthState(auth);
   const { data, isLoading, refetch } = useQuery("allContest", () =>
-    fetch("https://lit-meadow-72602.herokuapp.com/contests").then((res) =>
+    fetch(" https://lit-meadow-72602.herokuapp.com/contests").then((res) =>
       res.json()
     )
   );
   const handleStatus = (id, status) => {
-    fetch("https://lit-meadow-72602.herokuapp.com/contests/" + id, {
+    fetch(" https://lit-meadow-72602.herokuapp.com/contests/" + id, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 const Alluser = () => {
   const { data, isLoading, refetch } = useQuery("allUsers", () =>
-    fetch("https://lit-meadow-72602.herokuapp.com/users").then((res) =>
+    fetch(" https://lit-meadow-72602.herokuapp.com/users").then((res) =>
       res.json()
     )
   );
@@ -11,7 +11,7 @@ const Alluser = () => {
     if (!confirm) {
       return;
     }
-    fetch(`https://lit-meadow-72602.herokuapp.com/users/${id}`, {
+    fetch(` https://lit-meadow-72602.herokuapp.com/users/${id}`, {
       method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ role }),

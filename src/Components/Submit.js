@@ -45,7 +45,7 @@ const Submit = () => {
       stdin: [sampleInput].concat(testInputSet),
       output: [sampleOutput].concat(testOutputSet),
     };
-    fetch(`  https://lit-meadow-72602.herokuapp.com/contests/${id}/submit`, {
+    fetch(`   https://lit-meadow-72602.herokuapp.com/contests/${id}/submit`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(info),

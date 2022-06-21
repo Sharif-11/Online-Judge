@@ -37,7 +37,7 @@ const Register = () => {
       return;
     } else setConfirmPasswordError(false);
     axios
-      .get("https://lit-meadow-72602.herokuapp.com/users/" + handle)
+      .get(" https://lit-meadow-72602.herokuapp.com/users/" + handle)
       .then(({ data }) => {
         if (data?.handle === handle) {
           setHandleError(true);
@@ -57,7 +57,7 @@ const Register = () => {
     return <p>Loading...</p>;
   }
   if (person) {
-    fetch("https://lit-meadow-72602.herokuapp.com/users", {
+    fetch(" https://lit-meadow-72602.herokuapp.com/users", {
       method: "PUT",
       headers: {
         "content-type": "application/json",

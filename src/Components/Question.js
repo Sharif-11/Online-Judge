@@ -9,7 +9,7 @@ const Question = () => {
   const [copyOutput, setCopyOutput] = useState(false);
   useEffect(() => {
     fetch(
-      `https://lit-meadow-72602.herokuapp.com/contests?status=published&id=${parseInt(
+      ` https://lit-meadow-72602.herokuapp.com/contests?status=published&id=${parseInt(
         id
       )}`
     )
