@@ -104,6 +104,11 @@ const Header = () => {
                   PROBLEMSET
                 </Link>
               </li>
+              <li>
+                <Link to="/contests" className="mx-1">
+                  CONTESTS
+                </Link>
+              </li>
 
               {(role == "admin" || role == "problemSetter") && (
                 <li>
@@ -129,6 +134,11 @@ const Header = () => {
             <li>
               <Link to="/problemset" className="mx-1">
                 PROBLEMSET
+              </Link>
+            </li>
+            <li>
+              <Link to="/contests" className="mx-1">
+                CONTESTS
               </Link>
             </li>
             {(role == "admin" || role == "problemSetter") && (

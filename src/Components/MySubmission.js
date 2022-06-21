@@ -3,13 +3,14 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useParams } from "react-router-dom";
 import auth from "../firebase.init";
 import axios from "axios";
+import Submission from "./Submission";
 const MySubmission = () => {
   const [submissions, setSubmissions] = useState([]);
   const [user, loading] = useAuthState(auth);
 
   const { id } = useParams();
   useEffect(() => {
-    fetch(` https://lit-meadow-72602.herokuapp.com/contests/${id}/my`, {
+    fetch(` http://localhost:5000/contests/${id}/my`, {
       method: "GET",
       headers: {
         email: user?.email,
@@ -41,20 +42,7 @@ const MySubmission = () => {
           </thead>
           <tbody>
             {submissions?.map((submission) => (
-              <tr>
-                <th>{submission._id}</th>
-                <td>
-                  {new Date(submission.time)
-                    .toString()
-                    .replace("(Bangladesh Standard Time)", "")}
-                </td>
-                <td>{submission?.handle}</td>
-                <td>{String.fromCharCode(submission.problem + 65)}</td>
-                <td>{submission.language.toUpperCase()}</td>
-                <td>{"Submitted"}</td>
-                <td></td>
-                <td></td>
-              </tr>
+              <Submission submission={submission} />
             ))}
           </tbody>
         </table>

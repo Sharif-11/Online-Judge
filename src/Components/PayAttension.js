@@ -66,32 +66,36 @@ const PayAttension = () => {
         Upcoming Contest
       </div>
       <hr />
-      {contests.slice(0, 3).map((contest) => (
-        <div className="content py-2 flex flex-col justify-center">
-          <span className="text-[blue] font-semibold text-center mx-auto text-md">
-            {(contest.runningState == "upcoming" && "Before Contest") ||
-              (contest?.runningState == "running" && "Contest is Running") ||
-              (contest?.runningState == "ended" && "Contest is ended")}
-          </span>
-          <span className="text-[blue] font-semibold text-xl mx-auto underline">
-            {time >= contest.startTime ? (
-              <Link to={`/contests/${contest.id}`}>
-                Contest round #{contest?.id}
-              </Link>
-            ) : (
-              `Contest round #${contest?.id}`
-            )}
-          </span>
-          <div className="text-[blue] font-semibold text-xl mx-auto">
-            {(contest?.runningState == "upcoming" &&
-              msToTime(contest.startTime - time)) ||
-              (contest?.runningState == "running" &&
-                msToTime(contest.startTime + contest.duration - time))}
-            {contest.startTime <= time && reload()}
-            {contest.startTime + contest.duration <= time && reload()}
+      {contests?.length > 0 ? (
+        contests.slice(0, 3).map((contest) => (
+          <div className="content py-2 flex flex-col justify-center">
+            <span className="text-[blue] font-semibold text-center mx-auto text-md">
+              {(contest.runningState == "upcoming" && "Before Contest") ||
+                (contest?.runningState == "running" && "Contest is Running") ||
+                (contest?.runningState == "ended" && "Contest is ended")}
+            </span>
+            <span className="text-[blue] font-semibold text-xl mx-auto underline">
+              {time >= contest.startTime ? (
+                <Link to={`/contests/${contest.id}`}>
+                  Contest round #{contest?.id}
+                </Link>
+              ) : (
+                `Contest round #${contest?.id}`
+              )}
+            </span>
+            <div className="text-[blue] font-semibold text-xl mx-auto">
+              {(contest?.runningState == "upcoming" &&
+                msToTime(contest.startTime - time)) ||
+                (contest?.runningState == "running" &&
+                  msToTime(contest.startTime + contest.duration - time))}
+              {contest.startTime <= time && reload()}
+              {contest.startTime + contest.duration <= time && reload()}
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <h1 className="py-2 text-center font-semibold">No upcoming contest</h1>
+      )}
     </div>
   );
 };

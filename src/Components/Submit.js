@@ -5,8 +5,10 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 import useContest from "../Hooks/useContest";
 import { decode } from "js-base64";
+import PreLoader from "./PreLoader";
 const Submit = () => {
   const navigate = useNavigate("");
+  const [loader, setLoader] = useState(false);
   const [user, loading] = useAuthState(auth);
   const [code, setCode] = useState("");
   const [problem, setProblem] = useState(0);
@@ -16,6 +18,7 @@ const Submit = () => {
   console.dir(contest);
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoader(true);
     let language_id = 52;
     if (language == "c++") {
       language_id = 54;
@@ -31,26 +34,29 @@ const Submit = () => {
     const info = {
       email: user?.email,
       handle: user?.displayName,
-      time: new Date().getTime(),
+      submissionTime: new Date().getTime(),
       cpu_time_limit: parseFloat(selectedProblem.timeLimit),
       memory_limit: parseFloat(selectedProblem.memoryLimit) * 1024,
       cpu_extra_time: 2.0,
       source_code: code,
       language_id,
+      language,
+      problem: parseInt(problem),
       stdin: [sampleInput].concat(testInputSet),
       output: [sampleOutput].concat(testOutputSet),
     };
-    fetch(` https://lit-meadow-72602.herokuapp.com/contests/${id}/submit`, {
+    fetch(` http://localhost:5000/contests/${id}/submit`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(info),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.dir(data?.result);
-        alert(data?.result?.verdict);
-        // const {stdin,source_code,stdout,}
-        // navigate(`/contests/${id}/my`);
+        setLoader(false);
+
+        if (data?.acknowledged) {
+          navigate(`/contests/${id}/my`);
+        }
       });
   };
   const { problems } = contest;
@@ -99,7 +105,10 @@ const Submit = () => {
             language={language == "c++" ? "cpp" : language}
           ></MonacoEditor>
         </div>
-        <button type="submit" className="btn btn-sm block mx-auto my-4">
+
+        <PreLoader loading={loader}></PreLoader>
+
+        <button type="submit" className="btn btn-sm block mx-auto mb-4 mt-1">
           Submit
         </button>
       </form>

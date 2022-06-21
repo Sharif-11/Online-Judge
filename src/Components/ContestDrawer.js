@@ -24,7 +24,9 @@ const ContestDrawer = () => {
         <label for="my-drawer-contest" class="drawer-overlay"></label>
         <ul class="menu p-4 overflow-y-auto w-68 bg-base-100 text-base-content">
           <ContestInfo contest={contest} refetch={refetch} />
-          <Marks contest={contest} refetch={refetch} />
+          {contest?.startTime + contest?.duration <= new Date().getTime() || (
+            <Marks contest={contest} refetch={refetch} />
+          )}
         </ul>
       </div>
     </div>
