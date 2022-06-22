@@ -36,9 +36,9 @@ const Register = () => {
       setConfirmPasswordError(true);
       return;
     } else setConfirmPasswordError(false);
-    axios
-      .get(" https://lit-meadow-72602.herokuapp.com/users/" + handle)
-      .then(({ data }) => {
+    fetch("https://lit-meadow-72602.herokuapp.com/users/" + handle)
+      .then((res) => res.json())
+      .then((data) => {
         if (data?.handle === handle) {
           setHandleError(true);
           return;
@@ -57,7 +57,7 @@ const Register = () => {
     return <p>Loading...</p>;
   }
   if (person) {
-    fetch(" https://lit-meadow-72602.herokuapp.com/users", {
+    fetch("https://lit-meadow-72602.herokuapp.com/users", {
       method: "PUT",
       headers: {
         "content-type": "application/json",

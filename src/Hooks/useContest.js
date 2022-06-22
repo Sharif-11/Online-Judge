@@ -6,7 +6,7 @@ const useContest = (id) => {
   const [loading, setLoading] = useState(true);
   const refetch = () => {
     fetch(
-      ` https://lit-meadow-72602.herokuapp.com/contests?status=published&id=${parseInt(
+      `https://lit-meadow-72602.herokuapp.com/contests?status=published&id=${parseInt(
         id
       )}`
     )

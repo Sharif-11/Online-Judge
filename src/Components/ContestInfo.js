@@ -7,9 +7,10 @@ const ContestInfo = ({ contest, refetch }) => {
   const [status, setStatus] = useState("Running");
   const [time, setTime] = useState(new Date().getTime());
   useEffect(() => {
-    setInterval(() => {
+    const timer = setInterval(() => {
       setTime(new Date().getTime());
     }, 1000);
+    return () => clearInterval(timer);
   }, []);
   useEffect(() => {
     if (time >= contest.duration + contest.startTime) {

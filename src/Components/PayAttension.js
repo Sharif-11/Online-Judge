@@ -2,15 +2,15 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-const PayAttension = () => {
+const PayAttension = ({}) => {
   const [contests, setContests] = useState([]);
 
   const [time, setTime] = useState(new Date().getTime());
-  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    setInterval(() => {
+    const timer = setInterval(() => {
       setTime(new Date().getTime());
     }, 1000);
+    return () => clearInterval(timer);
   }, []);
 
   const msToTime = (curr) => {
@@ -30,27 +30,30 @@ const PayAttension = () => {
     }
     return `${hours}:${minutes}:${seconds}`;
   };
+  const findUpcomingContest = (data) => {
+    let arr = [];
+    const now = new Date().getTime();
+    for (let i = 0; i < data.length; i++) {
+      if (Math.abs(data[i].startTime - now) <= 23 * 3600000) {
+        if (data[i].startTime > now) {
+          data[i].runningState = "upcoming";
+          arr.push(data[i]);
+        } else if (now - data[i].startTime >= data[i].duration) {
+          data[i].runningState = "ended";
+          arr.push(data[i]);
+        } else if (data[i].startTime <= now) {
+          data[i].runningState = "running";
+          arr.push(data[i]);
+        }
+      }
+    }
+    setContests(arr);
+  };
   const reload = () => {
-    fetch(" https://lit-meadow-72602.herokuapp.com/contests?status=published")
+    fetch("https://lit-meadow-72602.herokuapp.com/contests?status=published")
       .then((res) => res.json())
       .then((data) => {
-        let arr = [];
-        const now = new Date().getTime();
-        for (let i = 0; i < data.length; i++) {
-          if (Math.abs(data[i].startTime - now) <= 23 * 3600000) {
-            if (data[i].startTime > now) {
-              data[i].runningState = "upcoming";
-              arr.push(data[i]);
-            } else if (now - data[i].startTime >= data[i].duration) {
-              data[i].runningState = "ended";
-              arr.push(data[i]);
-            } else if (data[i].startTime <= now) {
-              data[i].runningState = "running";
-              arr.push(data[i]);
-            }
-          }
-        }
-        setContests(arr);
+        findUpcomingContest(data);
       });
   };
   useEffect(() => {

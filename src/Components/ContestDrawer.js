@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { Navigate, useLocation, useParams } from "react-router-dom";
 import Contest from "./Contest";
 import useContest from "../Hooks/useContest";
 import ContestInfo from "./ContestInfo";
@@ -7,6 +7,7 @@ import Marks from "./Marks";
 const ContestDrawer = () => {
   const { id } = useParams();
   const [contest, loading, refetch] = useContest(id);
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -24,9 +25,10 @@ const ContestDrawer = () => {
         <label for="my-drawer-contest" class="drawer-overlay"></label>
         <ul class="menu p-4 overflow-y-auto w-68 bg-base-100 text-base-content">
           <ContestInfo contest={contest} refetch={refetch} />
-          {contest?.startTime + contest?.duration <= new Date().getTime() || (
+          {/* {contest?.startTime + contest?.duration <= new Date().getTime() || (
             <Marks contest={contest} refetch={refetch} />
-          )}
+          )} */}
+          <Marks contest={contest} refetch={refetch} />
         </ul>
       </div>
     </div>

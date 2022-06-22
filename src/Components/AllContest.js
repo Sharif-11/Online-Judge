@@ -2,15 +2,15 @@ import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 import { useQuery } from "react-query";
-const AllContest = () => {
+const AllContest = ({ reload }) => {
   const [user, loading] = useAuthState(auth);
   const { data, isLoading, refetch } = useQuery("allContest", () =>
-    fetch(" https://lit-meadow-72602.herokuapp.com/contests").then((res) =>
+    fetch("https://lit-meadow-72602.herokuapp.com/contests").then((res) =>
       res.json()
     )
   );
   const handleStatus = (id, status) => {
-    fetch(" https://lit-meadow-72602.herokuapp.com/contests/" + id, {
+    fetch("https://lit-meadow-72602.herokuapp.com/contests/" + id, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -20,6 +20,7 @@ const AllContest = () => {
       .then((res) => res.json())
       .then((data) => {
         refetch();
+        reload();
       });
   };
   const handleAction = (id, action) => {

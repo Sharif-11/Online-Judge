@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Header from "./Header";
@@ -24,16 +24,32 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 import ContestDrawer from "./ContestDrawer";
 import ContestsRoute from "./ContestsRoute";
+import axios from "axios";
+
 const Home = () => {
+  const [contests, setContests] = useState([]);
+  const reload = () => {
+    axios
+      .get("https://lit-meadow-72602.herokuapp.com/contests?status=published")
+      .then(({ data }) => {
+        setContests(data);
+      });
+  };
+  useEffect(() => {
+    reload();
+  }, []);
   return (
     <div className="lg:mx-[100px]">
       <Header />
       <Routes>
-        <Route path="/" element={<HomeDrawer />}>
-          <Route index element={<Announcements />}></Route>
+        <Route path="/" element={<HomeDrawer contests={contests} />}>
+          <Route index element={<Announcements contests={contests} />}></Route>
           <Route path="profile/:handle" element={"profile"}></Route>
           <Route path="problemset" element={"problemset"}></Route>
-          <Route path="contests" element={<ContestsRoute />}></Route>
+          <Route
+            path="contests"
+            element={<ContestsRoute contests={contests} />}
+          ></Route>
         </Route>
         <Route
           path="dashboard"
@@ -55,7 +71,7 @@ const Home = () => {
             path="/dashboard/arrange-contest"
             element={
               <RequireProblemsetter>
-                <MyContest />
+                <MyContest reload={reload} />
               </RequireProblemsetter>
             }
           ></Route>
@@ -63,7 +79,7 @@ const Home = () => {
             path="/dashboard/all-contest"
             element={
               <RequireAdmin>
-                <AllContest />
+                <AllContest reload={reload} />
               </RequireAdmin>
             }
           ></Route>
@@ -86,12 +102,15 @@ const Home = () => {
             </RequireAuth>
           }
         >
-          <Route index element={<Problems contest={Contest.contest} />}></Route>
+          <Route index element={<Problems contests={contests} />}></Route>
           <Route
             path="/contests/:id/problem/:ch"
-            element={<Question />}
+            element={<Question contests={contests} />}
           ></Route>
-          <Route path="/contests/:id/submit" element={<Submit />}></Route>
+          <Route
+            path="/contests/:id/submit"
+            element={<Submit contests={contests} />}
+          ></Route>
           <Route path="/contests/:id/my" element={<MySubmission />}></Route>
           <Route path="/contests/:id/standing" element={"standing"}></Route>
         </Route>

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import useContest from "../Hooks/useContest";
-const Problems = () => {
+const Problems = ({ contests }) => {
   const { id } = useParams();
-  const [contest, loading] = useContest(id);
+  // const [contest, loading] = useContest(id);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+  // if (loading) {
+  //   return <p>Loading...</p>;
+  // }
+  const contest = contests?.filter((a) => parseInt(a?.id) == parseInt(id))[0];
+  console.log("problems", contest);
   return (
     <div class="overflow-x-auto">
       <table class="table table-compact w-full">

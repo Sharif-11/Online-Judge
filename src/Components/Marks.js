@@ -3,27 +3,29 @@ import React, { useEffect, useState } from "react";
 const Marks = ({ contest, refetch }) => {
   const [time, setTime] = useState(new Date().getTime());
   useEffect(() => {
-    setInterval(() => {
+    const timer = setInterval(() => {
       setTime(new Date().getTime());
     }, 1000);
+    return () => clearInterval(timer);
   }, []);
 
   const getMark = (idx) => {
-    if (time - contest.startTime - contest.duration >= 0) {
-      return 0;
-    }
-    let total;
+    // if (time - contest.startTime - contest.duration >= 0) {
+    //   return 0;
+    // }
+    let total, deduce;
     if (idx == 0) {
-      total = 800;
+      total = 500;
+      deduce = 2;
     } else if (idx == 1) {
-      total = 1200;
+      total = 1000;
+      deduce = 4;
     } else {
       total = 1500;
+      deduce = 6;
     }
-    const remaining = contest.startTime + contest?.duration - time;
-    let marks = (remaining * total) / contest.duration;
-    marks = Math.ceil(marks);
-    return marks;
+    const elapsedTime = parseInt((time - contest.startTime) / 60000);
+    return Math.max(total - elapsedTime * deduce, (total * 30) / 100);
   };
   return (
     <div class="overflow-x-auto w-full my-6 shadow-lg">
@@ -39,9 +41,14 @@ const Marks = ({ contest, refetch }) => {
           {contest?.problems?.map((problem, idx) => (
             <tr>
               <th>
-                <label>
-                  <input type="checkbox" class="checkbox checkbox-accent" />
-                </label>
+                {/* <label>
+                  <input
+                    type="checkbox"
+                    class="checkbox checkbox-accent"
+                    checked={!!problem?.verdict == "Accepted"}
+                    readOnly
+                  />
+                </label> */}
               </th>
               <td className=" font-bold">{String.fromCharCode(idx + 65)}</td>
               <td>

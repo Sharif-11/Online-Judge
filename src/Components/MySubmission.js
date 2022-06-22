@@ -10,7 +10,7 @@ const MySubmission = () => {
 
   const { id } = useParams();
   useEffect(() => {
-    fetch(`  https://lit-meadow-72602.herokuapp.com/contests/${id}/my`, {
+    fetch(` https://lit-meadow-72602.herokuapp.com/contests/${id}/my`, {
       method: "GET",
       headers: {
         email: user?.email,

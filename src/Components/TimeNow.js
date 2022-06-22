@@ -5,12 +5,13 @@ const TimeNow = () => {
   const [minute, setMinute] = useState("");
   const [second, setSecond] = useState("");
   useEffect(() => {
-    setInterval(() => {
+    const timer = setInterval(() => {
       const date = new Date();
       setHour(date.getHours());
       setMinute(date.getMinutes());
       setSecond(date.getSeconds());
     }, 1000);
+    return () => clearInterval(timer);
   }, []);
   return (
     <div>

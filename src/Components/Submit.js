@@ -6,7 +6,7 @@ import auth from "../firebase.init";
 import useContest from "../Hooks/useContest";
 import { decode } from "js-base64";
 import PreLoader from "./PreLoader";
-const Submit = () => {
+const Submit = ({ contests }) => {
   const navigate = useNavigate("");
   const [loader, setLoader] = useState(false);
   const [user, loading] = useAuthState(auth);
@@ -14,7 +14,8 @@ const Submit = () => {
   const [problem, setProblem] = useState(0);
   const [language, setLanguage] = useState("c");
   const { id } = useParams();
-  const [contest, contestLoading] = useContest(id);
+  // const [contest, contestLoading] = useContest(id);
+  const contest = contests.filter((a) => a?.id == id)[0];
   console.dir(contest);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,7 +46,7 @@ const Submit = () => {
       stdin: [sampleInput].concat(testInputSet),
       output: [sampleOutput].concat(testOutputSet),
     };
-    fetch(`   https://lit-meadow-72602.herokuapp.com/contests/${id}/submit`, {
+    fetch(`  https://lit-meadow-72602.herokuapp.com/contests/${id}/submit`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(info),
@@ -60,7 +61,7 @@ const Submit = () => {
       });
   };
   const { problems } = contest;
-  if (loading || contestLoading) {
+  if (loading) {
     return <p>loading...</p>;
   }
   return (

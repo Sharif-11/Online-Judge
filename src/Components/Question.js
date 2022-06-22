@@ -2,23 +2,24 @@ import React, { useEffect, useState } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { useParams } from "react-router-dom";
 import Copy from "../Images/Copy.svg";
-const Question = () => {
+const Question = ({ contests }) => {
   const { id, ch } = useParams();
   const [problem, setProblem] = useState({});
   const [copyInput, setCopyInput] = useState(false);
   const [copyOutput, setCopyOutput] = useState(false);
-  useEffect(() => {
-    fetch(
-      ` https://lit-meadow-72602.herokuapp.com/contests?status=published&id=${parseInt(
-        id
-      )}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.clear();
+  // useEffect(() => {
+  //   fetch(`https://lit-meadow-72602.herokuapp.com/contests?status=published&id=${parseInt(id)}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.clear();
 
-        setProblem(data[0]?.problems[ch.charCodeAt(0) - 65]);
-      });
+  //       setProblem(data[0]?.problems[ch.charCodeAt(0) - 65]);
+  //     });
+  // }, []);
+  useEffect(() => {
+    setProblem(
+      contests?.filter((a) => a?.id == id)[0].problems[ch.charCodeAt(0) - 65]
+    );
   }, []);
   console.log(problem);
   const {

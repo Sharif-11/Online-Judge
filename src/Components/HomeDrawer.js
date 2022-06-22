@@ -6,7 +6,7 @@ import FindUser from "./FindUser";
 import PayAttension from "./PayAttension";
 import UserInfo from "./UserInfo";
 
-const HomeDrawer = () => {
+const HomeDrawer = ({ contests }) => {
   const [user, loading, error] = useAuthState(auth);
   if (loading) {
     return <p>Loading...</p>;
@@ -27,7 +27,7 @@ const HomeDrawer = () => {
         <label for="my-drawer-4" class="drawer-overlay"></label>
         <ul class="p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
           <li className="my-5">
-            <PayAttension />
+            <PayAttension contests={contests} />
           </li>
 
           <li className="my-5">
