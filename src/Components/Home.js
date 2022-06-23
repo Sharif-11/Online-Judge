@@ -37,7 +37,11 @@ const Home = () => {
       });
   };
   useEffect(() => {
-    reload();
+    axios
+      .get("https://lit-meadow-72602.herokuapp.com/contests?status=published")
+      .then(({ data }) => {
+        setContests(data);
+      });
   }, []);
   return (
     <div className="lg:mx-[100px]">
@@ -49,7 +53,7 @@ const Home = () => {
           <Route path="problemset" element={"problemset"}></Route>
           <Route
             path="contests"
-            element={<ContestsRoute contests={contests} />}
+            element={<ContestsRoute contests={contests} reload={reload} />}
           ></Route>
         </Route>
         <Route
