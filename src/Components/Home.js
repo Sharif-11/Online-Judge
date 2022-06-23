@@ -25,6 +25,7 @@ import auth from "../firebase.init";
 import ContestDrawer from "./ContestDrawer";
 import ContestsRoute from "./ContestsRoute";
 import axios from "axios";
+import Standing from "./Standing";
 
 const Home = () => {
   const [contests, setContests] = useState([]);
@@ -112,7 +113,10 @@ const Home = () => {
             element={<Submit contests={contests} />}
           ></Route>
           <Route path="/contests/:id/my" element={<MySubmission />}></Route>
-          <Route path="/contests/:id/standing" element={"standing"}></Route>
+          <Route
+            path="/contests/:id/standing"
+            element={<Standing contests={contests} />}
+          ></Route>
         </Route>
       </Routes>
     </div>
