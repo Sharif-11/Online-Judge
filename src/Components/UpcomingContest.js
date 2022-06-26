@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 const UpcomingContest = ({ msToTime, idx, contest, time }) => {
   return (
     <tr>
-      <th>{idx + 1}</th>
       <td className=" underline">
         {contest?.runningStatus.includes("Running") ? (
           <Link to={`/contests/${contest.id}`}>

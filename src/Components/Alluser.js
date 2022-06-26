@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 const Alluser = () => {
   const { data, isLoading, refetch } = useQuery("allUsers", () =>
@@ -6,6 +6,23 @@ const Alluser = () => {
       res.json()
     )
   );
+  const [requests, setRequests] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/role")
+      .then((res) => res.json())
+      .then((data) => {
+        setRequests(data);
+      });
+  }, []);
+  const findUser = (email) => {
+    for (let i = 0; i < requests.length; i++) {
+      if (requests[i].email == email) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   const updateRole = (id, role) => {
     const confirm = window.confirm("Do you want to proceed?");
     if (!confirm) {
@@ -29,7 +46,7 @@ const Alluser = () => {
             <tr>
               <th></th>
               <th>Name</th>
-              <th>Handle</th>
+              <th>User Id</th>
               <th>Role</th>
               <th>Action</th>
             </tr>
@@ -41,27 +58,16 @@ const Alluser = () => {
                 <td>{user?.email}</td>
                 <td>{user?.handle}</td>
                 <td>{user?.role || "user"}</td>
-                {user?.role === "admin" ? (
-                  ""
-                ) : user?.role === "problemSetter" ? (
-                  <td>
-                    <button
-                      className="btn btn-xs text-[white]"
-                      onClick={() => updateRole(user?._id, "user")}
-                    >
-                      Make user
-                    </button>
-                  </td>
-                ) : (
-                  <td>
+                <td>
+                  {user?.role == "user" && findUser(user?.email) && (
                     <button
                       className="btn btn-xs text-[white]"
                       onClick={() => updateRole(user?._id, "problemSetter")}
                     >
                       Make problemsetter
                     </button>
-                  </td>
-                )}
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>

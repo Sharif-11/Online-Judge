@@ -36,7 +36,7 @@ const AllContest = ({ reload }) => {
   return (
     <div>
       <div class="overflow-x-auto m-4">
-        <table class="table w-full">
+        <table class="table  w-full">
           <thead>
             <tr>
               <th></th>
@@ -60,10 +60,10 @@ const AllContest = ({ reload }) => {
                 </td>
                 <td>{contest?.status}</td>
                 {contest?.status == "pending" && (
-                  <td className="flex justify-center">
-                    {contest?.status === "pending" && (
+                  <td className="flex justify-between">
+                    {/* {contest?.status === "pending" && (
                       <button className="btn btn-xs">Preview</button>
-                    )}
+                    )} */}
                     <button
                       className="btn btn-xs"
                       onClick={() => handleAction(contest?._id, "publish")}
@@ -71,7 +71,7 @@ const AllContest = ({ reload }) => {
                       Publish
                     </button>
                     {contest?.status === "pending" && (
-                      <button className="btn btn-xs">Delete</button>
+                      <button className="btn btn-xs">Discard</button>
                     )}{" "}
                   </td>
                 )}

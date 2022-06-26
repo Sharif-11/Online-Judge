@@ -47,7 +47,7 @@ const Submit = ({ contests }) => {
       output: [sampleOutput].concat(testOutputSet),
     };
     fetch(`  https://lit-meadow-72602.herokuapp.com/contests/${id}/submit`, {
-      method: "POST",
+      method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(info),
     })

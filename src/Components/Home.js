@@ -26,6 +26,7 @@ import ContestDrawer from "./ContestDrawer";
 import ContestsRoute from "./ContestsRoute";
 import axios from "axios";
 import Standing from "./Standing";
+import Profile from "./Profile";
 
 const Home = () => {
   const [contests, setContests] = useState([]);
@@ -49,7 +50,7 @@ const Home = () => {
       <Routes>
         <Route path="/" element={<HomeDrawer contests={contests} />}>
           <Route index element={<Announcements contests={contests} />}></Route>
-          <Route path="profile/:handle" element={"profile"}></Route>
+          <Route path="profile/:handle" element={<Profile />}></Route>
           <Route path="problemset" element={"problemset"}></Route>
           <Route
             path="contests"

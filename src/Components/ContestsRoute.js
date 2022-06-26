@@ -69,33 +69,35 @@ const ContestsRoute = ({ contests, reload }) => {
   // console.log(finished);
   return (
     <div class="overflow-x-auto">
-      <h1 className="text-xl font-semibold my-3">Upcoming Contests</h1>
-      <table class="table w-full">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Start</th>
-            <th>Length</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {upcoming?.map((contest, idx) => (
-            <UpcomingContest
-              contest={contest}
-              idx={idx}
-              time={time}
-              msToTime={msToTime}
-            ></UpcomingContest>
-          ))}
-        </tbody>
-      </table>
+      {upcoming.length > 0 && (
+        <>
+          <h1 className="text-xl font-semibold my-3">Upcoming Contests</h1>
+          <table class="table w-full">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Start</th>
+                <th>Length</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {upcoming?.map((contest, idx) => (
+                <UpcomingContest
+                  contest={contest}
+                  idx={idx}
+                  time={time}
+                  msToTime={msToTime}
+                ></UpcomingContest>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
       <h1 className="text-xl font-semibold my-3 mt-5">Contests History</h1>
       <table class="table w-full">
         <thead>
           <tr>
-            <th></th>
             <th>Name</th>
             <th>Start</th>
             <th>Length</th>
@@ -105,7 +107,6 @@ const ContestsRoute = ({ contests, reload }) => {
         <tbody>
           {finished?.map((contest, idx) => (
             <tr>
-              <th>{idx + 1}</th>
               <td className="text-[blue] underline">
                 <Link to={`/contests/${contest.id}`}>
                   {`Contest Battle Round #${contest.id}`}

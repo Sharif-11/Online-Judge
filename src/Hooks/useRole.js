@@ -10,6 +10,9 @@ const useRole = (user) => {
         if (data?.role == "admin" || data?.role == "problemSetter") {
           setRole(data?.role);
           setLoading(false);
+        } else {
+          setRole("user");
+          setLoading(false);
         }
       })
       .catch((err) => setLoading(false));

@@ -30,9 +30,7 @@ const HomeDrawer = ({ contests }) => {
             <PayAttension contests={contests} />
           </li>
 
-          <li className="my-5">
-            <FindUser />
-          </li>
+          <li className="my-5">{/* <FindUser /> */}</li>
         </ul>
       </div>
     </div>

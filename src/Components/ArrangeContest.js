@@ -11,6 +11,7 @@ const ArrangeContest = () => {
   const [finalContest, setFinalContest] = useState({});
   const [problems, setProblems] = useState([]);
   const [error, setError] = useState(false);
+  const [disabled, setDisabled] = useState(true);
   useEffect(() => {
     let arr = [];
     for (let i = 0; i < parseInt(cnt); i++) {
@@ -25,6 +26,38 @@ const ArrangeContest = () => {
   const minuteRef = useRef("");
   const announceRef = useRef("");
   const formRef = useRef();
+  const handleDisabled = () => {
+    const id = idRef.current.value;
+    const date = dateRef.current.value;
+    const hour = parseInt(hourRef.current.value);
+    const minute = parseInt(minuteRef.current.value);
+    const announce = announceRef.current.value;
+    if (id.replace(/\s/g, "").length == 0) {
+      setDisabled(true);
+      return;
+    }
+    if (date.replace(/\s/g, "").length == 0) {
+      setDisabled(true);
+      return;
+    }
+
+    if (
+      isNaN(hour) ||
+      isNaN(minute) ||
+      hour < 0 ||
+      minute < 0 ||
+      hour > 2 ||
+      minute > 59
+    ) {
+      setDisabled(true);
+      return;
+    }
+    if (announce.replace(/\s/g, "").length == 0) {
+      setDisabled(true);
+      return;
+    }
+    setDisabled(false);
+  };
   const handleNext = () => {
     axios
       .get(
@@ -117,7 +150,6 @@ const ArrangeContest = () => {
       <form
         className="lg:w-4/5 flex flex-col align-items-center"
         ref={formRef}
-        noValidate
         onSubmit={handleSubmit}
       >
         <div
@@ -136,10 +168,14 @@ const ArrangeContest = () => {
             </label>
             <input
               type="number"
-              onChange={handleNext}
+              onChange={() => {
+                handleDisabled();
+                handleNext();
+              }}
               min={100}
               placeholder="Enter Contest Id"
               ref={idRef}
+              required
               class="input input-bordered w-full max-w-xs"
             />
             {error && (
@@ -160,6 +196,8 @@ const ArrangeContest = () => {
               type="datetime-local"
               class="input input-bordered w-full max-w-xs"
               ref={dateRef}
+              onChange={handleDisabled}
+              required
             />
           </div>
 
@@ -176,7 +214,9 @@ const ArrangeContest = () => {
                 class="input input-bordered w-[60px]"
                 min={0}
                 max={3}
+                onChange={handleDisabled}
                 ref={hourRef}
+                required
               />
               <span className="mx-2">Hours</span>
               <input
@@ -185,6 +225,8 @@ const ArrangeContest = () => {
                 class="input input-bordered w-[75px]"
                 min={0}
                 max={60}
+                required
+                onChange={handleDisabled}
                 ref={minuteRef}
               />
               <span className="mx-2">Minutes</span>
@@ -199,6 +241,8 @@ const ArrangeContest = () => {
               class="textarea textarea-bordered h-24"
               placeholder="Enter Announcement here"
               ref={announceRef}
+              required
+              onChange={handleDisabled}
             ></textarea>
           </div>
           <div class={display ? "hidden" : "form-control w-full max-w-xs"}>
@@ -214,7 +258,11 @@ const ArrangeContest = () => {
               name="number"
               max={3}
               value={cnt}
-              onChange={(e) => setCnt(e.target.value)}
+              required
+              onChange={(e) => {
+                setCnt(e.target.value);
+                handleDisabled();
+              }}
               class="input input-bordered w-full max-w-xs"
             />
             <label class="label">
@@ -228,7 +276,13 @@ const ArrangeContest = () => {
         <div className="flex justify-center">
           <button
             type="button"
-            disabled={error}
+            disabled={
+              error ||
+              disabled ||
+              isNaN(parseInt(cnt)) ||
+              parseInt(cnt) > 3 ||
+              parseInt(cnt) < 1
+            }
             className={display ? "hidden" : "btn btn-dark my-3"}
             onClick={() => setDisplay(true)}
           >

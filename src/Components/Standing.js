@@ -12,13 +12,16 @@ const Standing = ({ contests }) => {
   console.log(startTime, duration);
   //   console.log(contest);
   useEffect(() => {
-    fetch(` http://localhost:5000/contests/${id}/submissions`, {
-      method: "GET",
-      headers: {
-        time: startTime,
-        duration,
-      },
-    })
+    fetch(
+      ` https://lit-meadow-72602.herokuapp.com/contests/${id}/submissions`,
+      {
+        method: "GET",
+        headers: {
+          time: startTime,
+          duration,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setSubmissions(data);
