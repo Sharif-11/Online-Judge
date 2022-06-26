@@ -9,7 +9,7 @@ const Profile = () => {
   const [role, roleLoading] = useRole(user);
 
   const handleRequest = () => {
-    fetch("http://localhost:5000/role", {
+    fetch("https://lit-meadow-72602.herokuapp.com/role", {
       method: "POST",
       headers: {
         "content-type": "application/json",

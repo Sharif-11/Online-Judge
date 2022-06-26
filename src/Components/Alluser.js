@@ -8,7 +8,7 @@ const Alluser = () => {
   );
   const [requests, setRequests] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/role")
+    fetch("https://lit-meadow-72602.herokuapp.com/role")
       .then((res) => res.json())
       .then((data) => {
         setRequests(data);
