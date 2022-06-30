@@ -46,8 +46,8 @@ const ArrangeContest = () => {
       isNaN(minute) ||
       hour < 0 ||
       minute < 0 ||
-      hour > 2 ||
-      minute > 59
+      hour * 3600000 + minute * 60000 > 3 * 3600000 ||
+      hour * 3600000 + minute * 60000 == 0
     ) {
       setDisabled(true);
       return;

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../firebase.init";
 const Alluser = () => {
   const { data, isLoading, refetch } = useQuery("allUsers", () =>
     fetch("https://lit-meadow-72602.herokuapp.com/users").then((res) =>
@@ -38,6 +40,10 @@ const Alluser = () => {
         refetch();
       });
   };
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
   return (
     <div className=" my-5 mx-2 lg:m-5" onMouseOver={() => refetch()}>
       <div class="overflow-x-auto ">
@@ -59,14 +65,15 @@ const Alluser = () => {
                 <td>{user?.handle}</td>
                 <td>{user?.role || "user"}</td>
                 <td>
-                  {user?.role == "user" && findUser(user?.email) && (
-                    <button
-                      className="btn btn-xs text-[white]"
-                      onClick={() => updateRole(user?._id, "problemSetter")}
-                    >
-                      Make problemsetter
-                    </button>
-                  )}
+                  {(user?.role == "user" || !user?.role) &&
+                    findUser(user?.email) && (
+                      <button
+                        className="btn btn-xs text-[white]"
+                        onClick={() => updateRole(user?._id, "problemSetter")}
+                      >
+                        Make problemsetter
+                      </button>
+                    )}
                 </td>
               </tr>
             ))}

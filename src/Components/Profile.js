@@ -7,7 +7,7 @@ const Profile = () => {
   const [user, loading] = useAuthState(auth);
   const [sending, setSending] = useState(false);
   const [role, roleLoading] = useRole(user);
-
+  const [show, setShow] = useState(true);
   const handleRequest = () => {
     fetch("https://lit-meadow-72602.herokuapp.com/role", {
       method: "POST",
@@ -26,6 +26,19 @@ const Profile = () => {
         }
       });
   };
+  useEffect(() => {
+    fetch("http://localhost:5000/role")
+      .then((res) => res.json())
+      .then((data) => {
+        let sz = data.length;
+        for (let i = 0; i < sz; i++) {
+          if (data[i].email == user?.email) {
+            setShow(false);
+          }
+        }
+      });
+  }, [sending]);
+
   if (loading || roleLoading) {
     return <p>Loading..</p>;
   }
@@ -35,12 +48,12 @@ const Profile = () => {
       {role == "user" && (
         <div>
           <h1 className="my-2">Do you want to be a problemsetter</h1>
-          {sending ? (
-            <button className="btn btn-xs">Request send</button>
-          ) : (
+          {show ? (
             <button className="btn btn-xs" onClick={handleRequest}>
               Send Request
             </button>
+          ) : (
+            <button className="btn btn-xs">Request Send</button>
           )}
         </div>
       )}

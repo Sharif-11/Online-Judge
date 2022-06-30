@@ -49,7 +49,7 @@ const SetProblem = ({ id, display }) => {
             type="number"
             name={"time" + id}
             min={1}
-            max={4}
+            max={3}
             required
             placeholder="Enter Time limit in seconds"
             class="input input-bordered w-full max-w-xs"

@@ -44,7 +44,7 @@ const Question = ({ contests }) => {
   );
 
   return (
-    <div className="my-3 py-6">
+    <div className="my-3 py-6  mx-0">
       <h1 className="text-2xl font-bold text-center">
         {ch}){title}
       </h1>
