@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
 import auth from "../firebase.init";
+import Preview from "./Preview";
 const MyContest = ({ reload }) => {
   const [user, loading] = useAuthState(auth);
 
@@ -60,48 +61,76 @@ const MyContest = ({ reload }) => {
           </thead>
           <tbody>
             {data?.map((contest, idx) => (
-              <tr>
-                <th>{idx + 1}</th>
-                <td>{contest?.id}</td>
-                <td>
-                  {new Date(contest?.startTime)
-                    .toString()
-                    .replace("(Bangladesh Standard Time)", "")}
-                </td>
+              <>
+                <input
+                  type="checkbox"
+                  id={`preview-${contest?.id}`}
+                  class="modal-toggle"
+                />
+                <div class="modal  bg-transparent max-w-[60%] left-[400px] z-50">
+                  <div class="modal-box border-2 w-11/12 max-w-5xl">
+                    <Preview contest={contest} />
+                    <div class="modal-action">
+                      <label for={`preview-${contest?.id}`} class="btn">
+                        Close
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <tr>
+                  <th>{idx + 1}</th>
+                  <td>{contest?.id}</td>
+                  <td>
+                    {new Date(contest?.startTime)
+                      .toString()
+                      .replace("(Bangladesh Standard Time)", "")}
+                  </td>
 
-                <td>{contest?.status}</td>
-                <td>
-                  {contest?.status == "published" ? (
-                    <button
-                      className="btn btn-sm btn-dark text-white"
-                      onClick={() => handleDelete(contest?._id)}
-                    >
-                      Delete
-                    </button>
-                  ) : (
-                    <>
-                      <button className="btn btn-xs text-xs btn-dark mx-1 text-white">
-                        preview
-                      </button>
-
-                      {contest?.status == "pending" && (
-                        <button
-                          className="btn btn-xs my-2  btn-dark text-white"
-                          onClick={() => handleRequest(contest?._id)}
-                        >
-                          Request to publish
-                        </button>
-                      )}
+                  <td>{contest?.status}</td>
+                  <td>
+                    {contest?.status == "published" ? (
                       <button
-                        className="btn btn-xs text-xs btn-dark mx-1 text-white"
+                        className="btn btn-sm btn-dark text-white"
                         onClick={() => handleDelete(contest?._id)}
                       >
                         Delete
                       </button>
-                    </>
-                  )}
-                </td>
-              </tr>
+                    ) : (
+                      <>
+                        <label
+                          for={`preview-${contest?.id}`}
+                          class="btn modal-button btn-xs"
+                        >
+                          preview
+                        </label>
+
+                        {(contest?.status == "discarded" ||
+                          contest?.status == "pending") && (
+                          <button className="btn btn-xs text-xs btn-dark mx-1 text-white">
+                            edit
+                          </button>
+                        )}
+
+                        {(contest?.status == "pending" ||
+                          contest?.status == "discarded") && (
+                          <button
+                            className="btn btn-xs my-2  btn-dark text-white"
+                            onClick={() => handleRequest(contest?._id)}
+                          >
+                            Request to publish
+                          </button>
+                        )}
+                        <button
+                          className="btn btn-xs text-xs btn-dark mx-1 text-white"
+                          onClick={() => handleDelete(contest?._id)}
+                        >
+                          Delete
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              </>
             ))}
           </tbody>
         </table>

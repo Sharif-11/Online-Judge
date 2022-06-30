@@ -5,9 +5,9 @@ import { useQuery } from "react-query";
 const AllContest = ({ reload }) => {
   const [user, loading] = useAuthState(auth);
   const { data, isLoading, refetch } = useQuery("allContest", () =>
-    fetch("https://lit-meadow-72602.herokuapp.com/contests?").then((res) =>
-      res.json()
-    )
+    fetch(
+      "https://lit-meadow-72602.herokuapp.com/contests?requested=requested"
+    ).then((res) => res.json())
   );
   const handleStatus = (id, status) => {
     fetch("https://lit-meadow-72602.herokuapp.com/contests/" + id, {
@@ -27,7 +27,7 @@ const AllContest = ({ reload }) => {
   const handleAction = (id, action) => {
     if (action == "delete") {
     } else {
-      const confirm = window.confirm("Do you want to publish this contest?");
+      const confirm = window.confirm(`Do you want to ${action} this contest?`);
       if (!confirm) {
         return;
       }
@@ -73,7 +73,12 @@ const AllContest = ({ reload }) => {
                           Publish
                         </button>
 
-                        <button className="btn btn-xs">Discard</button>
+                        <button
+                          className="btn btn-xs"
+                          onClick={() => handleAction(contest?._id, "discard")}
+                        >
+                          Discard
+                        </button>
                       </>
                     )}
                   </td>
