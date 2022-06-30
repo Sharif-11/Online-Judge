@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 import { useQuery } from "react-query";
 const AllContest = ({ reload }) => {
   const [user, loading] = useAuthState(auth);
   const { data, isLoading, refetch } = useQuery("allContest", () =>
-    fetch("https://lit-meadow-72602.herokuapp.com/contests").then((res) =>
+    fetch("https://lit-meadow-72602.herokuapp.com/contests?").then((res) =>
       res.json()
     )
   );
@@ -23,6 +23,7 @@ const AllContest = ({ reload }) => {
         reload();
       });
   };
+  useEffect(() => {}, [data]);
   const handleAction = (id, action) => {
     if (action == "delete") {
     } else {
@@ -59,20 +60,22 @@ const AllContest = ({ reload }) => {
                     .replace("(Bangladesh Standard Time)", "")}
                 </td>
                 <td>{contest?.status}</td>
-                {contest?.status == "pending" && (
+                {contest?.status == "requested" && (
                   <td className="flex justify-between">
-                    {/* {contest?.status === "pending" && (
-                      <button className="btn btn-xs">Preview</button>
-                    )} */}
-                    <button
-                      className="btn btn-xs"
-                      onClick={() => handleAction(contest?._id, "publish")}
-                    >
-                      Publish
-                    </button>
-                    {contest?.status === "pending" && (
-                      <button className="btn btn-xs">Discard</button>
-                    )}{" "}
+                    {contest?.status === "requested" && (
+                      <>
+                        <button className="btn btn-xs">Preview</button>
+
+                        <button
+                          className="btn btn-xs"
+                          onClick={() => handleAction(contest?._id, "publish")}
+                        >
+                          Publish
+                        </button>
+
+                        <button className="btn btn-xs">Discard</button>
+                      </>
+                    )}
                   </td>
                 )}
               </tr>
