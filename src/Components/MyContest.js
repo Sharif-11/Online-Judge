@@ -62,21 +62,6 @@ const MyContest = ({ reload }) => {
           <tbody>
             {data?.map((contest, idx) => (
               <>
-                <input
-                  type="checkbox"
-                  id={`preview-${contest?.id}`}
-                  class="modal-toggle"
-                />
-                <div class="modal  bg-transparent max-w-[60%] left-[400px] z-50">
-                  <div class="modal-box border-2 w-11/12 max-w-5xl">
-                    <Preview contest={contest} />
-                    <div class="modal-action">
-                      <label for={`preview-${contest?.id}`} class="btn">
-                        Close
-                      </label>
-                    </div>
-                  </div>
-                </div>
                 <tr>
                   <th>{idx + 1}</th>
                   <td>{contest?.id}</td>

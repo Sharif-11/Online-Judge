@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import Code from "./Code";
 
 const Test = () => {
   const txtRef = useRef();
@@ -14,6 +15,7 @@ const Test = () => {
 
   return (
     <div>
+      <Code sourceCode={"int main(){}"} />
       <textarea
         type="text"
         ref={txtRef}
