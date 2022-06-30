@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 import { useQuery } from "react-query";
+import Preview from "./Preview";
 const AllContest = ({ reload }) => {
   const [user, loading] = useAuthState(auth);
   const { data, isLoading, refetch } = useQuery("allContest", () =>
@@ -50,40 +51,65 @@ const AllContest = ({ reload }) => {
           </thead>
           <tbody>
             {data?.map((contest, idx) => (
-              <tr>
-                <th>{idx + 1}</th>
-                <td>{contest?.id}</td>
-                <td>{contest?.email}</td>
-                <td>
-                  {new Date(contest?.startTime)
-                    .toString()
-                    .replace("(Bangladesh Standard Time)", "")}
-                </td>
-                <td>{contest?.status}</td>
-                {contest?.status == "requested" && (
-                  <td className="flex justify-between">
-                    {contest?.status === "requested" && (
-                      <>
-                        <button className="btn btn-xs">Preview</button>
-
-                        <button
-                          className="btn btn-xs"
-                          onClick={() => handleAction(contest?._id, "publish")}
-                        >
-                          Publish
-                        </button>
-
-                        <button
-                          className="btn btn-xs"
-                          onClick={() => handleAction(contest?._id, "discard")}
-                        >
-                          Discard
-                        </button>
-                      </>
-                    )}
+              <>
+                <input
+                  type="checkbox"
+                  id={`preview-${contest?.id}`}
+                  class="modal-toggle"
+                />
+                <div class="modal  bg-transparent max-w-[60%] left-[400px] z-50">
+                  <div class="modal-box border-2 w-11/12 max-w-5xl">
+                    <Preview contest={contest} />
+                    <div class="modal-action">
+                      <label for={`preview-${contest?.id}`} class="btn">
+                        Close
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <tr>
+                  <th>{idx + 1}</th>
+                  <td>{contest?.id}</td>
+                  <td>{contest?.email}</td>
+                  <td>
+                    {new Date(contest?.startTime)
+                      .toString()
+                      .replace("(Bangladesh Standard Time)", "")}
                   </td>
-                )}
-              </tr>
+                  <td>{contest?.status}</td>
+                  {contest?.status == "requested" && (
+                    <td className="flex justify-between">
+                      {contest?.status === "requested" && (
+                        <>
+                          <label
+                            for={`preview-${contest?.id}`}
+                            class="btn modal-button btn-xs"
+                          >
+                            preview
+                          </label>
+                          <button
+                            className="btn btn-xs"
+                            onClick={() =>
+                              handleAction(contest?._id, "publish")
+                            }
+                          >
+                            Publish
+                          </button>
+
+                          <button
+                            className="btn btn-xs"
+                            onClick={() =>
+                              handleAction(contest?._id, "discard")
+                            }
+                          >
+                            Discard
+                          </button>
+                        </>
+                      )}
+                    </td>
+                  )}
+                </tr>
+              </>
             ))}
           </tbody>
         </table>
