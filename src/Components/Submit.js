@@ -13,14 +13,42 @@ const Submit = ({ contests }) => {
   const [code, setCode] = useState("");
   const [problem, setProblem] = useState(0);
   const [language, setLanguage] = useState("c");
+  const [error, setError] = useState(false);
   const { id } = useParams();
   // const [contest, contestLoading] = useContest(id);
+  useEffect(() => {
+    if (code.replace(/\s/g, "").length == 0) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  }, [code]);
   const contest = contests.filter((a) => a?.id == id)[0];
   console.dir(contest);
+  const getMark = (idx, time) => {
+    if (time - contest.startTime - contest.duration >= 0) {
+      return 0;
+    }
+    let total, deduce;
+    if (idx == 0) {
+      total = 500;
+      deduce = 2;
+    } else if (idx == 1) {
+      total = 1000;
+      deduce = 4;
+    } else {
+      total = 1500;
+      deduce = 6;
+    }
+    const elapsedTime = parseInt((time - contest.startTime) / 60000);
+    return Math.max(total - elapsedTime * deduce, (total * 30) / 100);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoader(true);
-    let language_id = 52;
+
+    let language_id = 49;
     if (language == "c++") {
       language_id = 54;
     } else if (language == "java") {
@@ -31,14 +59,16 @@ const Submit = ({ contests }) => {
     let selectedProblem = contest.problems[parseInt(problem)];
     const { sampleInput, testInputSet, sampleOutput, testOutputSet } =
       selectedProblem;
-    console.log(selectedProblem, sampleOutput, testOutputSet);
+    const submissionTime = new Date().getTime();
+    // console.log(selectedProblem, sampleOutput, testOutputSet);
     const info = {
       email: user?.email,
       handle: user?.displayName,
-      submissionTime: new Date().getTime(),
+      submissionTime,
+      mark: getMark(parseInt(problem), submissionTime),
       cpu_time_limit: parseFloat(selectedProblem.timeLimit),
       memory_limit: parseFloat(selectedProblem.memoryLimit) * 1024,
-      cpu_extra_time: 2.0,
+      cpu_extra_time: 0.5,
       source_code: code,
       language_id,
       language,
@@ -105,11 +135,16 @@ const Submit = ({ contests }) => {
             setCode={setCode}
             language={language == "c++" ? "cpp" : language}
           ></MonacoEditor>
+          {error && <p className="text-[red]">*code can't be empty</p>}
         </div>
 
         <PreLoader loading={loader}></PreLoader>
 
-        <button type="submit" className="btn btn-sm block mx-auto mb-4 mt-1">
+        <button
+          type="submit"
+          className="btn btn-sm block mx-auto mb-4 mt-1"
+          disabled={error}
+        >
           Submit
         </button>
       </form>

@@ -45,7 +45,7 @@ const Home = () => {
       });
   }, []);
   return (
-    <div className="lg:mx-[100px]">
+    <div className="lg:mx-[100px]" onMouseOver={reload}>
       <Header />
       <Routes>
         <Route path="/" element={<HomeDrawer contests={contests} />}>
@@ -74,7 +74,7 @@ const Home = () => {
             }
           ></Route>
           <Route
-            path="/dashboard/arrange-contest"
+            path="/dashboard/my-contest"
             element={
               <RequireProblemsetter>
                 <MyContest reload={reload} />

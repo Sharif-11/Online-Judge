@@ -33,7 +33,7 @@ const Dashboard = () => {
                 </Link>
               </li>
               <li className="mt-2">
-                <Link to="/dashboard/arrange-contest" className="p-0">
+                <Link to="/dashboard/my-contest" className="p-0">
                   <button className="btn btn-dark text-white w-full">
                     My contest
                   </button>
