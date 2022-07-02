@@ -26,6 +26,15 @@ const ArrangeContest = () => {
   const minuteRef = useRef("");
   const announceRef = useRef("");
   const formRef = useRef();
+  const findContest = (data, id) => {
+    let sz = data.length;
+    for (let i = 0; i < sz; i++) {
+      if (parseInt(data[i]?.id) == parseInt(id)) {
+        return true;
+      }
+    }
+    return false;
+  };
   const handleDisabled = () => {
     const id = idRef.current.value;
     const date = dateRef.current.value;
@@ -70,7 +79,7 @@ const ArrangeContest = () => {
           setError(false);
           return true;
         }
-        if (parseInt(data[0]?.id) == parseInt(idRef?.current.value)) {
+        if (findContest(data, parseInt(idRef?.current?.value))) {
           setError(true);
           return false;
         } else {
@@ -79,6 +88,7 @@ const ArrangeContest = () => {
         }
       });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 

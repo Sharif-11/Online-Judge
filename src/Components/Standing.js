@@ -81,6 +81,9 @@ const Standing = ({ contests }) => {
 
     marks = marks - 10 * (ttl - accepted.length);
     submissions[i].score = marks;
+    if (submissions[i].score < 0) {
+      submissions[i].score = 0;
+    }
     submissions[i].accepted = accepted;
     submissions[i].penalty = 10 * (ttl - accepted.length);
     submissions[i].handle = handle;
