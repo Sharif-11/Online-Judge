@@ -150,6 +150,7 @@ const ArrangeContest = () => {
       <form
         className="lg:w-4/5 flex flex-col align-items-center"
         ref={formRef}
+        noValidate
         onSubmit={handleSubmit}
       >
         <div
@@ -224,7 +225,7 @@ const ArrangeContest = () => {
                 step={15}
                 class="input input-bordered w-[75px]"
                 min={0}
-                max={60}
+                max={59}
                 required
                 onChange={handleDisabled}
                 ref={minuteRef}
