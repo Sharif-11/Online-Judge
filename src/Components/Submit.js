@@ -15,7 +15,7 @@ const Submit = ({ contests }) => {
   const [language, setLanguage] = useState("c");
   const [error, setError] = useState(false);
   const { id } = useParams();
-  // const [contest, contestLoading] = useContest(id);
+
   useEffect(() => {
     if (code.replace(/\s/g, "").length == 0) {
       setError(true);

@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useLocation, useParams } from "react-router-dom";
-import auth from "../firebase.init";
-
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { timeContext } from "./Home";
+import msToTime from "./msToTime";
+const { getNewRatings } = require("codeforces-rating-system");
 const Standing = ({ contests }) => {
   const [submissions, setSubmissions] = useState([]);
   const { id } = useParams();
-
   const contest = contests?.filter((a) => a?.id == id)[0];
   const { startTime, duration } = contest;
-  // console.log(startTime, duration);
-  //   console.log(contest);
+  const { time } = useContext(timeContext);
+
   useEffect(() => {
-    console.log(startTime);
     fetch(`https://lit-meadow-72602.herokuapp.com/submissions`, {
       method: "GET",
       headers: {
@@ -26,25 +24,8 @@ const Standing = ({ contests }) => {
         setSubmissions(data);
       });
   }, []);
-  const msToTime = (curr) => {
-    let hours = parseInt(curr / 3600000);
-    curr = curr % 3600000;
-    let minutes = parseInt(curr / 60000);
-    curr = curr % 60000;
-    let seconds = parseInt(curr / 1000);
-    if (hours < 10) {
-      hours = "0" + hours;
-    }
-    if (minutes < 10) {
-      minutes = "0" + minutes;
-    }
-    if (seconds < 10) {
-      seconds = "0" + seconds;
-    }
-    return `${hours}:${minutes}`;
-  };
+
   let sz = submissions.length;
-  let cnt = contest?.problems?.length;
   for (let i = 0; i < sz; i++) {
     const handle = submissions[i]._id.handle;
     let marks = 0;
@@ -79,19 +60,34 @@ const Standing = ({ contests }) => {
       }
     }
 
-    marks = marks - 10 * (ttl - accepted.length);
+    marks = marks - 10 * (ttl - ok);
     submissions[i].score = marks;
     if (submissions[i].score < 0) {
       submissions[i].score = 0;
     }
     submissions[i].accepted = accepted;
-    submissions[i].penalty = 10 * (ttl - accepted.length);
+    submissions[i].penalty = 10 * (ttl - ok);
     submissions[i].handle = handle;
     submissions[i].tried = tried;
     submissions[i].ok = ok;
   }
   submissions.sort((a, b) => b.score - a.score);
-  console.dir(submissions);
+  // setTimeout(() => {
+  //   if (time >= contest.startTime + contest.duration) {
+  //     const contestants = [];
+
+  //     for (let i = 0; i < submissions.length; i++) {
+  //       let contestant = {};
+  //       contestant.username = submissions[i].handle;
+  //       contestant.position = i + 1;
+  //       contestant.previousRating = 200;
+  //       contestants.push(contestant);
+  //     }
+
+  //     console.log(getNewRatings(contestants));
+  //   }
+  // }, contest.duration + contest.startTime - time);
+
   return (
     <div class="overflow-x-auto">
       <table class="table table-compact w-full">
@@ -126,7 +122,8 @@ const Standing = ({ contests }) => {
                     <span>
                       {msToTime(
                         submission?.accepted[i]?.submissionTime -
-                          contest?.startTime
+                          contest?.startTime,
+                        true
                       )}
                     </span>
                   </td>

@@ -1,59 +1,17 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-const PayAttension = ({}) => {
+import { timeContext } from "./Home";
+import msToTime from "./msToTime";
+import findUpcomingContest from "./upcoming";
+const PayAttension = () => {
   const [contests, setContests] = useState([]);
+  const { time } = useContext(timeContext);
 
-  const [time, setTime] = useState(new Date().getTime());
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTime(new Date().getTime());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const msToTime = (curr) => {
-    let hours = parseInt(curr / 3600000);
-    curr = curr % 3600000;
-    let minutes = parseInt(curr / 60000);
-    curr = curr % 60000;
-    let seconds = parseInt(curr / 1000);
-    if (hours < 10) {
-      hours = "0" + hours;
-    }
-    if (minutes < 10) {
-      minutes = "0" + minutes;
-    }
-    if (seconds < 10) {
-      seconds = "0" + seconds;
-    }
-    return `${hours}:${minutes}:${seconds}`;
-  };
-  const findUpcomingContest = (data) => {
-    let arr = [];
-    const now = new Date().getTime();
-    for (let i = 0; i < data.length; i++) {
-      if (Math.abs(data[i].startTime - now) <= 23 * 3600000) {
-        if (data[i].startTime > now) {
-          data[i].runningState = "upcoming";
-          arr.push(data[i]);
-        } else if (now - data[i].startTime >= data[i].duration) {
-          data[i].runningState = "ended";
-          arr.push(data[i]);
-        } else if (data[i].startTime <= now) {
-          data[i].runningState = "running";
-          arr.push(data[i]);
-        }
-      }
-    }
-    setContests(arr);
-  };
   const reload = () => {
-    fetch("https://lit-meadow-72602.herokuapp.com/contests?status=published")
+    fetch("https://lit-meadow-72602.herokuapp.com/contests")
       .then((res) => res.json())
       .then((data) => {
-        findUpcomingContest(data);
+        setContests(findUpcomingContest(data));
       });
   };
   useEffect(() => {

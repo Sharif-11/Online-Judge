@@ -8,6 +8,7 @@ const Profile = () => {
   const [sending, setSending] = useState(false);
   const [role, roleLoading] = useRole(user);
   const [show, setShow] = useState(true);
+  const [rating, setRating] = useState(200);
   const handleRequest = () => {
     fetch("https://lit-meadow-72602.herokuapp.com/role", {
       method: "POST",
@@ -38,25 +39,32 @@ const Profile = () => {
         }
       });
   }, [sending]);
-
+  useEffect(() => {
+    fetch("https://lit-meadow-72602.herokuapp.com/ratings/" + user?.displayName)
+      .then((res) => res.json())
+      .then((data) => setRating(data?.rating));
+  }, [user]);
   if (loading || roleLoading) {
     return <p>Loading..</p>;
   }
 
   return (
     <div>
-      {role == "user" && (
-        <div>
-          <h1 className="my-2">Do you want to be a problemsetter</h1>
-          {show ? (
-            <button className="btn btn-xs" onClick={handleRequest}>
-              Send Request
-            </button>
-          ) : (
-            <button className="btn btn-xs">Request Send</button>
-          )}
-        </div>
-      )}
+      <h1 className="text-lg font-bold">Your Rating: {rating}</h1>
+      <div>
+        {role == "user" && (
+          <div>
+            <h1 className="my-2">Do you want to be a problemsetter</h1>
+            {show ? (
+              <button className="btn btn-xs" onClick={handleRequest}>
+                Send Request
+              </button>
+            ) : (
+              <button className="btn btn-xs">Request Send</button>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -14,10 +14,11 @@ const Submission = ({ submission }) => {
   }, []);
   let time = Infinity,
     memory = Infinity;
+  // debugger;
   const testCases = submission?.result?.submissions;
   for (let i = 0; i < testCases?.length; i++) {
-    time = Math.min(parseFloat(testCases[i].time), time);
-    memory = Math.min(parseFloat(testCases[i].memory), memory);
+    time = Math.min(parseFloat(testCases[i]?.time), time);
+    memory = Math.min(parseFloat(testCases[i]?.memory), memory);
   }
   // alert(time);
   return (

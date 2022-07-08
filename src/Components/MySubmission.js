@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import auth from "../firebase.init";
 import axios from "axios";
 import Submission from "./Submission";
+import { encodeURL } from "js-base64";
 const MySubmission = () => {
   const [submissions, setSubmissions] = useState([]);
   const [user, loading] = useAuthState(auth);
@@ -24,6 +25,7 @@ const MySubmission = () => {
   if (loading) {
     return <p>Loading....</p>;
   }
+  console.log(submissions);
   return (
     <div className="my-2">
       <div class="overflow-x-auto">

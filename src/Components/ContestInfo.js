@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useContest from "../Hooks/useContest";
+import { timeContext } from "./Home";
+import msToTime from "./msToTime";
 
-const ContestInfo = ({ contest, refetch }) => {
+const ContestInfo = () => {
   const { id } = useParams();
+  const [contest, loading, refetch] = useContest(id);
   const [status, setStatus] = useState("Running");
-  const [time, setTime] = useState(new Date().getTime());
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTime(new Date().getTime());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
+  const { time } = useContext(timeContext);
+
   useEffect(() => {
     if (time >= contest.duration + contest.startTime) {
       setStatus("ended");
@@ -19,24 +17,9 @@ const ContestInfo = ({ contest, refetch }) => {
       setStatus("running");
     }
   }, [contest]);
-  const msToTime = (curr) => {
-    let hours = parseInt(curr / 3600000);
-    curr = curr % 3600000;
-    let minutes = parseInt(curr / 60000);
-    curr = curr % 60000;
-    let seconds = parseInt(curr / 1000);
-    if (hours < 10) {
-      hours = "0" + hours;
-    }
-    if (minutes < 10) {
-      minutes = "0" + minutes;
-    }
-    if (seconds < 10) {
-      seconds = "0" + seconds;
-    }
-    return `${hours}:${minutes}:${seconds}`;
-  };
-
+  if (loading) {
+    return <p>Loading...</p>;
+  }
   return (
     <div class="card w-72 bg-base-100 shadow-xl">
       <div class="card-body">
@@ -44,7 +27,7 @@ const ContestInfo = ({ contest, refetch }) => {
           Contest is {status}
         </h2>
         <p className="text-center text-[blue] font-semibold underline">
-          Contest Battle Round #{id}
+          Contest Battle Round #{contest?.id}
         </p>
         {status == "running" && (
           <p className="text-center text-[blue] font-bold text-lg">

@@ -5,14 +5,10 @@ const useContest = (id) => {
   const [contest, setContest] = useState({});
   const [loading, setLoading] = useState(true);
   const refetch = () => {
-    fetch(
-      `https://lit-meadow-72602.herokuapp.com/contests?status=published&id=${parseInt(
-        id
-      )}`
-    )
+    fetch(`https://lit-meadow-72602.herokuapp.com/contests/${parseInt(id)}`)
       .then((res) => res.json())
       .then((data) => {
-        setContest(data[0]);
+        setContest(data);
         setLoading(false);
       })
       .catch((err) => {

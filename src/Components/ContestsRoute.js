@@ -1,40 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { timeContext } from "./Home";
+import msToTime from "./msToTime";
 import UpcomingContest from "./UpcomingContest";
 
 const ContestsRoute = ({ contests, reload }) => {
   const [upcoming, setUpcoming] = useState([]);
   const [finished, setFinished] = useState([]);
-  const [time, setTime] = useState(new Date().getTime());
-  const msToTime = (time) => {
-    if (time == 0) {
-      reload();
-    }
-    if (time <= 0) {
-      return;
-    }
-    let hour, minutes, days;
-    days = parseInt(time / (24 * 3600000));
-    if (days > 0) {
-      return `${days} days`;
-    }
-    time = time % (24 * 3600000);
-    hour = parseInt(time / 3600000);
-    time = time % 3600000;
-    minutes = parseInt(time / 60000);
-    time = time % 60000;
-    let seconds = parseInt(time / 1000);
-    if (hour < 10) {
-      hour = "0" + hour;
-    }
-    if (minutes < 10) {
-      minutes = "0" + minutes;
-    }
-    if (seconds < 10) {
-      seconds = "0" + seconds;
-    }
-    return `${hour}:${minutes}:${seconds}`;
-  };
+  const { time } = useContext(timeContext);
+
   const findUpcoming = () => {
     let up = [];
     let completed = [];
@@ -60,13 +34,6 @@ const ContestsRoute = ({ contests, reload }) => {
   useEffect(() => {
     findUpcoming();
   }, []);
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTime(new Date().getTime());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-  // console.log(finished);
   return (
     <div class="overflow-x-auto">
       {upcoming.length > 0 && (
