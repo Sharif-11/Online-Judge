@@ -1,17 +1,16 @@
-import React, { useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import auth from "../firebase.init";
+import React, { useContext, useEffect } from "react";
 import { useQuery } from "react-query";
 import Preview from "./Preview";
+import { userContext } from "./Home";
 const AllContest = ({ reload }) => {
-  const [user, loading] = useAuthState(auth);
+  const { user } = useContext(userContext);
   const { data, isLoading, refetch } = useQuery("allContest", () =>
-    fetch(
-      "https://lit-meadow-72602.herokuapp.com/contests?requested=requested"
-    ).then((res) => res.json())
+    fetch("http://localhost:5000/contests?requested=requested").then((res) =>
+      res.json()
+    )
   );
   const handleStatus = (id, status) => {
-    fetch("https://lit-meadow-72602.herokuapp.com/contests/" + id, {
+    fetch("http://localhost:5000/contests/" + id, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -35,6 +34,9 @@ const AllContest = ({ reload }) => {
       handleStatus(id, action);
     }
   };
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
   return (
     <div>
       <div class="overflow-x-auto m-4">

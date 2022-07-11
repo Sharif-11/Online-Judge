@@ -8,7 +8,7 @@ const PayAttension = () => {
   const { time } = useContext(timeContext);
 
   const reload = () => {
-    fetch("https://lit-meadow-72602.herokuapp.com/contests")
+    fetch("http://localhost:5000/contests")
       .then((res) => res.json())
       .then((data) => {
         setContests(findUpcomingContest(data));

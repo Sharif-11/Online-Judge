@@ -1,20 +1,13 @@
-import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import auth from "../firebase.init";
-import logo from "../Images/logo.png";
 import { signOut } from "firebase/auth";
-import download from "../Images/download.png";
 import final_logo from "../Images/final_logo.png";
 import Ellipsis from "../Images/Ellipsis.svg";
-import useRole from "../Hooks/useRole";
-import RequireAuth from "./RequireAuth";
+import { userContext } from "./Home";
+
 const Header = () => {
-  const [user, loading, error] = useAuthState(auth);
-  const [role, rLoading] = useRole(user);
-  if (loading || rLoading) {
-    return <p>Loading...</p>;
-  }
+  const { user, role } = useContext(userContext);
 
   return (
     <div className="flex flex-col-reverse lg:flex-col">
@@ -34,10 +27,7 @@ const Header = () => {
         </div>
         <div className="btn-container flex align-items-center mt-3 mr-4 lg:mr-0 lg:mt-6">
           {!!user && (
-            <Link
-              to={`/profile/${user?.displayName}`}
-              className="mx-3 underline text-[blue]"
-            >
+            <Link to={`/profile`} className="mx-3 underline text-[blue]">
               {user?.displayName}
             </Link>
           )}

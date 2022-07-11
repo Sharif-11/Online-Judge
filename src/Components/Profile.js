@@ -1,70 +1,76 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { toast } from "react-toastify";
-import auth from "../firebase.init";
-import useRole from "../Hooks/useRole";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, Outlet } from "react-router-dom";
+import { userContext } from "./Home";
 const Profile = () => {
-  const [user, loading] = useAuthState(auth);
-  const [sending, setSending] = useState(false);
-  const [role, roleLoading] = useRole(user);
-  const [show, setShow] = useState(true);
-  const [rating, setRating] = useState(200);
-  const handleRequest = () => {
-    fetch("https://lit-meadow-72602.herokuapp.com/role", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ email: user?.email, handle: user?.displayName }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data?.acknowledged) {
-          toast.success("Request sent successfully", {
-            position: toast.POSITION.BOTTOM_RIGHT,
-          });
-          setSending(true);
-        }
-      });
-  };
-  useEffect(() => {
-    fetch("https://lit-meadow-72602.herokuapp.com/role")
-      .then((res) => res.json())
-      .then((data) => {
-        let sz = data.length;
-        for (let i = 0; i < sz; i++) {
-          if (data[i].email == user?.email) {
-            setShow(false);
-          }
-        }
-      });
-  }, [sending]);
-  useEffect(() => {
-    fetch("https://lit-meadow-72602.herokuapp.com/ratings/" + user?.displayName)
-      .then((res) => res.json())
-      .then((data) => setRating(data?.rating));
-  }, [user]);
-  if (loading || roleLoading) {
-    return <p>Loading..</p>;
-  }
+  const { user } = useContext(userContext);
+  const [active, setActive] = useState("handle");
 
   return (
-    <div>
-      <h1 className="text-lg font-bold">Your Rating: {rating}</h1>
-      <div>
-        {role == "user" && (
-          <div>
-            <h1 className="my-2">Do you want to be a problemsetter</h1>
-            {show ? (
-              <button className="btn btn-xs" onClick={handleRequest}>
-                Send Request
-              </button>
-            ) : (
-              <button className="btn btn-xs">Request Send</button>
-            )}
-          </div>
-        )}
+    <div className="profile">
+      <div class="tabs tabs-boxed bg-transparent">
+        <Link to={`/profile`} onClick={() => setActive("handle")}>
+          <a
+            class={`tab font-bold text-[black] text-xs uppercase ${
+              active == "handle" && "tab-active"
+            }`}
+          >
+            {user?.displayName}
+          </a>
+        </Link>
+
+        <Link to={`/profile/settings`} onClick={() => setActive("settings")}>
+          <a
+            class={`tab font-bold text-[black] text-xs uppercase ${
+              active == "settings" && "tab-active"
+            }`}
+          >
+            Settings
+          </a>
+        </Link>
+        <Link to={`/profile/social`} onClick={() => setActive("social")}>
+          <a
+            class={`tab font-bold text-[black] text-xs uppercase ${
+              active == "social" && "tab-active"
+            }`}
+          >
+            Social
+          </a>
+        </Link>
+        <Link
+          to={`/profile/submissions`}
+          onClick={() => setActive("submissions")}
+        >
+          <a
+            class={`tab font-bold text-[black] text-xs uppercase ${
+              active == "submissions" && "tab-active"
+            }`}
+          >
+            Submissions
+          </a>
+        </Link>
+        <Link to={`/profile/contests`} onClick={() => setActive("contests")}>
+          <a
+            class={`tab font-bold text-[black] text-xs uppercase ${
+              active == "contests" && "tab-active"
+            }`}
+          >
+            Contests
+          </a>
+        </Link>
+        <Link
+          to={`/profile/problemsettings`}
+          onClick={() => setActive("problemsettings")}
+        >
+          <a
+            class={`tab font-bold text-[black] text-xs uppercase ${
+              active == "problemsettings" && "tab-active"
+            }`}
+          >
+            problemsettings
+          </a>
+        </Link>
       </div>
+      <Outlet />
     </div>
   );
 };

@@ -1,15 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import MonacoEditor from "./MonacoEditor";
-import { useAuthState } from "react-firebase-hooks/auth";
-import auth from "../firebase.init";
-import useContest from "../Hooks/useContest";
-import { decode } from "js-base64";
 import PreLoader from "./PreLoader";
+import { userContext } from "./Home";
 const Submit = ({ contests }) => {
   const navigate = useNavigate("");
   const [loader, setLoader] = useState(false);
-  const [user, loading] = useAuthState(auth);
+  const { user } = useContext(userContext);
   const [code, setCode] = useState("");
   const [problem, setProblem] = useState(0);
   const [language, setLanguage] = useState("c");
@@ -76,7 +73,7 @@ const Submit = ({ contests }) => {
       stdin: [sampleInput].concat(testInputSet),
       output: [sampleOutput].concat(testOutputSet),
     };
-    fetch(`https://lit-meadow-72602.herokuapp.com/contests/${id}/submit`, {
+    fetch(`http://localhost:5000/contests/${id}/submit`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(info),
@@ -91,9 +88,7 @@ const Submit = ({ contests }) => {
       });
   };
   const { problems } = contest;
-  if (loading) {
-    return <p>loading...</p>;
-  }
+
   return (
     <div className="py-4 flex flex-col justify-center">
       <form onSubmit={handleSubmit}>

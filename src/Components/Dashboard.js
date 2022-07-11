@@ -1,18 +1,8 @@
-import React, { useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React, { useContext, useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
-import auth from "../firebase.init";
-import useRole from "../Hooks/useRole";
+import { userContext } from "./Home";
 const Dashboard = () => {
-  const [user, loading] = useAuthState(auth);
-  const [role, isLoading] = useRole(user);
-  if (loading || isLoading) {
-    return <p>Loading...</p>;
-  }
-  if (user) {
-    console.clear();
-    console.log(role);
-  }
+  const { role } = useContext(userContext);
 
   return (
     <div class="drawer drawer-mobile my-3">

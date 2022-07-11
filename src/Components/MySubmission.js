@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import auth from "../firebase.init";
-import axios from "axios";
 import Submission from "./Submission";
-import { encodeURL } from "js-base64";
+import { userContext } from "./Home";
 const MySubmission = () => {
   const [submissions, setSubmissions] = useState([]);
-  const [user, loading] = useAuthState(auth);
+  const { user } = useContext(userContext);
 
   const { id } = useParams();
   useEffect(() => {
-    fetch(`https://lit-meadow-72602.herokuapp.com/contests/${id}/my`, {
+    fetch(`http://localhost:5000/contests/${id}/my`, {
       method: "GET",
       headers: {
         email: user?.email,
@@ -22,10 +19,7 @@ const MySubmission = () => {
         setSubmissions(data);
       });
   }, []);
-  if (loading) {
-    return <p>Loading....</p>;
-  }
-  console.log(submissions);
+
   return (
     <div className="my-2">
       <div class="overflow-x-auto">

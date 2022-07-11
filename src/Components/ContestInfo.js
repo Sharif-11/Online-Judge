@@ -9,11 +9,11 @@ const ContestInfo = () => {
   const [contest, loading, refetch] = useContest(id);
   const [status, setStatus] = useState("Running");
   const { time } = useContext(timeContext);
-
+  console.log(contest);
   useEffect(() => {
-    if (time >= contest.duration + contest.startTime) {
+    if (time >= contest?.duration + contest?.startTime) {
       setStatus("ended");
-    } else if (time >= contest.startTime) {
+    } else if (time >= contest?.startTime) {
       setStatus("running");
     }
   }, [contest]);

@@ -1,8 +1,6 @@
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
-import auth from "../firebase.init";
-import rating from "../Images/rating.png";
+import ratings from "../Images/ratings.png";
 import avatar from "../Images/avatar.jpg";
 const UserInfo = ({ user }) => {
   return (
@@ -14,7 +12,7 @@ const UserInfo = ({ user }) => {
       <div className="content flex pl-3 pr-8 py-2 justify-between">
         <div className="info">
           <p className="flex">
-            <img src={rating} alt="rating" height={16} width={16}></img>
+            <img src={ratings} alt="rating" height={16} width={16}></img>
             <span className="pl-1">Rating:unrated</span>
           </p>
           <ul

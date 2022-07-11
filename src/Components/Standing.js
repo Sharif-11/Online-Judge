@@ -11,7 +11,7 @@ const Standing = ({ contests }) => {
   const { time } = useContext(timeContext);
 
   useEffect(() => {
-    fetch(`https://lit-meadow-72602.herokuapp.com/submissions`, {
+    fetch(`http://localhost:5000/submissions`, {
       method: "GET",
       headers: {
         startTime,
