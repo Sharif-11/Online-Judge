@@ -2,10 +2,10 @@ import axios from "axios";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { userContext } from "./Home";
 import { toast } from "react-toastify";
-import useProfile from "../Hooks/useProfile";
+import { profileContext } from "./ProfileDrawer";
 const Social = () => {
   const { user } = useContext(userContext);
-  const [profile, loading] = useProfile(user);
+  const { profile, refetch } = useContext(profileContext);
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
@@ -34,9 +34,13 @@ const Social = () => {
       data.institute = institute;
     }
     axios
-      .put(`http://localhost:5000/users/social/${user?.email}`, data)
+      .put(
+        `https://lit-meadow-72602.herokuapp.com/users/social/${user?.email}`,
+        data
+      )
       .then(({ data }) => {
         if (data?.modifiedCount == 1) {
+          refetch();
           toast.success("Changes saved successfully");
         } else if (data?.modifiedCount == 0) {
           toast.info("You don't change any information!");
@@ -45,9 +49,6 @@ const Social = () => {
         }
       });
   };
-  if (loading) {
-    return <p>Loading...</p>;
-  }
 
   return (
     <div className="border p-3 my-4" style={{ borderRadius: "6px" }}>

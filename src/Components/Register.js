@@ -36,7 +36,7 @@ const Register = () => {
       setConfirmPasswordError(true);
       return;
     } else setConfirmPasswordError(false);
-    fetch("http://localhost:5000/users/" + handle)
+    fetch("https://lit-meadow-72602.herokuapp.com/users/" + handle)
       .then((res) => res.json())
       .then((data) => {
         if (data?.handle === handle) {
@@ -57,7 +57,7 @@ const Register = () => {
     return <p>Loading...</p>;
   }
   if (person) {
-    fetch("http://localhost:5000/users", {
+    fetch("https://lit-meadow-72602.herokuapp.com/users", {
       method: "PUT",
       headers: {
         "content-type": "application/json",

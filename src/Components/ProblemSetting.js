@@ -11,7 +11,7 @@ const ProblemSetting = () => {
   const [sending, setSending] = useState(false);
   console.log(role);
   const handleRequest = () => {
-    fetch("http://localhost:5000/role", {
+    fetch("https://lit-meadow-72602.herokuapp.com/role", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -29,7 +29,7 @@ const ProblemSetting = () => {
       });
   };
   useEffect(() => {
-    fetch("http://localhost:5000/role")
+    fetch("https://lit-meadow-72602.herokuapp.com/role")
       .then((res) => res.json())
       .then((data) => {
         let sz = data.length;

@@ -46,15 +46,19 @@ const Home = () => {
     return () => clearInterval(timer);
   }, []);
   const reload = () => {
-    axios.get("http://localhost:5000/contests").then(({ data }) => {
-      setContests(data);
-    });
+    axios
+      .get("https://lit-meadow-72602.herokuapp.com/contests")
+      .then(({ data }) => {
+        setContests(data);
+      });
   };
 
   useEffect(() => {
-    axios.get("http://localhost:5000/contests").then(({ data }) => {
-      setContests(data);
-    });
+    axios
+      .get("https://lit-meadow-72602.herokuapp.com/contests")
+      .then(({ data }) => {
+        setContests(data);
+      });
   }, []);
   if (loading || rLoading) {
     return <p>Loading...</p>;

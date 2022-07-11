@@ -2,11 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { userContext } from "./Home";
 import ratings from "../Images/ratings.png";
 import mail from "../Images/mail.png";
+import { profileContext } from "./ProfileDrawer";
 const ProfileInfo = () => {
   const { user } = useContext(userContext);
+  const { profile } = useContext(profileContext);
   const [rating, setRating] = useState(200);
+  const { city, country, fullName, institute } = profile;
   useEffect(() => {
-    fetch("http://localhost:5000/ratings/" + user?.displayName)
+    fetch("https://lit-meadow-72602.herokuapp.com/ratings/" + user?.displayName)
       .then((res) => res.json())
       .then((data) => setRating(data?.rating));
   }, [user]);
@@ -17,16 +20,13 @@ const ProfileInfo = () => {
         {user?.displayName}
       </h1>
       <p className="text-[14px]">
-        <span>{user?.displayName}</span>,
-        <span className="text-[blue] underline pl-[2px]">Chittagong</span>,
-        <span className="text-[blue] underline pl-[2px]">Bangladesh</span>
+        <span>{fullName}</span>,
+        <span className="text-[blue] underline pl-[2px]">{city}</span>,
+        <span className="text-[blue] underline pl-[2px]">{country}</span>
       </p>
       <p className="text-[14px]">
         <span>From</span>,
-        <span className="text-[blue] underline pl-[2px]">
-          Chittagong University Of Engineering & Technology
-        </span>
-        ,
+        <span className="text-[blue] underline pl-[2px]">{institute}</span>
       </p>
       <div className="flex my-3">
         <img src={ratings} alt="rating"></img>

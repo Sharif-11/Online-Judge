@@ -35,7 +35,7 @@ const Login = () => {
   }
 
   if (googleUser) {
-    fetch("http://localhost:5000/users", {
+    fetch("https://lit-meadow-72602.herokuapp.com/users", {
       method: "PUT",
       headers: {
         "content-type": "application/json",

@@ -6,7 +6,7 @@ const useContest = (id) => {
   // const [contest, setContest] = useState({});
   // const [loading, setLoading] = useState(true);
   // const refetch = () => {
-  // fetch(`http://localhost:5000/contests/${parseInt(id)}`)
+  // fetch(`https://lit-meadow-72602.herokuapp.com/contests/${parseInt(id)}`)
   //   .then((res) => res.json())
   //     .then((data) => {
   //       setContest(data);
@@ -22,9 +22,9 @@ const useContest = (id) => {
   const { data, isLoading, isError, error, refetch } = useQuery(
     ["contest-id", id],
     () => {
-      return fetch(`http://localhost:5000/contests/${parseInt(id)}`).then(
-        (res) => res.json()
-      );
+      return fetch(
+        `https://lit-meadow-72602.herokuapp.com/contests/${parseInt(id)}`
+      ).then((res) => res.json());
     }
   );
   console.log(data);
