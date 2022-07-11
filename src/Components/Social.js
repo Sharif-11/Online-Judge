@@ -21,16 +21,16 @@ const Social = () => {
     e.preventDefault();
 
     const data = {};
-    if (name.replace(/\s/g, "").length != 0) {
+    if (name?.replace(/\s/g, "").length != 0) {
       data.fullName = name;
     }
-    if (city.replace(/\s/g, "").length != 0) {
+    if (city?.replace(/\s/g, "").length != 0) {
       data.city = city;
     }
-    if (country.replace(/\s/g, "").length != 0) {
+    if (country?.replace(/\s/g, "").length != 0) {
       data.country = country;
     }
-    if (institute.replace(/\s/g, "").length != 0) {
+    if (institute?.replace(/\s/g, "").length != 0) {
       data.institute = institute;
     }
     axios
