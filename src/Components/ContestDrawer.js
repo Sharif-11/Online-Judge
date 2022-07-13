@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Navigate, useLocation, useParams } from "react-router-dom";
+import React from "react";
 import Contest from "./Contest";
-import useContest from "../Hooks/useContest";
 import ContestInfo from "./ContestInfo";
 import Marks from "./Marks";
 import { timeContext } from "./Home";

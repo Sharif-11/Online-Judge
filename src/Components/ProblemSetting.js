@@ -51,7 +51,9 @@ const ProblemSetting = () => {
               Send Request
             </button>
           ) : (
-            <button className="btn btn-xs">Request Send</button>
+            <button className="btn btn-xs capitalize">
+              Request already sent
+            </button>
           )}
         </div>
       )}

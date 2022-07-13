@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Code from "./Code";
-const Submission = ({ submission }) => {
-  const { id } = useParams();
-  const [color, setColor] = useState("#0000aa");
+const Submission = ({ submission, flag }) => {
   const { verdict } = submission;
-  useEffect(() => {
-    if (verdict == "Accepted") {
-      setColor("#0a0");
-    } else {
-      setColor("#00a");
-    }
-  }, []);
   let time = Infinity,
     memory = Infinity;
   // debugger;
@@ -54,11 +45,15 @@ const Submission = ({ submission }) => {
         <td>{submission?.handle}</td>
         <td className="text-[blue] underline">
           <Link
-            to={`/contests/${id}/problem/${String.fromCharCode(
+            to={`/contests/${submission?.id}/problem/${String.fromCharCode(
               submission.problem + 65
             )}`}
           >
-            {String.fromCharCode(submission.problem + 65)}
+            {flag == 1
+              ? String.fromCharCode(submission.problem + 65) +
+                " - " +
+                submission?.title
+              : String.fromCharCode(submission.problem + 65)}
           </Link>
         </td>
         <td>{submission?.language?.toUpperCase()}</td>

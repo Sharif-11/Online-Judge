@@ -52,7 +52,7 @@ const Alluser = () => {
             <tr>
               <th></th>
               <th>Name</th>
-              <th>User Id</th>
+              <th>Handle</th>
               <th>Role</th>
               <th>Action</th>
             </tr>

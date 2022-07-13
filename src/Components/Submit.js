@@ -54,7 +54,7 @@ const Submit = ({ contests }) => {
       language_id = 71;
     }
     let selectedProblem = contest.problems[parseInt(problem)];
-    const { sampleInput, testInputSet, sampleOutput, testOutputSet } =
+    const { sampleInput, testInputSet, sampleOutput, testOutputSet, title } =
       selectedProblem;
     const submissionTime = new Date().getTime();
     // console.log(selectedProblem, sampleOutput, testOutputSet);
@@ -69,6 +69,7 @@ const Submit = ({ contests }) => {
       source_code: code,
       language_id,
       language,
+      title,
       problem: parseInt(problem),
       stdin: [sampleInput].concat(testInputSet),
       output: [sampleOutput].concat(testOutputSet),

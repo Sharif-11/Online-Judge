@@ -31,6 +31,8 @@ import auth from "../firebase.init";
 import useRole from "../Hooks/useRole";
 import Social from "./Social";
 import Settings from "./Settings";
+import Submissions from "./Submissions";
+import RatedContests from "./RatedContests";
 export const timeContext = createContext(null);
 export const userContext = createContext(null);
 const Home = () => {
@@ -160,9 +162,12 @@ const Home = () => {
               <Route path="/profile/social" element={<Social />}></Route>
               <Route
                 path="/profile/submissions"
-                element={"submissions"}
+                element={<Submissions />}
               ></Route>
-              <Route path="/profile/contests" element={"contests"}></Route>
+              <Route
+                path="/profile/contests"
+                element={<RatedContests />}
+              ></Route>
               <Route
                 path="/profile/problemsettings"
                 element={<ProblemSetting />}

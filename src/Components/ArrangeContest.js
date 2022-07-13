@@ -106,6 +106,7 @@ const ArrangeContest = () => {
           setError(false);
           const contest = {
             id,
+            identity: parseInt(id),
             startTime: d.getTime(),
             duration:
               parseInt(hour) * 60 * 60 * 1000 + parseInt(minute) * 60000,

@@ -72,21 +72,6 @@ const Standing = ({ contests }) => {
     submissions[i].ok = ok;
   }
   submissions.sort((a, b) => b.score - a.score);
-  // setTimeout(() => {
-  //   if (time >= contest.startTime + contest.duration) {
-  //     const contestants = [];
-
-  //     for (let i = 0; i < submissions.length; i++) {
-  //       let contestant = {};
-  //       contestant.username = submissions[i].handle;
-  //       contestant.position = i + 1;
-  //       contestant.previousRating = 200;
-  //       contestants.push(contestant);
-  //     }
-
-  //     console.log(getNewRatings(contestants));
-  //   }
-  // }, contest.duration + contest.startTime - time);
 
   return (
     <div class="overflow-x-auto">
