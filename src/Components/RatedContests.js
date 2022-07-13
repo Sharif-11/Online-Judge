@@ -13,17 +13,17 @@ const RatedContests = () => {
     return <p>Loading...</p>;
   }
 
-  for (let i = 0; i < data.length; i++) {
-    let sz = data[i].newRating.length;
+  for (let i = 0; i < data?.length; i++) {
+    let sz = data[i]?.newRating?.length;
     for (let j = 0; j < sz; j++) {
-      if (data[i].newRating[j].username == user?.displayName) {
-        const { newRating, previousRating, position } = data[i].newRating[j];
+      if (data[i]?.newRating[j]?.username == user?.displayName) {
+        const { newRating, previousRating, position } = data[i]?.newRating[j];
         data[i].newRating = newRating;
         data[i].previousRating = previousRating;
         data[i].ratingChange = newRating - previousRating;
         data[i].rank = position;
       }
-      if (data[i].standing[j].handle == user?.displayName) {
+      if (data[i]?.standing[j]?.handle == user?.displayName) {
         data[i].solved = data[i].standing[j].ok;
       }
     }
