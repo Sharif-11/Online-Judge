@@ -8,7 +8,6 @@ const Standing = ({ contests }) => {
   const { id } = useParams();
   const contest = contests?.filter((a) => a?.id == id)[0];
   const { startTime, duration } = contest;
-  const { time } = useContext(timeContext);
 
   useEffect(() => {
     fetch(`https://lit-meadow-72602.herokuapp.com/submissions`, {

@@ -1,17 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { userContext } from "./Home";
 import Submission from "./Submission";
 
 const Submissions = () => {
   const { user } = useContext(userContext);
-  const [submissions, setSubmissions] = useState([]);
-  useEffect(() => {
+  const { data: submissions, isLoading } = useQuery("all-submissions", () =>
     fetch(
       `https://lit-meadow-72602.herokuapp.com/submissions/${user?.displayName}`
-    )
-      .then((res) => res.json())
-      .then((data) => setSubmissions(data));
-  }, []);
+    ).then((res) => res.json())
+  );
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
   return (
     <div className="flex flex-col py-3">
       <h2 className="mx-auto font-semibold text-xl">

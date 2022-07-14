@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 
 const Announcement = ({ id, announcement }) => {
-  console.log(announcement);
   return (
     <div class="card w-full">
       <div class="card-body">

@@ -4,16 +4,21 @@ import ratings from "../Images/ratings.png";
 import mail from "../Images/mail.png";
 import { profileContext } from "./ProfileDrawer";
 import ContestChart from "./ContestChart";
+import { useQuery } from "react-query";
 const ProfileInfo = () => {
   const { user } = useContext(userContext);
   const { profile } = useContext(profileContext);
-  const [rating, setRating] = useState(200);
   const { city, country, fullName, institute } = profile;
-  useEffect(() => {
-    fetch("https://lit-meadow-72602.herokuapp.com/ratings/" + user?.displayName)
-      .then((res) => res.json())
-      .then((data) => setRating(data?.rating));
-  }, [user]);
+  const { data, isLoading } = useQuery(["my-rating", user], () =>
+    fetch(
+      "https://lit-meadow-72602.herokuapp.com/ratings/" + user?.displayName
+    ).then((res) => res.json())
+  );
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div>
       <div className="border my-1 px-4 py-6" style={{ borderRadius: "6px" }}>
@@ -34,7 +39,7 @@ const ProfileInfo = () => {
           <img src={ratings} alt="rating"></img>
 
           <span className="pl-2 font-semibold text-[18px]">
-            Contest Rating: {rating}
+            Contest Rating: {data?.rating || "unrated"}
           </span>
         </div>
         <div className="flex">

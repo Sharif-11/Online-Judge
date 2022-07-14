@@ -4,7 +4,7 @@ import { timeContext } from "./Home";
 import msToTime from "./msToTime";
 import UpcomingContest from "./UpcomingContest";
 
-const ContestsRoute = ({ contests, reload }) => {
+const ContestsRoute = ({ contests }) => {
   const [upcoming, setUpcoming] = useState([]);
   const [finished, setFinished] = useState([]);
   const { time } = useContext(timeContext);

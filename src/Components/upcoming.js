@@ -1,7 +1,7 @@
 const findUpcomingContest = (data) => {
   let arr = [];
   const now = new Date().getTime();
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < data?.length; i++) {
     if (Math.abs(data[i].startTime - now) <= 23 * 3600000) {
       if (data[i].startTime > now) {
         data[i].runningState = "upcoming";
