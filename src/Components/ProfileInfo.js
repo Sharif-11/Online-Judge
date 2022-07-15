@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { userContext } from "./Home";
 import ratings from "../Images/ratings.png";
 import mail from "../Images/mail.png";
 import { profileContext } from "./ProfileDrawer";
 import ContestChart from "./ContestChart";
 import { useQuery } from "react-query";
+import SubmissionPiechart from "./SubmissionPiechart";
 const ProfileInfo = () => {
   const { user } = useContext(userContext);
   const { profile } = useContext(profileContext);
@@ -50,6 +51,9 @@ const ProfileInfo = () => {
       </div>
       <div className="my-6 border p-5 py-8" style={{ borderRadius: "6px" }}>
         <ContestChart />
+      </div>
+      <div className="my-6 border p-5 py-8" style={{ borderRadius: "6px" }}>
+        <SubmissionPiechart />
       </div>
     </div>
   );

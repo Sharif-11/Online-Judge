@@ -12,6 +12,8 @@ const Submission = ({ submission, flag }) => {
     memory = Math.min(parseFloat(testCases[i]?.memory), memory);
   }
   // alert(time);
+  if (submission?.verdict?.includes("Runtime Error"))
+    submission.verdict = "Runtime Error";
   return (
     <>
       <input
