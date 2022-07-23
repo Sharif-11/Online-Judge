@@ -9,12 +9,12 @@ const useProfile = (user) => {
     isLoading,
     refetch,
   } = useQuery(["profile", user?.email], () =>
-    fetch(`http://localhost:5000/profile/${user?.email}`).then((res) =>
-      res.json()
+    fetch(`https://lit-meadow-72602.herokuapp.com/profile/${user?.email}`).then(
+      (res) => res.json()
     )
   );
   // const refetch = () => {
-  // fetch(`http://localhost:5000/profile/${user?.email}`)
+  // fetch(`https://lit-meadow-72602.herokuapp.com/profile/${user?.email}`)
   //   .then((res) => res.json())
   //     .then((data) => {
   //       setProfile(data);

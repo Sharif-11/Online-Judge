@@ -12,7 +12,7 @@ const Standing = ({ contests }) => {
     isLoading,
     refetch,
   } = useQuery("standing", () =>
-    fetch(`http://localhost:5000/submissions`, {
+    fetch(`https://lit-meadow-72602.herokuapp.com/submissions`, {
       method: "GET",
       headers: {
         startTime,

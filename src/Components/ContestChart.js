@@ -16,9 +16,9 @@ import { userContext } from "./Home";
 const ContestChart = () => {
   const { user } = useContext(userContext);
   let { data, isLoading } = useQuery("ratedContest", () =>
-    fetch(`http://localhost:5000/profile/contests/${user?.displayName}`).then(
-      (res) => res.json()
-    )
+    fetch(
+      `https://lit-meadow-72602.herokuapp.com/profile/contests/${user?.displayName}`
+    ).then((res) => res.json())
   );
   if (isLoading) {
     return <p>Loading...</p>;

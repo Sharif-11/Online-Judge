@@ -12,7 +12,9 @@ const PayAttension = () => {
     isLoading,
     refetch: reload,
   } = useQuery("contests", () =>
-    fetch("http://localhost:5000/contests").then((res) => res.json())
+    fetch("https://lit-meadow-72602.herokuapp.com/contests").then((res) =>
+      res.json()
+    )
   );
   const contests = findUpcomingContest(data);
 

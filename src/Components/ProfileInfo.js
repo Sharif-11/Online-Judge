@@ -13,9 +13,9 @@ const ProfileInfo = () => {
   const { profile, refetch } = useContext(profileContext);
   const { city, country, fullName, institute } = profile;
   const { data, isLoading } = useQuery("my-rating", () =>
-    fetch("http://localhost:5000/ratings/" + user?.displayName).then((res) =>
-      res.json()
-    )
+    fetch(
+      "https://lit-meadow-72602.herokuapp.com/ratings/" + user?.displayName
+    ).then((res) => res.json())
   );
   useEffect(() => {
     if (!data?.rating) {

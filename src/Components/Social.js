@@ -34,7 +34,10 @@ const Social = () => {
       data.institute = institute;
     }
     axios
-      .put(`http://localhost:5000/users/social/${user?.email}`, data)
+      .put(
+        `https://lit-meadow-72602.herokuapp.com/users/social/${user?.email}`,
+        data
+      )
       .then(({ data }) => {
         if (data?.modifiedCount == 1) {
           refetch();

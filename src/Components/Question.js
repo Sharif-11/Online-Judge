@@ -8,7 +8,7 @@ const Question = ({ contests }) => {
   const [copyInput, setCopyInput] = useState(false);
   const [copyOutput, setCopyOutput] = useState(false);
   // useEffect(() => {
-  //   fetch(`http://localhost:5000/contests?status=published&id=${parseInt(id)}`)
+  //   fetch(`https://lit-meadow-72602.herokuapp.com/contests?status=published&id=${parseInt(id)}`)
   //     .then((res) => res.json())
   //     .then((data) => {
   //       console.clear();
