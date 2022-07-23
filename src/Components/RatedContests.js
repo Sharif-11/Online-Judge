@@ -5,9 +5,9 @@ import { userContext } from "./Home";
 const RatedContests = () => {
   const { user } = useContext(userContext);
   const { data, isLoading } = useQuery("ratedContest", () =>
-    fetch(
-      `https://lit-meadow-72602.herokuapp.com/profile/contests/${user?.displayName}`
-    ).then((res) => res.json())
+    fetch(`http://localhost:5000/profile/contests/${user?.displayName}`).then(
+      (res) => res.json()
+    )
   );
   if (isLoading) {
     return <p>Loading...</p>;
@@ -28,7 +28,7 @@ const RatedContests = () => {
       }
     }
   }
-  console.log(data);
+  // console.log(data);
   return (
     <div>
       <h1 className="text-lg my-4 font-bold text-center">Contests</h1>
@@ -53,7 +53,7 @@ const RatedContests = () => {
                 <td className="text-[blue] underline text-center">
                   <Link
                     to={`/contests/${contest?.identity}`}
-                  >{`Contest Battle Round #${contest?.identity}`}</Link>
+                  >{`Coding Battle Round #${contest?.identity}`}</Link>
                 </td>
                 <td className="text-[12px] text-center">
                   {new Date(contest?.startTime)
@@ -67,9 +67,9 @@ const RatedContests = () => {
                   </Link>
                 </td>
                 <td
-                  className={`text-center ${
+                  className={`text-center text-[red] font-[500] ${
                     contest?.ratingChange > 0 && "text-[#0a0] font-semibold"
-                  }`}
+                  } ${contest?.ratingChange == 0 && "text-[black] font-[400]"}`}
                 >
                   {contest?.ratingChange > 0
                     ? `+${contest?.ratingChange}`

@@ -68,8 +68,7 @@ const ArrangeContest = () => {
   const handleNext = () => {
     axios
       .get(
-        "https://lit-meadow-72602.herokuapp.com/contests?id=" +
-          parseInt(idRef?.current.value)
+        "http://localhost:5000/contests?id=" + parseInt(idRef?.current.value)
       )
 
       .then(({ data }) => {
@@ -97,7 +96,7 @@ const ArrangeContest = () => {
     const announce = announceRef.current.value;
     var d = new Date(date);
 
-    fetch("https://lit-meadow-72602.herokuapp.com/contests?id=" + id)
+    fetch("http://localhost:5000/contests?id=" + id)
       .then((res) => res.json())
       .then((data) => {
         if (parseInt(data[0]?.id) == parseInt(idRef?.current.value)) {
@@ -139,7 +138,7 @@ const ArrangeContest = () => {
             contest.problems.push(obj);
           }
           axios
-            .post("https://lit-meadow-72602.herokuapp.com/contests", contest)
+            .post("http://localhost:5000/contests", contest)
             .then(({ data }) => {
               console.log(data);
               if (data?.acknowledged) {

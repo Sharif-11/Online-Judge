@@ -43,7 +43,7 @@ const ProblemSetting = () => {
 
   return (
     <div>
-      {role == "user" && (
+      {role == "user" ? (
         <div>
           <h1 className="my-2">Do you want to be a problemsetter</h1>
           {show ? (
@@ -56,6 +56,17 @@ const ProblemSetting = () => {
             </button>
           )}
         </div>
+      ) : (
+        role == "problemSetter" && (
+          <>
+            <button className="btn btn-xs capitalize">
+              Request accepted!!
+            </button>
+            <h2 className="text-[green] text-md font-bold">
+              You are a Problem Setter now
+            </h2>
+          </>
+        )
       )}
     </div>
   );

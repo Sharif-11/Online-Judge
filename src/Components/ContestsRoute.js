@@ -74,9 +74,9 @@ const ContestsRoute = ({ contests }) => {
         <tbody>
           {finished?.map((contest, idx) => (
             <tr>
-              <td className="text-[blue] underline">
+              <td className="text-[#FF00FF] underline">
                 <Link to={`/contests/${contest.id}`}>
-                  {`Contest Battle Round #${contest.id}`}
+                  {`Coding Battle Round #${contest.id}`}
                 </Link>
               </td>
               <td className="text-xs font-semibold">
@@ -85,7 +85,7 @@ const ContestsRoute = ({ contests }) => {
                   .replace("(Bangladesh Standard Time)", "")}
               </td>
               <td>{msToTime(contest.duration)}</td>
-              <td className="text-[blue] underline">
+              <td className="text-[#FF00FF] underline">
                 <Link to={`/contests/${contest?.id}/standing`}>
                   Final Standings
                 </Link>

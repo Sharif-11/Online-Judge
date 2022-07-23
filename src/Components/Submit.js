@@ -21,7 +21,7 @@ const Submit = ({ contests }) => {
     }
   }, [code]);
   const contest = contests.filter((a) => a?.id == id)[0];
-  console.dir(contest);
+
   const getMark = (idx, time) => {
     if (time - contest.startTime - contest.duration >= 0) {
       return 0;
@@ -74,7 +74,7 @@ const Submit = ({ contests }) => {
       stdin: [sampleInput].concat(testInputSet),
       output: [sampleOutput].concat(testOutputSet),
     };
-    fetch(`https://lit-meadow-72602.herokuapp.com/contests/${id}/submit`, {
+    fetch(`http://localhost:5000/contests/${id}/submit`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(info),
@@ -91,7 +91,7 @@ const Submit = ({ contests }) => {
   const { problems } = contest;
 
   return (
-    <div className="py-4 flex flex-col justify-center">
+    <div className="py-4 flex flex-col justify-center bg-[dark]">
       <form onSubmit={handleSubmit}>
         <div class="flex w-full max-w-xs  gap-x-1 mx-auto my-2">
           <label class="label">

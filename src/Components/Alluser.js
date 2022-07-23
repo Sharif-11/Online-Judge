@@ -4,13 +4,11 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 const Alluser = () => {
   const { data, isLoading, refetch } = useQuery("allUsers", () =>
-    fetch("https://lit-meadow-72602.herokuapp.com/users").then((res) =>
-      res.json()
-    )
+    fetch("http://localhost:5000/users").then((res) => res.json())
   );
   const [requests, setRequests] = useState([]);
   useEffect(() => {
-    fetch("https://lit-meadow-72602.herokuapp.com/role")
+    fetch("http://localhost:5000/role")
       .then((res) => res.json())
       .then((data) => {
         setRequests(data);
@@ -30,7 +28,7 @@ const Alluser = () => {
     if (!confirm) {
       return;
     }
-    fetch(`https://lit-meadow-72602.herokuapp.com/users/${id}`, {
+    fetch(`http://localhost:5000/users/${id}`, {
       method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ role }),

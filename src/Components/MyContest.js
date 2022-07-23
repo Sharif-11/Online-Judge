@@ -7,15 +7,15 @@ import Preview from "./Preview";
 const MyContest = ({ reload }) => {
   const { user } = useContext(userContext);
   const { data, isLoading, refetch } = useQuery("myContest", () =>
-    fetch(
-      "https://lit-meadow-72602.herokuapp.com/contests/" + user?.email
-    ).then((res) => res.json())
+    fetch("http://localhost:5000/contests/" + user?.email).then((res) =>
+      res.json()
+    )
   );
   if (isLoading) {
     return <p>Loading....</p>;
   }
   const handleRequest = (id) => {
-    fetch(`https://lit-meadow-72602.herokuapp.com/contests/${id}`, {
+    fetch(`http://localhost:5000/contests/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -32,7 +32,7 @@ const MyContest = ({ reload }) => {
     if (!confirm) {
       return;
     }
-    fetch(`https://lit-meadow-72602.herokuapp.com/contests/${id}`, {
+    fetch(`http://localhost:5000/contests/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",

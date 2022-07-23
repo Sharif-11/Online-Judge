@@ -44,8 +44,8 @@ const Submission = ({ submission, flag }) => {
             .toString()
             .replace("(Bangladesh Standard Time)", "")}
         </td>
-        <td>{submission?.handle}</td>
-        <td className="text-[blue] underline">
+
+        <td className="text-[#FF00FF] underline">
           <Link
             to={`/contests/${submission?.id}/problem/${String.fromCharCode(
               submission.problem + 65
@@ -64,12 +64,12 @@ const Submission = ({ submission, flag }) => {
           className={
             submission.verdict == "Accepted"
               ? `font-[500] text-[#0a0]`
-              : "font-[500] underline text-[#00a]"
+              : "font-[500] underline text-[firebrick]"
           }
         >
           {submission?.verdict}
         </td>
-        <td>{time != Infinity && !isNaN(time) && `${time}s`}</td>
+        <td>{time != Infinity && !isNaN(time) && `${time * 1000}ms`}</td>
         <td>{memory != Infinity && !isNaN(memory) && `${memory}KB`}</td>
       </tr>
     </>

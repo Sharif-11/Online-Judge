@@ -12,31 +12,19 @@ const PayAttension = () => {
     isLoading,
     refetch: reload,
   } = useQuery("contests", () =>
-    fetch("https://lit-meadow-72602.herokuapp.com/contests").then((res) =>
-      res.json()
-    )
+    fetch("http://localhost:5000/contests").then((res) => res.json())
   );
   const contests = findUpcomingContest(data);
-  // const reload = () => {
-  // fetch("https://lit-meadow-72602.herokuapp.com/contests").then((res) =>
-  //   res.json()
-  // );
-  //     .then((data) => {
-  //       setContests(findUpcomingContest(data));
-  //     });
-  // };
-  // useEffect(() => {
-  //   reload();
-  // }, []);
+
   if (isLoading) {
     return <p>Loading...</p>;
   }
   return (
     <div
-      className="border border-rounded-sm max-w-[100%]"
+      className="border  bg-[rgb(61,68,81)] border-rounded-sm max-w-[100%]"
       style={{ borderRadius: "8px" }}
     >
-      <div className="pl-3 font-semibold text-[blue] px-3 py-1">
+      <div className="pl-3 font-semibold text-[white] px-3 py-1">
         Upcoming Contest
       </div>
       <hr />
@@ -47,13 +35,13 @@ const PayAttension = () => {
 
           return (
             <div className="content py-2 flex flex-col justify-center">
-              <span className="text-[blue] font-semibold text-center mx-auto text-md">
+              <span className="text-[white] font-semibold text-center mx-auto text-md">
                 {(contest.runningState == "upcoming" && "Before Contest") ||
                   (contest?.runningState == "running" &&
                     "Contest is Running") ||
                   (contest?.runningState == "ended" && "Contest is ended")}
               </span>
-              <span className="text-[blue] font-semibold text-xl mx-auto underline">
+              <span className="text-[white] font-semibold text-xl mx-auto underline">
                 {time >= contest.startTime ? (
                   <Link to={`/contests/${contest.id}`}>
                     Contest round #{contest?.id}
@@ -62,7 +50,7 @@ const PayAttension = () => {
                   `Contest round #${contest?.id}`
                 )}
               </span>
-              <div className="text-[blue] font-semibold text-xl mx-auto">
+              <div className="text-[white] font-semibold text-xl mx-auto">
                 {(contest?.startTime >= time &&
                   msToTime(contest.startTime - time)) ||
                   (time >= contest?.startTime &&
@@ -73,7 +61,9 @@ const PayAttension = () => {
           );
         })
       ) : (
-        <h1 className="py-2 text-center font-semibold">No upcoming contest</h1>
+        <h1 className="py-2 text-center font-semibold text-[gray]">
+          No upcoming contest
+        </h1>
       )}
     </div>
   );

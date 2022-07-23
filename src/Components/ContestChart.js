@@ -7,15 +7,18 @@ import {
   CartesianGrid,
   Area,
   Tooltip,
+  LineChart,
+  Line,
+  Legend,
 } from "recharts";
 import { userContext } from "./Home";
 
 const ContestChart = () => {
   const { user } = useContext(userContext);
   let { data, isLoading } = useQuery("ratedContest", () =>
-    fetch(
-      `https://lit-meadow-72602.herokuapp.com/profile/contests/${user?.displayName}`
-    ).then((res) => res.json())
+    fetch(`http://localhost:5000/profile/contests/${user?.displayName}`).then(
+      (res) => res.json()
+    )
   );
   if (isLoading) {
     return <p>Loading...</p>;

@@ -5,12 +5,12 @@ import { userContext } from "./Home";
 const AllContest = ({ reload }) => {
   const { user } = useContext(userContext);
   const { data, isLoading, refetch } = useQuery("allContest", () =>
-    fetch(
-      "https://lit-meadow-72602.herokuapp.com/contests?requested=requested"
-    ).then((res) => res.json())
+    fetch("http://localhost:5000/contests?requested=requested").then((res) =>
+      res.json()
+    )
   );
   const handleStatus = (id, status) => {
-    fetch("https://lit-meadow-72602.herokuapp.com/contests/" + id, {
+    fetch("http://localhost:5000/contests/" + id, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

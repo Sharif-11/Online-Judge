@@ -27,26 +27,26 @@ const Header = () => {
         </div>
         <div className="btn-container flex align-items-center mt-3 mr-4 lg:mr-0 lg:mt-6">
           {!!user && (
-            <Link to={`/profile`} className="mx-3 underline text-[blue]">
+            <Link to={`/profile`} className="mx-3 btn btn-xs text-[white]">
               {user?.displayName}
             </Link>
           )}
           {!user && (
-            <Link to="/login" className="mx-3 underline text-[blue]">
+            <Link to="/login" className="mx-3 btn btn-xs text-[white]">
               Login
             </Link>
           )}
           {!!user && (
             <Link
               to="/register"
-              className="underline text-[blue] mx-2"
+              className=" text-[white] btn btn-xs mx-2"
               onClick={() => signOut(auth)}
             >
               Logout
             </Link>
           )}
           {!user && (
-            <Link to="/register" className="underline text-[blue]">
+            <Link to="/register" className=" btn btn-xs text-[white]">
               Register
             </Link>
           )}
@@ -81,7 +81,7 @@ const Header = () => {
             </div>
             <ul
               tabindex="0"
-              class="menu menu-compact dropdown-content  mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              class="menu menu-compact dropdown-content  mt-3 p-2 shadow  rounded-box w-52"
             >
               <li>
                 <Link to="/" className="mx-1">
@@ -116,24 +116,36 @@ const Header = () => {
             style={{ borderRadius: "16px" }}
           >
             <li>
-              <Link to="/" className="mx-1">
+              <Link
+                to="/"
+                className="mx-1  active:bg-[transparent] active:text-[white]"
+              >
                 HOME
               </Link>
             </li>
 
             <li>
-              <Link to="/problemset" className="mx-1">
+              <Link
+                to="/problemset"
+                className="mx-1 active:bg-[transparent] active:text-[white]"
+              >
                 PROBLEMSET
               </Link>
             </li>
             <li>
-              <Link to="/contests" className="mx-1">
+              <Link
+                to="/contests"
+                className="mx-1 active:bg-[transparent] active:text-[white]"
+              >
                 CONTESTS
               </Link>
             </li>
             {(role == "admin" || role == "problemSetter") && (
               <li>
-                <Link to="/dashboard" className="mx-1">
+                <Link
+                  to="/dashboard"
+                  className="mx-1 active:bg-[transparent] active:text-[white]"
+                >
                   DASHBOARD
                 </Link>
               </li>

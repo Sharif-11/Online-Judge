@@ -24,7 +24,7 @@ const Problems = ({ contests }) => {
                     idx + 65
                   )}`}
                 >
-                  <span className="text-[blue] underline">
+                  <span className="text-[#DA70D6] underline">
                     {String.fromCharCode(idx + 65)}
                   </span>
                 </Link>
@@ -35,7 +35,9 @@ const Problems = ({ contests }) => {
                     idx + 65
                   )}`}
                 >
-                  <span className="text-[blue] underline">{problem.title}</span>
+                  <span className="text-[#DA70D6] underline">
+                    {problem.title}
+                  </span>
                 </Link>
               </td>
               <td className="font-semibold">{problem.timeLimit + "s"}</td>

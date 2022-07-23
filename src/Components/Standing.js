@@ -1,30 +1,27 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
+import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import { timeContext } from "./Home";
 import msToTime from "./msToTime";
-const { getNewRatings } = require("codeforces-rating-system");
 const Standing = ({ contests }) => {
-  const [submissions, setSubmissions] = useState([]);
   const { id } = useParams();
   const contest = contests?.filter((a) => a?.id == id)[0];
   const { startTime, duration } = contest;
 
-  useEffect(() => {
-    fetch(`https://lit-meadow-72602.herokuapp.com/submissions`, {
+  const {
+    data: submissions,
+    isLoading,
+    refetch,
+  } = useQuery("standing", () =>
+    fetch(`http://localhost:5000/submissions`, {
       method: "GET",
       headers: {
         startTime,
         duration,
         id,
       },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setSubmissions(data);
-      });
-  }, []);
-
-  let sz = submissions.length;
+    }).then((res) => res.json())
+  );
+  let sz = submissions?.length;
   for (let i = 0; i < sz; i++) {
     const handle = submissions[i]._id.handle;
     let marks = 0;
@@ -70,10 +67,12 @@ const Standing = ({ contests }) => {
     submissions[i].tried = tried;
     submissions[i].ok = ok;
   }
-  submissions.sort((a, b) => b.score - a.score);
-
+  submissions?.sort((a, b) => b.score - a.score);
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
   return (
-    <div class="overflow-x-auto">
+    <div class="overflow-x-auto" onMouseOver={refetch}>
       <table class="table table-compact w-full">
         <thead>
           <tr>

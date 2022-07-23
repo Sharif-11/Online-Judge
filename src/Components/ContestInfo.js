@@ -12,19 +12,19 @@ const ContestInfo = () => {
     return <p>Loading...</p>;
   }
   return (
-    <div class="card w-72 bg-base-100 shadow-xl">
+    <div class="card w-72 bg-base-100 shadow-xl bg-[#3D4451]">
       <div class="card-body">
-        <h2 class="font-bold flex justify-center text-md text-[blue]">
+        <h2 class="font-bold flex justify-center text-md text-[white]">
           Contest is
           {time >= contest?.duration + contest?.startTime
             ? " ended"
             : " running"}
         </h2>
-        <p className="text-center text-[blue] font-semibold underline">
-          Contest Battle Round #{contest?.id}
+        <p className="text-center text-[white] font-semibold underline">
+          Coding Battle Round #{contest?.id}
         </p>
         {time >= contest?.duration + contest?.startTime || (
-          <p className="text-center text-[blue] font-bold text-lg">
+          <p className="text-center text-[white] font-bold text-lg">
             {msToTime(contest.startTime + contest.duration - time)}
           </p>
         )}

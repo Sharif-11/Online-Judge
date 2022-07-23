@@ -24,7 +24,6 @@ const Submissions = () => {
             <tr>
               <th className="text-xs">#</th>
               <th className="text-xs">When</th>
-              <th className="text-xs">Who</th>
               <th className="text-xs">Problem</th>
               <th className="text-xs">Lang</th>
               <th className="text-xs">Verdict</th>

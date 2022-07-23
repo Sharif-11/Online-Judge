@@ -8,7 +8,7 @@ const MySubmission = () => {
 
   const { id } = useParams();
   useEffect(() => {
-    fetch(`https://lit-meadow-72602.herokuapp.com/contests/${id}/my`, {
+    fetch(`http://localhost:5000/contests/${id}/my`, {
       method: "GET",
       headers: {
         email: user?.email,
@@ -28,7 +28,7 @@ const MySubmission = () => {
             <tr>
               <th className="text-sm font-semibold">#</th>
               <th className="text-sm font-semibold">When</th>
-              <th className="text-sm font-semibold">Who</th>
+              {/* <th className="text-sm font-semibold">Who</th> */}
               <th className="text-sm font-semibold">Problem</th>
               <th className="text-sm font-semibold">Lang</th>
               <th className="text-sm font-semibold">Verdict</th>
@@ -38,7 +38,7 @@ const MySubmission = () => {
           </thead>
           <tbody>
             {submissions?.map((submission) => (
-              <Submission submission={submission} />
+              <Submission submission={submission} flag={1} />
             ))}
           </tbody>
         </table>

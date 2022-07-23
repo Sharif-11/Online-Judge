@@ -21,9 +21,9 @@ export default function SubmissionPiechart() {
   const [user, loading] = useAuthState(auth);
   const [data, setData] = useState([]);
   const { data: submissions, isLoading } = useQuery("all-submissions", () =>
-    fetch(
-      `https://lit-meadow-72602.herokuapp.com/submissions/${user?.displayName}`
-    ).then((res) => res.json())
+    fetch(`http://localhost:5000/submissions/${user?.displayName}`).then(
+      (res) => res.json()
+    )
   );
   useEffect(() => {
     let sz = submissions?.length;

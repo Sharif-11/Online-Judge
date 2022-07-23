@@ -5,13 +5,13 @@ const UpcomingContest = ({ msToTime, idx, contest, time }) => {
   const { startTime, duration } = contest;
   return (
     <tr>
-      <td className="text-[blue] underline">
+      <td className="text-[#FF00FF] underline">
         {time >= startTime && time <= startTime + duration ? (
           <Link to={`/contests/${contest.id}`}>
-            `Contest Battle Round #{contest.id}`
+            `Coding Battle Round #{contest.id}`
           </Link>
         ) : (
-          `Contest Battle Round #${contest.id}`
+          `Coding Battle Round #${contest.id}`
         )}
       </td>
       <td className="text-xs font-semibold">
