@@ -41,14 +41,14 @@ const ContestsRoute = ({ contests }) => {
           <h1 className="text-xl font-semibold my-3">Upcoming Contests</h1>
           <table class="table w-full">
             <thead>
-              <tr>
-                <th>Name</th>
-                <th>Start</th>
-                <th>Length</th>
-                <th></th>
+              <tr className="bg-[#3d4451]">
+                <th className="bg-[transparent] text-[white]">Name</th>
+                <th className="bg-[transparent] text-[white]">Start</th>
+                <th className="bg-[transparent] text-[white]">Length</th>
+                <th className="bg-[transparent] text-[white]"></th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="bg-[#3d4451] p-0">
               {upcoming?.map((contest, idx) => (
                 <UpcomingContest
                   contest={contest}
@@ -62,30 +62,32 @@ const ContestsRoute = ({ contests }) => {
         </>
       )}
       <h1 className="text-xl font-semibold my-3 mt-5">Contests History</h1>
-      <table class="table w-full">
+      <table class="table  w-full">
         <thead>
-          <tr>
-            <th>Name</th>
-            <th>Start</th>
-            <th>Length</th>
-            <th></th>
+          <tr className="bg-[#3d4451]">
+            <th className="bg-[transparent] text-[white]">Name</th>
+            <th className="bg-[transparent] text-[white]">Start</th>
+            <th className="bg-[transparent] text-[white]">Length</th>
+            <th className="bg-[transparent] text-[white]"></th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="bg-[#3d4451]">
           {finished?.map((contest, idx) => (
-            <tr>
-              <td className="text-[#FF00FF] underline">
+            <tr className="even:bg-[transparent] odd:bg-[rgba(0,0,0,0.2)]">
+              <td className="text-[white] underline bg-[transparent] text-[white]">
                 <Link to={`/contests/${contest.id}`}>
                   {`Coding Battle Round #${contest.id}`}
                 </Link>
               </td>
-              <td className="text-xs font-semibold">
+              <td className="text-xs font-semibold bg-[transparent] text-[white]">
                 {new Date(contest.startTime)
                   .toString()
                   .replace("(Bangladesh Standard Time)", "")}
               </td>
-              <td>{msToTime(contest.duration)}</td>
-              <td className="text-[#FF00FF] underline">
+              <td className="bg-[transparent] text-[white]">
+                {msToTime(contest.duration)}
+              </td>
+              <td className="text-[white] underline bg-[transparent] text-[white]">
                 <Link to={`/contests/${contest?.id}/standing`}>
                   Final Standings
                 </Link>

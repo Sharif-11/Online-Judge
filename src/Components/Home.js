@@ -44,7 +44,7 @@ const Home = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setTime(new Date().getTime());
-    }, 1000);
+    }, 100);
     return () => clearInterval(timer);
   }, []);
   const reload = () => {

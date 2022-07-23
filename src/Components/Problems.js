@@ -6,42 +6,46 @@ const Problems = ({ contests }) => {
   const contest = contests?.filter((a) => parseInt(a?.id) == parseInt(id))[0];
   return (
     <div class="overflow-x-auto">
-      <table class="table table-compact w-full">
+      <table class="table table-compact w-full my-2">
         <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Time</th>
-            <th>Memory</th>
+          <tr className="bg-[#3d4451]">
+            <th className="bg-[transparent] text-[white]">#</th>
+            <th className="bg-[transparent] text-[white]">Name</th>
+            <th className="bg-[transparent] text-[white]">Time</th>
+            <th className="bg-[transparent] text-[white]">Memory</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="bg-[#3d4451]">
           {contest?.problems?.map((problem, idx) => (
-            <tr>
-              <th>
+            <tr className="even:bg-[transparent] odd:bg-[rgba(0,0,0,0.2)]">
+              <th className="text-[white] bg-[transparent]">
                 <Link
                   to={`/contests/${id}/problem/${String.fromCharCode(
                     idx + 65
                   )}`}
                 >
-                  <span className="text-[#DA70D6] underline">
+                  <span className="text-[white] underline">
                     {String.fromCharCode(idx + 65)}
                   </span>
                 </Link>
               </th>
-              <td>
+              <td className="text-[white] bg-[transparent]">
                 <Link
                   to={`/contests/${id}/problem/${String.fromCharCode(
                     idx + 65
                   )}`}
                 >
-                  <span className="text-[#DA70D6] underline">
+                  <span className="text-[white] underline">
                     {problem.title}
                   </span>
                 </Link>
               </td>
-              <td className="font-semibold">{problem.timeLimit + "s"}</td>
-              <td className="font-semibold">{problem.memoryLimit + "MB"}</td>
+              <td className="font-semibold text-[white] bg-[transparent]">
+                {problem.timeLimit + "s"}
+              </td>
+              <td className="font-semibold text-[white] bg-[transparent]">
+                {problem.memoryLimit + "MB"}
+              </td>
             </tr>
           ))}
         </tbody>

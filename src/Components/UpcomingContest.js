@@ -4,23 +4,25 @@ import { Link } from "react-router-dom";
 const UpcomingContest = ({ msToTime, idx, contest, time }) => {
   const { startTime, duration } = contest;
   return (
-    <tr>
-      <td className="text-[#FF00FF] underline">
+    <tr className="even:bg-[transparent] odd:bg-[rgba(0,0,0,0.2)]">
+      <td className="text-[white] underline bg-[transparent] text-[white]">
         {time >= startTime && time <= startTime + duration ? (
           <Link to={`/contests/${contest.id}`}>
-            `Coding Battle Round #{contest.id}`
+            Coding Battle Round #{contest.id}
           </Link>
         ) : (
           `Coding Battle Round #${contest.id}`
         )}
       </td>
-      <td className="text-xs font-semibold">
+      <td className="text-xs font-semibold bg-[transparent] text-[white]">
         {new Date(contest.startTime)
           .toString()
           .replace("(Bangladesh Standard Time)", "")}
       </td>
-      <td>{msToTime(contest.duration)}</td>
-      <td>
+      <td className="bg-[transparent] text-[white]">
+        {msToTime(contest.duration)}
+      </td>
+      <td className="bg-[transparent] text-[white]">
         <span className="text-center block">
           {time <= startTime
             ? "Before Contest"
