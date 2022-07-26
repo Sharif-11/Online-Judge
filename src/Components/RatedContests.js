@@ -35,39 +35,57 @@ const RatedContests = () => {
       <div class="overflow-x-auto">
         <table class="table table-compact w-full">
           <thead>
-            <tr>
-              <th className="text-sm capitalize text-center">#</th>
-              <th className="text-sm capitalize text-center">Contest</th>
-              <th className="text-sm capitalize text-center">Start time</th>
-              <th className="text-sm capitalize text-center">Rank</th>
-              <th className="text-sm capitalize text-center">Solved</th>
-              <th className="text-sm capitalize text-center">Rating Change</th>
-              <th className="text-sm capitalize text-center">New Rating</th>
-              <th className="text-sm capitalize text-center"></th>
+            <tr className="bg-[#3d4451]">
+              <th className="text-sm capitalize text-center bg-transparent text-[white]">
+                #
+              </th>
+              <th className="text-sm capitalize text-center bg-transparent text-[white]">
+                Contest
+              </th>
+              <th className="text-sm capitalize text-center bg-transparent text-[white]">
+                Start time
+              </th>
+              <th className="text-sm capitalize text-center bg-transparent text-[white]">
+                Rank
+              </th>
+              <th className="text-sm capitalize text-center bg-transparent text-[white]">
+                Solved
+              </th>
+              <th className="text-sm capitalize text-center bg-transparent text-[white]">
+                Rating Change
+              </th>
+              <th className="text-sm capitalize text-center bg-transparent text-[white]">
+                New Rating
+              </th>
+              <th className="text-sm capitalize text-center bg-transparent text-[white]"></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-[#3d4451]">
             {data?.map((contest, idx) => (
-              <tr>
-                <th className="text-center">{data?.length - idx}</th>
-                <td className="text-[blue] underline text-center">
+              <tr className="even:bg-[transparent] odd:bg-[rgba(0,0,0,0.2)]">
+                <th className="text-center bg-transparent text-[white]">
+                  {data?.length - idx}
+                </th>
+                <td className="text-[blue] underline text-center bg-transparent ">
                   <Link
                     to={`/contests/${contest?.identity}`}
                   >{`Coding Battle Round #${contest?.identity}`}</Link>
                 </td>
-                <td className="text-[12px] text-center">
+                <td className="text-[12px] text-center text-white bg-transparent">
                   {new Date(contest?.startTime)
                     .toString()
                     .replace(" (Bangladesh Standard Time)", "")}
                 </td>
-                <td className="text-center">{contest?.rank}</td>
-                <td className="text-center text-[blue] underline text-sm">
+                <td className="text-center bg-transparent text-white">
+                  {contest?.rank}
+                </td>
+                <td className="text-center text-[blue] underline text-sm bg-transparent text-white">
                   <Link to={`/contests/${contest?.identity}/my`}>
                     {contest?.solved}
                   </Link>
                 </td>
                 <td
-                  className={`text-center text-[red] font-[500] ${
+                  className={`text-center text-[red] font-[500] bg-transparent ${
                     contest?.ratingChange > 0 && "text-[#0a0] font-semibold"
                   } ${contest?.ratingChange == 0 && "text-[black] font-[400]"}`}
                 >
@@ -75,8 +93,10 @@ const RatedContests = () => {
                     ? `+${contest?.ratingChange}`
                     : `${contest?.ratingChange}`}
                 </td>
-                <td className="text-center">{contest?.newRating}</td>
-                <td className="text-center"></td>
+                <td className="text-center bg-transparent text-[white]">
+                  {contest?.newRating}
+                </td>
+                <td className="text-center bg-transparent text-[white]"></td>
               </tr>
             ))}
           </tbody>

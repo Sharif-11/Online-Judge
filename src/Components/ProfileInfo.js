@@ -6,13 +6,15 @@ import { profileContext } from "./ProfileDrawer";
 import ContestChart from "./ContestChart";
 import { useQuery } from "react-query";
 import SubmissionPiechart from "./SubmissionPiechart";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../firebase.init";
 const ProfileInfo = () => {
   const [rank, setRank] = useState("unrated");
   const [color, setColor] = useState("rgba(0,0,0,0.5)");
-  const { user } = useContext(userContext);
-  const { profile, refetch } = useContext(profileContext);
+  const [user, loading] = useAuthState(auth);
+  const { profile } = useContext(profileContext);
   const { city, country, fullName, institute } = profile;
-  const { data, isLoading } = useQuery("my-rating", () =>
+  const { data, isLoading } = useQuery(["my-rating", user?.displayName], () =>
     fetch(
       "https://lit-meadow-72602.herokuapp.com/ratings/" + user?.displayName
     ).then((res) => res.json())
@@ -23,6 +25,7 @@ const ProfileInfo = () => {
       setColor("black");
     } else if (data?.rating < 1200) {
       setRank("Newbie");
+      setColor("firebrick");
     } else if (data?.rating < 1400) {
       setRank("Pupil");
       setColor("#0a0");
@@ -38,15 +41,15 @@ const ProfileInfo = () => {
     }
   }, [data]);
 
-  if (isLoading) {
+  if (isLoading || loading) {
     return <p>Loading...</p>;
   }
 
   return (
-    <div className="mb-4" onMouseOver={() => refetch()}>
+    <div className="mb-4 text-[white]">
       <div
-        className="border-2 my-1 px-4 py-6 mr-2 shadow-lg"
-        style={{ borderRadius: "6px" }}
+        className="border-2 my-1 px-4 py-6 mr-2 shadow-lg bg-[#3d4451]"
+        style={{ borderRadius: "16px" }}
       >
         <h1 className={`font-bold text-[${color}]`}>{rank}</h1>
         <h1 className={`font-bold text-[${color}] text-[24px]`}>
@@ -54,12 +57,12 @@ const ProfileInfo = () => {
         </h1>
         <p className="text-[14px]">
           <span>{fullName}</span>,
-          <span className="text-[blue] underline pl-[2px]">{city}</span>,
-          <span className="text-[blue] underline pl-[2px]">{country}</span>
+          <span className="text-[white]  pl-[2px]">{city}</span>,
+          <span className="text-[white]  pl-[2px]">{country}</span>
         </p>
-        <p className="text-[14px]">
+        <p className="text-[14px] text-[white]">
           <span>From</span>,
-          <span className="text-[blue] underline pl-[2px]">{institute}</span>
+          <span className="  pl-[2px] text-[white]">{institute}</span>
         </p>
         <div className="flex my-3">
           <img src={ratings} alt="rating"></img>
@@ -75,15 +78,22 @@ const ProfileInfo = () => {
         </div>
       </div>
       <div
-        className="my-6 border-2 p-5 py-8 shadow-lg mr-2 "
-        style={{ borderRadius: "6px" }}
+        className="my-6 border-2 p-5 py-8 shadow-lg mr-2 bg-[#3d4451]"
+        style={{ borderRadius: "16px" }}
       >
-        <ContestChart />
+        <h2 className="text-center text-2xl font-semibold mb-2">
+          Rating Chart
+        </h2>
+
+        <div className="flex justify-center my-2">
+          <ContestChart />
+        </div>
       </div>
       <div
-        className="my-6 border-2 p-5 py-8 shadow-lg mr-2 "
-        style={{ borderRadius: "6px" }}
+        className="my-6 border-2 p-5 py-8 shadow-lg mr-2 bg-[#3d4451]"
+        style={{ borderRadius: "16px" }}
       >
+        <h2 className="text-center text-2xl font-semibold">Submission Chart</h2>
         <SubmissionPiechart />
       </div>
     </div>

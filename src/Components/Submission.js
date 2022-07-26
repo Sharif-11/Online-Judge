@@ -35,17 +35,17 @@ const Submission = ({ submission, flag }) => {
           />
         </div>
       </div>
-      <tr>
-        <td className="underline font-[500]">
+      <tr className="even:bg-[transparent] odd:bg-[rgba(0,0,0,0.2)]">
+        <td className="underline font-[500] bg-transparent text-[white]">
           <label for={`submission-${submission?._id}`}>{submission?._id}</label>
         </td>
-        <td className="text-[10px] font-[500]">
+        <td className="text-[10px] font-[500] bg-transparent text-[white]">
           {new Date(submission.submissionTime)
             .toString()
             .replace("(Bangladesh Standard Time)", "")}
         </td>
 
-        <td className="text-[#FF00FF] underline">
+        <td className="text-[#FF00FF] underline bg-transparent">
           <Link
             to={`/contests/${submission?.id}/problem/${String.fromCharCode(
               submission.problem + 65
@@ -58,19 +58,25 @@ const Submission = ({ submission, flag }) => {
               : String.fromCharCode(submission.problem + 65)}
           </Link>
         </td>
-        <td>{submission?.language?.toUpperCase()}</td>
+        <td className="bg-transparent text-[white]">
+          {submission?.language?.toUpperCase()}
+        </td>
         <td
           className="text-center"
           className={
             submission.verdict == "Accepted"
-              ? `font-[500] text-[#0a0]`
-              : "font-[500] underline text-[firebrick]"
+              ? `font-[500] text-[#0a0] bg-transparent`
+              : "font-[500] underline text-[red] bg-transparent"
           }
         >
           {submission?.verdict}
         </td>
-        <td>{time != Infinity && !isNaN(time) && `${time * 1000}ms`}</td>
-        <td>{memory != Infinity && !isNaN(memory) && `${memory}KB`}</td>
+        <td className="bg-[transparent] text-[white]">
+          {time != Infinity && !isNaN(time) && `${time * 1000}ms`}
+        </td>
+        <td className="bg-[transparent] text-[white]">
+          {memory != Infinity && !isNaN(memory) && `${memory}KB`}
+        </td>
       </tr>
     </>
   );

@@ -42,16 +42,16 @@ const AllContest = ({ reload }) => {
       <div class="overflow-x-auto m-4">
         <table class="table  w-full">
           <thead>
-            <tr>
-              <th></th>
-              <th>Id</th>
-              <th>Email</th>
-              <th>Start Time</th>
-              <th>Status</th>
-              <th className="text-center">Action</th>
+            <tr className="bg-[#3d4451]">
+              <th className="bg-transparent text-white"></th>
+              <th className="bg-transparent text-white">Id</th>
+              <th className="bg-transparent text-white">Email</th>
+              <th className="bg-transparent text-white">Start Time</th>
+              <th className="bg-transparent text-white">Status</th>
+              <th className="bg-transparent text-white text-center">Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-[#3d4451]">
             {data?.map((contest, idx) => (
               <>
                 <input
@@ -69,28 +69,34 @@ const AllContest = ({ reload }) => {
                     </div>
                   </div>
                 </div>
-                <tr>
-                  <th>{idx + 1}</th>
-                  <td>{contest?.id}</td>
-                  <td>{contest?.email}</td>
-                  <td>
+                <tr className="even:bg-[transparent] odd:bg-[rgba(0,0,0,0.2)]">
+                  <th className="bg-transparent text-white">
+                    {data?.length - idx}
+                  </th>
+                  <td className="bg-transparent text-white">{contest?.id}</td>
+                  <td className="bg-transparent text-white">
+                    {contest?.email}
+                  </td>
+                  <td className="bg-transparent text-white">
                     {new Date(contest?.startTime)
                       .toString()
                       .replace("(Bangladesh Standard Time)", "")}
                   </td>
-                  <td>{contest?.status}</td>
-                  {contest?.status == "requested" && (
-                    <td className="flex justify-between">
+                  <td className="bg-transparent text-white">
+                    {contest?.status}
+                  </td>
+                  {contest?.status == "requested" ? (
+                    <td className="flex justify-between bg-transparent text-white">
                       {contest?.status === "requested" && (
                         <>
                           <label
                             for={`preview2-${contest?.id}`}
-                            class="btn modal-button btn-xs"
+                            class="btn modal-button btn-xs  btn-outline text-white hover:border-white"
                           >
                             preview
                           </label>
                           <button
-                            className="btn btn-xs"
+                            className="btn btn-xs btn-outline text-white hover:border-white"
                             onClick={() =>
                               handleAction(contest?._id, "publish")
                             }
@@ -99,7 +105,7 @@ const AllContest = ({ reload }) => {
                           </button>
 
                           <button
-                            className="btn btn-xs"
+                            className="btn btn-xs text-white hover:border-white btn-outline"
                             onClick={() =>
                               handleAction(contest?._id, "discard")
                             }
@@ -109,6 +115,8 @@ const AllContest = ({ reload }) => {
                         </>
                       )}
                     </td>
+                  ) : (
+                    <td className="bg-transparent text-white"></td>
                   )}
                 </tr>
               </>

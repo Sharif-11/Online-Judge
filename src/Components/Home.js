@@ -66,7 +66,7 @@ const Home = () => {
     return <p>Loading...</p>;
   }
   return (
-    <div className="lg:mx-[100px]" onMouseOver={reload}>
+    <div className="lg:mx-[100px]">
       <userContext.Provider value={{ user, role }}>
         <timeContext.Provider value={{ time, setTime }}>
           <Header />

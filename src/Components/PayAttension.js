@@ -23,7 +23,7 @@ const PayAttension = () => {
   }
   return (
     <div
-      className="border  bg-[#3d4451] shadow-xl shadow-[orange] border-rounded-sm max-w-[100%]"
+      className="border  bg-[#3d4451] shadow-xl shadow-[gray] border-rounded-sm max-w-[100%]"
       style={{ borderRadius: "8px" }}
     >
       <div className="pl-3 font-semibold text-[white] px-3 py-1">

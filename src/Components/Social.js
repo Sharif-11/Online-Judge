@@ -51,59 +51,64 @@ const Social = () => {
   };
 
   return (
-    <div className="border p-3 my-4" style={{ borderRadius: "6px" }}>
+    <div
+      className="border p-3 my-4 bg-[#3d4451] text-[white]"
+      style={{ borderRadius: "16px" }}
+    >
       <form className="flex flex-col" onSubmit={handleSubmit}>
         <div class="form-control w-full max-w-xs mx-auto">
           <label class="label">
-            <span class="label-text font-semibold">Full Name</span>
+            <span class="label-text font-semibold text-[white]">Full Name</span>
           </label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Full Name"
-            class="input input-bordered w-full max-w-xs"
+            class="input input-bordered w-full max-w-xs bg-[transparent] text-[white] border-[white]"
           />
         </div>
         <div class="form-control w-full max-w-xs mx-auto">
           <label class="label">
-            <span class="label-text font-semibold">City</span>
+            <span class="label-text font-semibold text-[white]">City</span>
           </label>
           <input
             type="text"
             placeholder="Enter City"
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            class="input input-bordered w-full max-w-xs"
+            class="input input-bordered w-full max-w-xs text-[white] bg-[transparent] border-[white]"
           />
         </div>
         <div class="form-control w-full max-w-xs mx-auto">
           <label class="label">
-            <span class="label-text font-semibold">Country</span>
+            <span class="label-text font-semibold text-[white]">Country</span>
           </label>
           <input
             type="text"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
             placeholder="Enter Country"
-            class="input input-bordered w-full max-w-xs"
+            class="input input-bordered w-full max-w-xs bg-transparent text-[white] border-[white]"
           />
         </div>
         <div class="form-control w-full max-w-xs mx-auto">
           <label class="label">
-            <span class="label-text font-semibold">Institution</span>
+            <span class="label-text font-semibold text-[white]">
+              Institution
+            </span>
           </label>
           <input
             type="text"
             value={institute}
             onChange={(e) => setInstitute(e.target.value)}
             placeholder="Enter Institution"
-            class="input input-bordered w-full max-w-xs"
+            class="input input-bordered w-full max-w-xs bg-transparent text-[white] border-[white]"
           />
         </div>
         <input
           type="submit"
-          className="btn btn-sm btn-outline mx-auto my-3"
+          className="btn btn-sm btn-outline mx-auto my-3 border-[white] text-[white]"
           value="Save Changes"
         />
       </form>

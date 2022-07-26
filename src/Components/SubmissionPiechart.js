@@ -5,7 +5,9 @@ import auth from "../firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 export const options = {
-  title: "Your Submissions",
+  legend: {
+    textStyle: { color: "white" },
+  },
   is3D: true,
   colors: [
     "#0a0",
@@ -15,6 +17,7 @@ export const options = {
     "rgb(255, 152, 0)",
     "rgb(158, 158, 158)",
   ],
+  backgroundColor: "#3d4451",
 };
 
 export default function SubmissionPiechart() {

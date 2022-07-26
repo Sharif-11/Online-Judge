@@ -51,15 +51,15 @@ const MyContest = ({ reload }) => {
       <div class="overflow-x-auto">
         <table class="table w-full">
           <thead>
-            <tr>
-              <th></th>
-              <th>Contest Id</th>
-              <th>Start Time</th>
-              <th>Status</th>
-              <th>Action</th>
+            <tr className="bg-[#3d4451]">
+              <th className="bg-transparent text-white"></th>
+              <th className="bg-transparent text-white">Contest Id</th>
+              <th className="bg-transparent text-white">Start Time</th>
+              <th className="bg-transparent text-white">Status</th>
+              <th className="bg-transparent text-white">Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-[#3d4451]">
             {data?.map((contest, idx) => (
               <>
                 <input
@@ -77,17 +77,21 @@ const MyContest = ({ reload }) => {
                     </div>
                   </div>
                 </div>
-                <tr>
-                  <th>{idx + 1}</th>
-                  <td>{contest?.id}</td>
-                  <td>
+                <tr className="even:bg-[transparent] odd:bg-[rgba(0,0,0,0.2)]">
+                  <th className="bg-transparent text-white">
+                    {data?.length - idx}
+                  </th>
+                  <td className="bg-transparent text-white">{contest?.id}</td>
+                  <td className="bg-transparent text-white">
                     {new Date(contest?.startTime)
                       .toString()
                       .replace("(Bangladesh Standard Time)", "")}
                   </td>
 
-                  <td>{contest?.status}</td>
-                  <td>
+                  <td className="bg-transparent text-white">
+                    {contest?.status}
+                  </td>
+                  <td className="bg-transparent text-white">
                     {contest?.status == "published" ? (
                       <button
                         className="btn btn-sm btn-dark text-white"
@@ -99,14 +103,14 @@ const MyContest = ({ reload }) => {
                       <>
                         <label
                           for={`preview-${contest?.id}`}
-                          class="btn modal-button btn-xs"
+                          class="btn modal-button btn-xs btn-outline text-white hover:border-white"
                         >
                           preview
                         </label>
 
                         {(contest?.status == "discarded" ||
                           contest?.status == "pending") && (
-                          <button className="btn btn-xs text-xs btn-dark mx-1 text-white">
+                          <button className="btn btn-xs text-xs btn-dark mx-1 text-white btn-outline hover:border-white">
                             edit
                           </button>
                         )}
@@ -114,14 +118,14 @@ const MyContest = ({ reload }) => {
                         {(contest?.status == "pending" ||
                           contest?.status == "discarded") && (
                           <button
-                            className="btn btn-xs my-2  btn-dark text-white"
+                            className="btn btn-outline hover:border-white btn-xs my-2  btn-dark text-white"
                             onClick={() => handleRequest(contest?._id)}
                           >
                             Request to publish
                           </button>
                         )}
                         <button
-                          className="btn btn-xs text-xs btn-dark mx-1 text-white"
+                          className="btn btn-xs btn-outline hover:border-white  text-xs btn-dark mx-1 text-white"
                           onClick={() => handleDelete(contest?._id)}
                         >
                           Delete

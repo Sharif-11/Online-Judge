@@ -49,26 +49,28 @@ const Alluser = () => {
       <div class="overflow-x-auto ">
         <table class="table w-full max-w-[96vw] mx-auto overflow-x-scroll">
           <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Handle</th>
-              <th>Role</th>
-              <th>Action</th>
+            <tr className="bg-[#3d4451]">
+              <th className="bg-transparent text-white"></th>
+              <th className="bg-transparent text-white">Name</th>
+              <th className="bg-transparent text-white">Handle</th>
+              <th className="bg-transparent text-white">Role</th>
+              <th className="bg-transparent text-white">Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-[#3d4451]">
             {data?.map((user, id) => (
-              <tr>
-                <th>{id + 1}</th>
-                <td>{user?.email}</td>
-                <td>{user?.handle}</td>
-                <td>{user?.role || "user"}</td>
-                <td>
+              <tr className="even:bg-[transparent] odd:bg-[rgba(0,0,0,0.2)]">
+                <th className="bg-transparent text-white">{id + 1}</th>
+                <td className="bg-transparent text-white">{user?.email}</td>
+                <td className="bg-transparent text-white">{user?.handle}</td>
+                <td className="bg-transparent text-white">
+                  {user?.role || "user"}
+                </td>
+                <td className="bg-transparent text-white">
                   {(user?.role == "user" || !user?.role) &&
                     findUser(user?.email) && (
                       <button
-                        className="btn btn-xs text-[white]"
+                        className="btn btn-xs text-[white] btn-outline hover:border-white"
                         onClick={() => updateRole(user?._id, "problemSetter")}
                       >
                         Make problemsetter

@@ -21,17 +21,17 @@ const Submissions = () => {
       <div class="overflow-x-auto my-5">
         <table class="table table-compact w-full">
           <thead>
-            <tr>
-              <th className="text-xs">#</th>
-              <th className="text-xs">When</th>
-              <th className="text-xs">Problem</th>
-              <th className="text-xs">Lang</th>
-              <th className="text-xs">Verdict</th>
-              <th className="text-xs">Time</th>
-              <th className="text-xs">Memory</th>
+            <tr className="bg-[#3d4451]">
+              <th className="text-xs text-[white] bg-transparent">#</th>
+              <th className="text-xs text-[white] bg-transparent">When</th>
+              <th className="text-xs text-[white] bg-transparent">Problem</th>
+              <th className="text-xs text-[white] bg-transparent">Lang</th>
+              <th className="text-xs text-[white] bg-transparent">Verdict</th>
+              <th className="text-xs text-[white] bg-transparent">Time</th>
+              <th className="text-xs text-[white] bg-transparent">Memory</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-[#3d4451]">
             {submissions?.map((submission) => (
               <Submission submission={submission} flag={1}></Submission>
             ))}

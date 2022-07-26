@@ -9,7 +9,6 @@ const ProblemSetting = () => {
   const { user, role } = useContext(userContext);
   const [show, setShow] = useState(true);
   const [sending, setSending] = useState(false);
-  console.log(role);
   const handleRequest = () => {
     fetch("https://lit-meadow-72602.herokuapp.com/role", {
       method: "POST",
@@ -40,13 +39,14 @@ const ProblemSetting = () => {
         }
       });
   }, [sending]);
+  console.log(role);
 
   return (
     <div>
       {role == "user" ? (
         <div>
           <h1 className="my-2">Do you want to be a problemsetter</h1>
-          {show ? (
+          {show || !show ? (
             <button className="btn btn-xs" onClick={handleRequest}>
               Send Request
             </button>

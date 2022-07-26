@@ -26,9 +26,7 @@ const ProfileDrawer = () => {
           <label for="my-drawer-4" class="drawer-overlay"></label>
           <ul class="menu p-4  overflow-y-auto w-80 bg-base-100 text-base-content">
             <PayAttension />
-            <div className="my-6">
-              <FindUser />
-            </div>
+            {/* <div className="my-6"><FindUser /></div> */}
           </ul>
         </div>
       </div>

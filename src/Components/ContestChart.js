@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
 import {
   AreaChart,
@@ -11,30 +12,25 @@ import {
   Line,
   Legend,
 } from "recharts";
-import { userContext } from "./Home";
+import auth from "../firebase.init";
 
 const ContestChart = () => {
-  const { user } = useContext(userContext);
+  const [user, loading] = useAuthState(auth);
+
   let { data, isLoading } = useQuery("ratedContest", () =>
     fetch(
       `https://lit-meadow-72602.herokuapp.com/profile/contests/${user?.displayName}`
     ).then((res) => res.json())
   );
-  if (isLoading) {
+  if (isLoading || loading) {
     return <p>Loading...</p>;
   }
   for (let i = 0; i < data?.length; i++) {
     let sz = data[i]?.newRating?.length;
     for (let j = 0; j < sz; j++) {
       if (data[i]?.newRating[j]?.username == user?.displayName) {
-        const { newRating, previousRating, position } = data[i]?.newRating[j];
+        const { newRating } = data[i]?.newRating[j];
         data[i].newRating = newRating;
-        data[i].previousRating = previousRating;
-        data[i].ratingChange = newRating - previousRating;
-        data[i].rank = position;
-      }
-      if (data[i]?.standing[j]?.handle == user?.displayName) {
-        data[i].solved = data[i].standing[j].ok;
       }
     }
   }
@@ -48,7 +44,7 @@ const ContestChart = () => {
   }
   data = arr;
   return (
-    <div>
+    <div className="bg-[#3d4451]">
       <AreaChart
         width={750}
         height={250}
@@ -64,7 +60,7 @@ const ContestChart = () => {
         <XAxis dataKey="name" />
         <YAxis />
         <CartesianGrid strokeDasharray="3 3" />
-        <Tooltip />
+        {/* <Tooltip /> */}
 
         <Area
           type="monotone"
