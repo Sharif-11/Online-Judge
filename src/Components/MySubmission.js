@@ -25,18 +25,31 @@ const MySubmission = () => {
       <div class="overflow-x-auto">
         <table class="table table-compact w-full">
           <thead>
-            <tr>
-              <th className="text-sm font-semibold">#</th>
-              <th className="text-sm font-semibold">When</th>
-              {/* <th className="text-sm font-semibold">Who</th> */}
-              <th className="text-sm font-semibold">Problem</th>
-              <th className="text-sm font-semibold">Lang</th>
-              <th className="text-sm font-semibold">Verdict</th>
-              <th className="text-sm font-semibold">Time</th>
-              <th className="text-sm font-semibold">Memory</th>
+            <tr className="bg-[#3d4451]">
+              <th className="text-sm font-semibold bg-transparent text-white">
+                #
+              </th>
+              <th className="text-sm font-semibold bg-transparent text-white">
+                When
+              </th>
+              <th className="text-sm font-semibold bg-transparent text-white">
+                Problem
+              </th>
+              <th className="text-sm font-semibold bg-transparent text-white">
+                Lang
+              </th>
+              <th className="text-sm font-semibold bg-transparent text-white">
+                Verdict
+              </th>
+              <th className="text-sm font-semibold bg-transparent text-white">
+                Time
+              </th>
+              <th className="text-sm font-semibold bg-transparent text-white">
+                Memory
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-[#3d4451]">
             {submissions?.map((submission) => (
               <Submission submission={submission} flag={1} />
             ))}

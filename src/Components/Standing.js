@@ -75,30 +75,40 @@ const Standing = ({ contests }) => {
     <div class="overflow-x-auto" onMouseOver={refetch}>
       <table class="table table-compact w-full">
         <thead>
-          <tr>
-            <th className="text-center">#</th>
-            <th>Who</th>
-            <th className="text-center">Score</th>
-            <th className="text-center">Solved</th>
-            <th className="text-center">Penalty</th>
+          <tr className="bg-[#3d4451]">
+            <th className="text-center bg-transparent text-white">#</th>
+            <th className="bg-transparent text-white">Who</th>
+            <th className="text-center bg-transparent text-white">Score</th>
+            <th className="text-center bg-transparent text-white">Solved</th>
+            <th className="text-center bg-transparent text-white">Penalty</th>
 
             {contest?.problems?.map((problem, idx) => (
-              <th className="text-center">{String.fromCharCode(idx + 65)}</th>
+              <th className="text-center bg-transparent text-white">
+                {String.fromCharCode(idx + 65)}
+              </th>
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody className="bg-[#3d4451]">
           {submissions?.map((submission, idx) => (
-            <tr>
-              <th className="text-center">{idx + 1}</th>
-              <td>{submission.handle}</td>
-              <td className="text-center">{submission?.score}</td>
-              <td className="text-center">{submission?.ok}</td>
-              <td className="text-center">{submission?.penalty}</td>
+            <tr className="even:bg-[transparent] odd:bg-[rgba(0,0,0,0.2)]">
+              <th className="text-center bg-transparent text-white">
+                {idx + 1}
+              </th>
+              <td className="bg-transparent text-white">{submission.handle}</td>
+              <td className="text-center bg-transparent text-white">
+                {submission?.score}
+              </td>
+              <td className="text-center bg-transparent text-white">
+                {submission?.ok}
+              </td>
+              <td className="text-center bg-transparent text-white">
+                {submission?.penalty}
+              </td>
 
               {contest?.problems?.map((problem, i) =>
                 submission?.accepted[i]?.problem == i ? (
-                  <td className="text-[#0a0] font-semibold text-center">
+                  <td className="text-[#0a0] bg-transparent font-semibold text-center">
                     <span className="block text-sm">
                       {submission?.accepted[i]?.mark}
                     </span>
@@ -111,11 +121,11 @@ const Standing = ({ contests }) => {
                     </span>
                   </td>
                 ) : submission?.tried[i] == i ? (
-                  <td className="text-center font-bold text-[red] text-xl">
+                  <td className="text-center font-bold text-[red] text-xl bg-transparent">
                     -
                   </td>
                 ) : (
-                  <td></td>
+                  <td className="bg-transparent"></td>
                 )
               )}
             </tr>
