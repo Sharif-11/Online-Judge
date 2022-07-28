@@ -46,7 +46,7 @@ const ProblemSetting = () => {
       {role == "user" ? (
         <div>
           <h1 className="my-2">Do you want to be a problemsetter</h1>
-          {show || !show ? (
+          {show ? (
             <button className="btn btn-xs" onClick={handleRequest}>
               Send Request
             </button>

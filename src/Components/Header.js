@@ -13,14 +13,17 @@ const Header = () => {
     <div className="flex flex-col-reverse lg:flex-col">
       <div className="flex justify-between align-items-center pb-0 lg:py-3 ">
         <div className="img-container align-items-center flex ml-2 lg:ml-0">
-          <img
-            src={final_logo}
-            alt="logo"
-            height={90}
-            width={90}
-            className="max-w-[16vw] max-h-[16vw] "
-          ></img>
-          <h1 className="text-xs lg:text-2xl font-bold  flex flex-col justify-center ">
+          <Link to="/">
+            <img
+              src={final_logo}
+              alt="logo"
+              height={90}
+              width={90}
+              className="max-w-[16vw] max-h-[16vw] "
+            ></img>
+          </Link>
+
+          <h1 className="text-xs lg:text-2xl font-bold logo-font flex flex-col justify-center ">
             <span>Coding</span>
             <span>BattleGround</span>
           </h1>

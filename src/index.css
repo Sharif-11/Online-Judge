@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("http://fonts.cdnfonts.com/css/bankgothic-md-bt");
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=Roboto:wght@300;400;500;700;900&display=swap");
 body {
   margin: 0;
@@ -22,4 +23,9 @@ code {
 }
 .profile .tab {
   font-family: "PT Sans Narrow", sans-serif;
+}
+.logo-font {
+  font-family: "BankGothic Md BT", sans-serif;
+  font-family: "Bank Gothic Light", sans-serif;
+  font-family: "BankGothic", sans-serif;
 }
