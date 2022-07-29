@@ -81,32 +81,38 @@ const Register = () => {
   }
   return (
     <div className="mb-8">
-      <div className="register rounded-sm border w-96 max-w-[85vw] mx-auto mt-8">
-        <h2 className="p-1 font-semibold text-[blue]">
+      <div className="register rounded-xl border w-96 max-w-[85vw] mx-auto mt-8 bg-[#3d4451]">
+        <h2
+          className="p-2 px-3 font-semibold text-[white] bg-[rgba(0,0,0,0.25)]"
+          style={{
+            borderTopLeftRadius: "16px",
+            borderTopRightRadius: "16px",
+          }}
+        >
           Register in Coding playground
         </h2>
         <hr />
         <form className="my-8 px-4" onSubmit={handleSubmit}>
           <div className=" lg:w-4/5 mx-auto flex">
-            <span className="pr-4 text-md font-semibold w-2/6 text-right">
-              Handle
+            <span className="pr-4 text-md font-semibold w-2/6 text-right text-white">
+              UserName
             </span>
             <div className="w-4/6">
               <input
                 type="text"
                 name=""
                 id=""
-                className="border w-full"
+                className="border w-full text-white bg-transparent border-white px-1"
                 ref={handleRef}
                 required
               />
-              <p className="text-[red] text-xs">
+              <p className="text-[red] text-xs font-bold">
                 {handleError && "*handle already in use"}
               </p>
             </div>
           </div>
           <div className=" lg:w-4/5 mx-auto flex my-3">
-            <span className="pr-4 text-md font-semibold w-2/6 text-right">
+            <span className="pr-4 text-md font-semibold w-2/6 text-right text-white">
               Email
             </span>
             <div className="w-4/6">
@@ -114,17 +120,17 @@ const Register = () => {
                 type="email"
                 name=""
                 id=""
-                className="border w-full"
+                className="border w-full border-white bg-transparent text-white px-1"
                 ref={emailRef}
                 required
               />
-              <p className="text-[red] text-xs">
+              <p className="text-[red] text-xs font-bold">
                 {error?.message.includes("email") && "*email already in use"}
               </p>
             </div>
           </div>
           <div className=" lg:w-4/5 mx-auto flex my-3">
-            <span className="pr-4 text-md font-semibold w-1/3 text-right">
+            <span className="pr-4 text-md font-semibold w-1/3 text-right text-white">
               Password
             </span>
             <div className="w-2/3">
@@ -132,18 +138,18 @@ const Register = () => {
                 type="password"
                 name=""
                 id=""
-                className="border w-full"
+                className="border w-full bg-transparent px-1 text-white border-white"
                 ref={passwordRef}
                 required
               />
-              <p className="text-xs text-[red]">
+              <p className="text-xs text-[red] font-bold">
                 {error?.message.includes("password") &&
                   "*at least 6 characters long"}
               </p>
             </div>
           </div>
           <div className=" lg:w-4/5 mx-auto flex my-3">
-            <span className="pr-4 text-md font-semibold w-1/3 text-right">
+            <span className="pr-4 text-md font-semibold w-1/3 text-right text-white">
               Confirm Password
             </span>
             <div className="w-2/3 flex flex-col justify-center">
@@ -151,11 +157,11 @@ const Register = () => {
                 type="password"
                 name=""
                 id=""
-                className="border w-full"
+                className="border w-full bg-transparent text-white border-white px-1"
                 ref={confirmPasswordRef}
                 required
               />
-              <p className="text-xs text-[red]">
+              <p className="text-xs text-[red] font-bold">
                 {confirmPasswordError && `*password doesn't match`}
               </p>
             </div>
@@ -165,14 +171,20 @@ const Register = () => {
           </div>
           <button
             type="submit"
-            className="mx-auto border block font-semibold px-5"
+            className="mx-auto border btn-xs text-white btn btn-outline block font-semibold px-5"
           >
             Register
           </button>
         </form>
-        <div className="bottom flex justify-end py-1 pr-2 bg-[rgba(0,0,0,0.02)]">
+        <div
+          className="bottom flex justify-end py-1 pr-2 bg-[rgba(0,0,0,0.25)]"
+          style={{
+            borderBottomLeftRadius: "16px",
+            borderBottomRightRadius: "16px",
+          }}
+        >
           <button
-            className="text-sm text-primary underline"
+            className="text-sm text-primary underline py-1"
             onClick={() => signInWithGoogle()}
           >
             Use Gmail

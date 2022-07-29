@@ -57,14 +57,20 @@ const Login = () => {
   }
   return (
     <div className="mb-8">
-      <div className="register rounded-sm border w-96 max-w-[85vw] mx-auto mt-8">
-        <h2 className="p-1 font-semibold text-[blue]">
+      <div className="register rounded-xl border w-96 max-w-[85vw] mx-auto mt-8 bg-[#3d4451]">
+        <h2
+          className="p-2 px-3 font-semibold text-white bg-[rgba(0,0,0,0.25)]"
+          style={{
+            borderTopLeftRadius: "16px",
+            borderTopRightRadius: "16px",
+          }}
+        >
           Log into Coding playground
         </h2>
         <hr />
         <form className="my-8 px-4 lg:px-0" onSubmit={handleSubmit}>
           <div className=" lg:w-4/5 mx-auto flex my-3 ">
-            <span className="pr-4 text-md font-semibold w-2/6  text-right">
+            <span className="pr-4 text-md font-semibold w-2/6  text-right text-white">
               Email
             </span>
             <div className="w-4/6">
@@ -72,17 +78,17 @@ const Login = () => {
                 type="email"
                 name=""
                 id=""
-                className="w-full border"
+                className="w-full border border-white bg-transparent text-white rounded-sm px-1"
                 ref={emailRef}
                 required
               />
-              <p className="text-[red] text-xs">
+              <p className="text-[red] font-bold text-xs">
                 {error?.message.includes("user") && "*user not found"}
               </p>
             </div>
           </div>
           <div className=" lg:w-4/5 mx-auto flex my-3">
-            <span className="pr-4 text-md font-semibold w-2/6 text-right">
+            <span className="pr-4 text-md font-semibold w-2/6 text-right text-white">
               Password
             </span>
             <div className="w-4/6">
@@ -90,11 +96,11 @@ const Login = () => {
                 type="password"
                 name=""
                 id=""
-                className="w-full border"
+                className="w-full border text-white border-white bg-transparent px-1"
                 ref={passwordRef}
                 required
               />
-              <p className="text-xs text-[red]">
+              <p className="text-xs font-bold text-[red]">
                 {error?.message.includes("password") && "*wrong password"}
               </p>
             </div>
@@ -105,14 +111,14 @@ const Login = () => {
 
           <button
             type="submit"
-            className="mx-auto border block font-semibold px-5"
+            className="mx-auto  block text-white btn btn-xs px-5 btn-outline border-white"
           >
             Login
           </button>
 
           <button
             type="button"
-            className="text-[blue] text-sm underline block ml-auto mr-2 lg:mr-4  mt-4"
+            className="text-[white] text-sm underline block ml-auto mr-2 lg:mr-4  mt-4"
             onClick={async () => {
               if (emailRef.current.value) {
                 await sendPasswordResetEmail(emailRef.current.value);
@@ -122,9 +128,15 @@ const Login = () => {
             Forgot your password?
           </button>
         </form>
-        <div className="bottom flex justify-end py-1 pr-2 bg-[rgba(0,0,0,0.02)]">
+        <div
+          className="bottom flex justify-end py-1 pr-2 bg-[rgba(0,0,0,0.25)]"
+          style={{
+            borderBottomLeftRadius: "16px",
+            borderBottomRightRadius: "16px",
+          }}
+        >
           <button
-            className="text-sm text-primary underline"
+            className="text-sm text-primary underline py-1"
             onClick={() => signInWithGoogle()}
           >
             Use Gmail
