@@ -7,7 +7,7 @@ const Settings = () => {
   const passwordRef = useRef("");
   const confirmPasswordRef = useRef("");
   const [error, setError] = useState(false);
-  const [updatePassword, updating, updateError] = useUpdatePassword(auth);
+  const [updatePassword] = useUpdatePassword(auth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,6 +20,7 @@ const Settings = () => {
       setError(false);
       const f = async () => {
         await updatePassword(password);
+        toast.success("password changes successfully");
       };
       f();
     }

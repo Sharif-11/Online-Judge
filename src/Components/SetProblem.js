@@ -54,6 +54,7 @@ const SetProblem = ({ id, display }) => {
             placeholder="Enter Time limit in seconds"
             class="input input-bordered w-full max-w-xs"
           />
+
           <label class="label">
             <span class="label-text font-semibold">
               Enter memory limit for Problem {id + 1}?
@@ -66,6 +67,20 @@ const SetProblem = ({ id, display }) => {
             min={1}
             max={200}
             placeholder="Enter memory limit in Mb"
+            class="input input-bordered w-full max-w-xs"
+          />
+          <label class="label">
+            <span class="label-text font-semibold">
+              Enter rating for Problem {id + 1}?
+            </span>
+          </label>
+          <input
+            type="number"
+            name={"rating" + id}
+            required
+            min={800}
+            max={2500}
+            placeholder="Enter rating"
             class="input input-bordered w-full max-w-xs"
           />
         </div>

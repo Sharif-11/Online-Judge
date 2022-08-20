@@ -36,7 +36,7 @@ const Submission = ({ submission, flag }) => {
         </div>
       </div>
       <tr className="even:bg-[transparent] odd:bg-[rgba(0,0,0,0.2)]">
-        <td className="underline font-[500] bg-transparent text-[white]">
+        <td className=" font-[500] bg-transparent text-[white]">
           <label for={`submission-${submission?._id}`}>{submission?._id}</label>
         </td>
         <td className="text-[10px] font-[500] bg-transparent text-[white]">
@@ -45,7 +45,7 @@ const Submission = ({ submission, flag }) => {
             .replace("(Bangladesh Standard Time)", "")}
         </td>
 
-        <td className="text-[#FF00FF] underline bg-transparent">
+        <td className="text-[#FF00FF]  bg-transparent">
           <Link
             to={`/contests/${submission?.id}/problem/${String.fromCharCode(
               submission.problem + 65

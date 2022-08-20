@@ -23,7 +23,7 @@ const Header = () => {
             ></img>
           </Link>
 
-          <h1 className="text-xs lg:text-2xl font-bold logo-font flex flex-col justify-center ">
+          <h1 className="text-xs lg:text-3xl font-bold logo-font flex flex-col justify-center">
             <span>Coding</span>
             <span>BattleGround</span>
           </h1>

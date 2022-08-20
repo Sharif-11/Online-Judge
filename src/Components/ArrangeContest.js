@@ -124,6 +124,7 @@ const ArrangeContest = () => {
               sampleOutput: e.target["sample-out" + i].value,
               timeLimit: e.target["time" + i].value,
               memoryLimit: e.target["memory" + i].value,
+              rating: e.target["rating" + i].value,
               testCnt: parseInt(e.target["tc" + i].value),
               testInputSet: [],
               testOutputSet: [],

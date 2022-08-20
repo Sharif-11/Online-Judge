@@ -66,7 +66,7 @@ const RatedContests = () => {
                 <th className="text-center bg-transparent text-[white]">
                   {data?.length - idx}
                 </th>
-                <td className="text-[blue] underline text-center bg-transparent ">
+                <td className="text-[blue]  text-center bg-transparent ">
                   <Link
                     to={`/contests/${contest?.identity}`}
                   >{`Coding Battle Round #${contest?.identity}`}</Link>

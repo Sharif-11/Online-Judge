@@ -33,6 +33,7 @@ import Social from "./Social";
 import Settings from "./Settings";
 import Submissions from "./Submissions";
 import RatedContests from "./RatedContests";
+import Problemsets from "./Problemsets";
 export const timeContext = createContext(null);
 export const userContext = createContext(null);
 const Home = () => {
@@ -77,7 +78,7 @@ const Home = () => {
                 element={<Announcements contests={contests} />}
               ></Route>
               <Route path="profile/:handle" element={<Profile />}></Route>
-              <Route path="problemset" element={"problemset"}></Route>
+              <Route path="problemset" element={<Problemsets />}></Route>
               <Route
                 path="contests"
                 element={<ContestsRoute contests={contests} reload={reload} />}

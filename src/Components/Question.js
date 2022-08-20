@@ -32,6 +32,7 @@ const Question = ({ contests }) => {
     testCnt,
     testInputSet,
     testOutputSet,
+    rating,
   } = problem;
   console.log(
     title,
@@ -50,6 +51,7 @@ const Question = ({ contests }) => {
       </h1>
       <p className="text-center">Time limit:{timeLimit} seconds</p>
       <p className="text-center">Memory limit:{memoryLimit} MB</p>
+      <p className="text-center font-bold">{rating && `Rating: ${rating}`}</p>
       <div
         dangerouslySetInnerHTML={{
           __html: description,
