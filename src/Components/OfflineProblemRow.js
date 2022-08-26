@@ -1,15 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ProblemRow = ({ id, title, rating }) => {
-  const contest = id?.split("-")[0];
-  const problem = id?.split("-")[1];
-  const url = `/contests/${contest}/problem/${problem}`;
+const OfflineProblemRow = ({ id, title, rating }) => {
+  const url = `/offline-problems/` + id;
   console.log(url);
   return (
     <tr className="even:bg-[transparent] odd:bg-[rgba(0,0,0,0.2)]">
       <td className="bg-transparent text-white font-semibold text-[orange] text-center">
-        <Link to={url}> {id?.replace("-", "")}</Link>
+        <Link to={url}> {id}</Link>
       </td>
       <td className="bg-transparent text-white text-center">
         <Link to={url}>{title}</Link>
@@ -21,4 +19,4 @@ const ProblemRow = ({ id, title, rating }) => {
   );
 };
 
-export default ProblemRow;
+export default OfflineProblemRow;

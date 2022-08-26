@@ -23,13 +23,36 @@ const Dashboard = () => {
                 </Link>
               </li>
               <li className="mt-2">
+                <Link to="/dashboard/add-problem" className="p-0">
+                  <button className="btn btn-dark text-white w-full">
+                    Add Problem
+                  </button>
+                </Link>
+              </li>
+              <li className="mt-2">
+                <Link to="/dashboard/my-problems" className="p-0">
+                  <button className="btn btn-dark text-white w-full">
+                    My Problems
+                  </button>
+                </Link>
+              </li>
+              <li className="mt-2">
                 <Link to="/dashboard/my-contest" className="p-0">
                   <button className="btn btn-dark text-white w-full">
-                    My contest
+                    My contests
                   </button>
                 </Link>
               </li>
             </>
+          )}
+          {role == "admin" && (
+            <li className="mt-2">
+              <Link to="/dashboard/all-problem" className="p-0">
+                <button className="btn btn-dark text-white w-full">
+                  All Problem
+                </button>
+              </Link>
+            </li>
           )}
           {role == "admin" && (
             <li className="mt-2">

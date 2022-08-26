@@ -14,6 +14,7 @@ const Submission = ({ submission, flag }) => {
   // alert(time);
   if (submission?.verdict?.includes("Runtime Error"))
     submission.verdict = "Runtime Error";
+
   return (
     <>
       <input
@@ -47,14 +48,19 @@ const Submission = ({ submission, flag }) => {
 
         <td className="text-[#FF00FF]  bg-transparent">
           <Link
-            to={`/contests/${submission?.id}/problem/${String.fromCharCode(
-              submission.problem + 65
-            )}`}
+            to={
+              submission.problem < 3
+                ? `/contests/${submission?.id}/problem/${String.fromCharCode(
+                    submission.problem + 65
+                  )}`
+                : `/offline-problems/${submission.problem}`
+            }
           >
             {flag == 1
               ? String.fromCharCode(submission.problem + 65) +
-                " - " +
-                submission?.title
+                `${submission?.problem < 3 ? "-" : ""}` +
+                submission?.title +
+                `${submission?.problem < 3 ? "" : " (offline)"}`
               : String.fromCharCode(submission.problem + 65)}
           </Link>
         </td>

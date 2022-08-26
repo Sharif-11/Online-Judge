@@ -34,6 +34,12 @@ import Settings from "./Settings";
 import Submissions from "./Submissions";
 import RatedContests from "./RatedContests";
 import Problemsets from "./Problemsets";
+import OfflineProblem from "./OfflineProblem";
+import MyProblems from "./MyProblems";
+import OfflineAllProblems from "./OfflineAllProblems";
+import OfflineQuestion from "./OfflineQuestion";
+import OfflineQuestionDisplay from "./OfflineQuestionDisplay";
+import OfflineSubmit from "./OfflineSubmit";
 export const timeContext = createContext(null);
 export const userContext = createContext(null);
 const Home = () => {
@@ -79,6 +85,17 @@ const Home = () => {
               ></Route>
               <Route path="profile/:handle" element={<Profile />}></Route>
               <Route path="problemset" element={<Problemsets />}></Route>
+              <Route path="/offline-problems" element={<OfflineQuestion />}>
+                <Route
+                  index
+                  path={"/offline-problems/:id"}
+                  element={<OfflineQuestionDisplay />}
+                ></Route>
+                <Route
+                  path={"/offline-problems/:id/submit"}
+                  element={<OfflineSubmit />}
+                ></Route>
+              </Route>
               <Route
                 path="contests"
                 element={<ContestsRoute contests={contests} reload={reload} />}
@@ -101,11 +118,36 @@ const Home = () => {
                 }
               ></Route>
               <Route
+                path="/dashboard/add-problem"
+                element={
+                  <RequireProblemsetter>
+                    <OfflineProblem />
+                  </RequireProblemsetter>
+                }
+              ></Route>
+              <Route
+                path="/dashboard/my-problems"
+                element={
+                  <RequireProblemsetter>
+                    <MyProblems />
+                  </RequireProblemsetter>
+                }
+              ></Route>
+              <Route
                 path="/dashboard/my-contest"
                 element={
                   <RequireProblemsetter>
                     <MyContest reload={reload} />
                   </RequireProblemsetter>
+                }
+              ></Route>
+
+              <Route
+                path="/dashboard/all-problem"
+                element={
+                  <RequireAdmin>
+                    <OfflineAllProblems />
+                  </RequireAdmin>
                 }
               ></Route>
               <Route
