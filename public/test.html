@@ -1,132 +1,120 @@
-<b>Hello Coders,</b>
-<p>You are welcome to regular rated contest started at 11:00 AM(BST) Today</p>
-<b>Problems</b>
-<p>A - 500</p>
-<p>B - 1000</p>
-<p>B - 1500</p>
-
-
 <p>
-  You are given an array of integers <b>n</b>.An subarray is called beautifull
-  if the gcd of all elements of the subarray is exactly 1.
+  <b>Hello Coders,</b>
 </p>
-<p>Please output the number of element in the the maximum subarray</p>
-
-<h1 class="text-xl font-bold">Input Format</b>
 <p>
-  First line denotes number of test cases.Then the first line contain
-  <b>n</b> the number of element and second line contains the array
+  We are proud to finally invite you to participate in
+  <b>Coding Battle Round #118</b>
+  , which will start on <b>Friday, September 2, 2022 at 18:45<sup>UTC+6</sup></b
+  >. You will be given <b>3</b> problems, and <b>1</b> hours to solve them. We
+  greatly encourage you to read all the problems.
 </p>
-<h1 class="text-xl font-bold">Output Format</b>
-<p>Please output the number of elements in the maximum beautifull subarray</p>
-<h1 class="text-xl font-bold">Constraints</b>
-<p><b>n&lt;=15000</b> <b>arr[i]&lt;=1000</b></p>
-
-
-4
-6
-2 4 12 68 44 90
-18
-24 68 24 88 1 24 68 24 88 24 68 24 1 88 24 68 24 88
-8
-67 67 67 1 67 67 67 67
-5
-3 9 21 45 60
-
-0
-18
-8
-0
-
-5
-6
-22 66 12  88 124 90
-4
-1 1 1 1
-12
-66 24 24 4 8 12 78 98 34 3 66 66
-4
-3 3 3 3
-9
-12 21 18 63 99 12 99 4 99
-
-0
-4
-12
-0
-9
-
-3
-5
-4 8 12 45 45
-6
-6 6 6 1 1 6
-4
-1 2 3 4
-
-5
-6
-4
-
-
-3
-15000
-x15000
-5
-5 10 20 100 1000
-
-
-15000
-15000
-0
-
+<!--First problem-->
 <p>
-  You are given a string consists of only three letter <b>'R'</b>,<b>'G</b> and
-  <b>'B</b> with length <b>n</b>.You have to find minimal substring such that it
-  contains all three letters.
+  William has array of n numbers a<sub>1</sub>,a<sub>2</sub>,…,a<sub>n</sub>. He
+  can perform the following sequence of operations any number of times:
 </p>
-<h1 class="text-xl font-bold">Input Format</b>
 <p>
-  You are provided multiple test cases.First line of the input contain
-  <b>tc</b> the number of test cases.Then following lines contains the string.
+  1. Pick any two items from array a<sub>i</sub> and a<sub>j</sub>, where a<sub
+    >i</sub
+  >
+  must be a multiple of 2
 </p>
-<h1 class="text-xl font-bold">Output Format</b>
-<p>You have to print the length of minimal subarray.If such subarray doesn't exist print <b>-1</b></p>
-<h1 class="text-xl font-bold">Constraints</b>
-<p><b>n&lt=10000</b></p>
+<p>2. a<sub>i</sub>=a<sub>i</sub>/2</p>
+<p>3. a<sub>j</sub>=a<sub>j</sub>*2</p>
+<p>
+  Help William find the maximal sum of array elements, which he can get by
+  performing the sequence of operations described above.
+</p>
+<p>
+  <b>Input</b>
+</p>
+<p>
+  Each test contains multiple test cases. The first line contains the number of
+  test cases <b>t (1 ≤ t ≤ 10<sup>4</sup>)</b>. Description of the test cases
+  follows.
+</p>
+<p>
+  The first line of each test case contains an integer <b>n (1 ≤ n ≤ 15)</b>,
+  the number of elements in William's array.
+</p>
+<p>
+  The second line contains n integers
+  <b>a<sub>1</sub>,a<sub>2</sub>,…,a<sub>n</sub> (1 ≤ a<sub>i</sub> < 16)</b>,
+  the contents of William's array.
+</p>
+<p>
+  <b>Output</b>
+</p>
+<p>
+  For each test case output the maximal sum of array elements after performing
+  an optimal sequence of operations.
+</p>
+<!--second problem-->
+<p>You are given <b>q</b> queries in the following form:</p>
+<p>
+  Given three integers <b>l<sub>i</sub>, r<sub>i</sub> and d<sub>i</sub></b
+  >, find minimum <b>positive</b> integer <b>x<sub>i</sub></b> such that it is
+  divisible by <b>d<sub>i</sub></b> and it does not belong to the segment
+  <b>[l<sub>i</sub>,r<sub>i</sub>]</b>.
+</p>
+<p>Can you answer all the queries?</p>
+<p>Recall that a number x belongs to segment <b>[l,r] if l ≤ x ≤ r</b>.</p>
+<p>
+  <b>Input</b>
+</p>
+<p>
+  The first line contains one integer <b>q (1 ≤ q ≤ 500)</b> — the number of
+  queries.
+</p>
+<p>
+  Then <b>q</b> lines follow, each containing a query given in the format
+  <b
+    >l<sub>i</sub> r<sub>i</sub> d<sub>i</sub> (1 ≤ l<sub>i</sub> ≤ r<sub
+      >i</sub
+    >
+    ≤ 10<sup>9</sup>, 1 ≤ d<sub>i</sub> ≤ 10<sup>9</sup>)</b
+  >. <b>l<sub>i</sub>, r<sub>i</sub> and d<sub>i</sub></b> are integers.
+</p>
+<p>
+  <b>Output</b>
+</p>
+<p>For each query print one integer: the answer to this query.</p>
 
 
-3
-RRGGRRGGRRGRRRR
-RRRGGGBBB
-GRB
 
--1
-5
-3
 
-5
-RGRGGBGG
-GGGG
-RRRR
-RRGGRRRB
-BBBBBBB
 
-4
--1
--1
-5
--1
-
-5
-RGRBRRR
-RBRBGR
-RGGBBGR
-RGBRRRRRRRRRRRRRRRRRRRRRRRGGGGGGBBBBBBBBB
-RRBBBG
-
-3
-3
-3
-3
-6
+<!--Third Problem-->
+<p>
+  Alice has a lovely piece of cloth. It has the shape of a square with a side of
+  length a centimeters. Bob also wants such piece of cloth. He would prefer a
+  square with a side of length b centimeters (where b<a). Alice wanted to make
+  Bob happy, so she cut the needed square out of the corner of her piece and
+  gave it to Bob. Now she is left with an ugly L shaped cloth (see pictures
+  below).
+</p>
+<p>
+  Alice would like to know whether the area of her cloth expressed in square
+  centimeters is prime. Could you help her to determine it?
+</p>
+<p>
+  <b>Input</b>
+</p>
+<p>
+  The first line contains a number <b>t (1 ≤ t ≤ 5)</b> — the number of test
+  cases.
+</p>
+<p>
+  Each of the next <b>t</b> lines describes the i-th test case. It contains two
+  integers <b>a and b (1 ≤ b < a ≤ 10<sup>11</sup>)</b> — the side length of
+  Alice's square and the side length of the square that Bob wants.
+</p>
+<p>
+  <b>Output</b>
+</p>
+<p>
+  Print t lines, where the i-th line is the answer to the i-th test case. Print
+  "YES" (without quotes) if the area of the remaining piece of cloth is prime,
+  otherwise print "NO".
+</p>
+<p>You can print each letter in an arbitrary case (upper or lower).</p>

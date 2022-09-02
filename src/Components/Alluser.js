@@ -4,9 +4,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
 const Alluser = () => {
   const { data, isLoading, refetch } = useQuery("allUsers", () =>
-    fetch("https://lit-meadow-72602.herokuapp.com/users").then((res) =>
-      res.json()
-    )
+    fetch("http://localhost:5000/users").then((res) => res.json())
   );
   const [requests, setRequests] = useState([]);
   useEffect(() => {

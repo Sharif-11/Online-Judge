@@ -114,7 +114,16 @@ const OfflineAllProblems = () => {
                       )}
                     </td>
                   ) : (
-                    <td className="bg-transparent text-white"></td>
+                    <td className="bg-transparent text-white flex justify-center">
+                      <>
+                        <button
+                          className="btn btn-xs 
+                         text-white hover:border-white text-[gray] hover:text-[gray] hover:bg-transparent hover:border-[gray] hover:border-white btn-outline"
+                        >
+                          Discard
+                        </button>
+                      </>
+                    </td>
                   )}
                 </tr>
               </>

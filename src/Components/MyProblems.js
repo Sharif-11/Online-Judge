@@ -93,10 +93,7 @@ const MyProblems = () => {
                   </td>
                   <td className="bg-transparent text-white">
                     {problem?.status == "published" ? (
-                      <button
-                        className="btn btn-sm btn-dark text-white"
-                        onClick={() => handleDelete(problem?._id)}
-                      >
+                      <button className="btn btn-sm btn-dark text-white text-[gray] hover:text-[gray] hover:bg-transparent hover:border-[gray] hover:border-white">
                         Delete
                       </button>
                     ) : (

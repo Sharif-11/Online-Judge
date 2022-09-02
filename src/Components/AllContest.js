@@ -116,7 +116,13 @@ const AllContest = ({ reload }) => {
                       )}
                     </td>
                   ) : (
-                    <td className="bg-transparent text-white"></td>
+                    <td className="bg-transparent flex justify-center">
+                      <>
+                        <button className="btn btn-xs text-[gray] hover:text-[gray] hover:bg-transparent hover:border-[gray] hover:border-white btn-outline">
+                          Discard
+                        </button>
+                      </>
+                    </td>
                   )}
                 </tr>
               </>

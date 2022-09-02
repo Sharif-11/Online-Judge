@@ -93,10 +93,7 @@ const MyContest = ({ reload }) => {
                   </td>
                   <td className="bg-transparent text-white">
                     {contest?.status == "published" ? (
-                      <button
-                        className="btn btn-sm btn-dark text-white"
-                        onClick={() => handleDelete(contest?._id)}
-                      >
+                      <button className="btn btn-sm btn-dark text-white text-[gray] hover:text-[gray] hover:bg-transparent hover:border-[gray] hover:border-[gray]">
                         Delete
                       </button>
                     ) : (
