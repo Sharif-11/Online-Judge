@@ -1,7 +1,7 @@
 import axios from "axios";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { userContext } from "./Home";
+import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { userContext } from "./Home";
 import { profileContext } from "./ProfileDrawer";
 const Social = () => {
   const { user } = useContext(userContext);
@@ -35,7 +35,7 @@ const Social = () => {
     }
     axios
       .put(
-        `https://lit-meadow-72602.herokuapp.com/users/social/${user?.email}`,
+        `https://cse-326-project-server.vercel.app/users/social/${user?.email}`,
         data
       )
       .then(({ data }) => {

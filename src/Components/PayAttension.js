@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { timeContext } from "./Home";
@@ -12,7 +12,7 @@ const PayAttension = () => {
     isLoading,
     refetch: reload,
   } = useQuery("contests", () =>
-    fetch("https://lit-meadow-72602.herokuapp.com/contests").then((res) =>
+    fetch("https://cse-326-project-server.vercel.app/contests").then((res) =>
       res.json()
     )
   );

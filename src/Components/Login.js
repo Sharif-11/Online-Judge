@@ -1,18 +1,17 @@
-import React, { useRef } from "react";
-import { toast } from "react-toastify";
+import React, { useState } from "react";
 import {
   useSendPasswordResetEmail,
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
-  useUpdateEmail,
 } from "react-firebase-hooks/auth";
-
-import { useNavigate, useLocation } from "react-router-dom";
-import auth from "../firebase.init";
+import { useLocation, useNavigate } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
+import { toast } from "react-toastify";
+import auth from "../firebase.init";
+
 const Login = () => {
-  const emailRef = useRef("");
-  const passwordRef = useRef("");
+  const [email, setEmail] = useState("sharif@gmail.com");
+  const [password, setPassword] = useState("123456");
   const navigate = useNavigate();
   const location = useLocation();
   const [signInWithEmailAndPassword, user, loading, error] =
@@ -24,18 +23,15 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-
     signInWithEmailAndPassword(email, password);
   };
 
   if (sending) {
-    toast("password reset email send");
+    toast("Password reset email sent");
   }
 
   if (googleUser) {
-    fetch("https://lit-meadow-72602.herokuapp.com/users", {
+    fetch("https://cse-326-project-server.vercel.app/users", {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -51,10 +47,12 @@ const Login = () => {
         console.log(data);
       });
   }
+
   let from = location.state?.from?.pathname || "/";
   if (user || googleUser) {
     navigate(from, { replace: true });
   }
+
   return (
     <div className="mb-8">
       <div className="register rounded-xl border w-96 max-w-[85vw] mx-auto mt-8 bg-[#3d4451]">
@@ -65,21 +63,20 @@ const Login = () => {
             borderTopRightRadius: "16px",
           }}
         >
-          Log into Coding playground
+          Log into Coding Playground
         </h2>
         <hr />
         <form className="my-8 px-4 lg:px-0" onSubmit={handleSubmit}>
-          <div className=" lg:w-4/5 mx-auto flex my-3 ">
-            <span className="pr-4 text-md font-semibold w-2/6  text-right text-white">
+          <div className="lg:w-4/5 mx-auto flex my-3">
+            <span className="pr-4 text-md font-semibold w-2/6 text-right text-white">
               Email
             </span>
             <div className="w-4/6">
               <input
                 type="email"
-                name=""
-                id=""
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full border border-white bg-transparent text-white rounded-sm px-1"
-                ref={emailRef}
                 required
               />
               <p className="text-[red] font-bold text-xs">
@@ -87,17 +84,16 @@ const Login = () => {
               </p>
             </div>
           </div>
-          <div className=" lg:w-4/5 mx-auto flex my-3">
+          <div className="lg:w-4/5 mx-auto flex my-3">
             <span className="pr-4 text-md font-semibold w-2/6 text-right text-white">
               Password
             </span>
             <div className="w-4/6">
               <input
                 type="password"
-                name=""
-                id=""
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full border text-white border-white bg-transparent px-1"
-                ref={passwordRef}
                 required
               />
               <p className="text-xs font-bold text-[red]">
@@ -111,12 +107,11 @@ const Login = () => {
 
           <button
             type="submit"
-            className="mx-auto  block text-white btn btn-xs px-5 btn-outline border-white"
+            className="mx-auto block text-white btn btn-xs px-5 btn-outline border-white"
           >
             Login
           </button>
-
-          <button
+          {/* <button
             type="button"
             className="text-[white] text-sm underline block ml-auto mr-2 lg:mr-4  mt-4"
             onClick={async () => {
@@ -126,7 +121,7 @@ const Login = () => {
             }}
           >
             Forgot your password?
-          </button>
+          </button> */}
         </form>
         <div
           className="bottom flex justify-end py-1 pr-2 bg-[rgba(0,0,0,0.25)]"

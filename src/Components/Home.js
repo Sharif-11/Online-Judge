@@ -56,7 +56,7 @@ const Home = () => {
   }, []);
   const reload = () => {
     axios
-      .get("https://lit-meadow-72602.herokuapp.com/contests")
+      .get("https://cse-326-project-server.vercel.app/contests")
       .then(({ data }) => {
         setContests(data);
       });
@@ -64,7 +64,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("https://lit-meadow-72602.herokuapp.com/contests")
+      .get("https://cse-326-project-server.vercel.app/contests")
       .then(({ data }) => {
         setContests(data);
       });

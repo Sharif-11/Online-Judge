@@ -11,7 +11,7 @@ const OfflineQuestionDisplay = () => {
   const [copyOutput, setCopyOutput] = useState(false);
   useEffect(() => {
     axios
-      .get(`https://lit-meadow-72602.herokuapp.com/offline-problems/${id}`)
+      .get(`https://cse-326-project-server.vercel.app/offline-problems/${id}`)
       .then(({ data }) => {
         setProblem(data);
       });

@@ -8,10 +8,10 @@ const Problemsets = () => {
   const [offlineProblems, setOfflineProblems] = useState([]);
   useEffect(() => {
     axios
-      .get("https://lit-meadow-72602.herokuapp.com/problemsets")
+      .get("https://cse-326-project-server.vercel.app/problemsets")
       .then(({ data }) => setProblems(data));
     axios
-      .get("https://lit-meadow-72602.herokuapp.com/problemsets/offline")
+      .get("https://cse-326-project-server.vercel.app/problemsets/offline")
       .then(({ data }) => setOfflineProblems(data));
   }, []);
   problems.sort((a, b) => {

@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import SetProblem from "./SetProblem";
 import { toast } from "react-toastify";
 import { userContext } from "./Home";
+import SetProblem from "./SetProblem";
 const ArrangeContest = () => {
   const { user } = useContext(userContext);
   const [cnt, setCnt] = useState(1);
@@ -68,7 +68,7 @@ const ArrangeContest = () => {
   const handleNext = () => {
     axios
       .get(
-        "https://lit-meadow-72602.herokuapp.com/contests?id=" +
+        "https://cse-326-project-server.vercel.app/contests?id=" +
           parseInt(idRef?.current.value)
       )
 
@@ -97,7 +97,7 @@ const ArrangeContest = () => {
     const announce = announceRef.current.value;
     var d = new Date(date);
 
-    fetch("https://lit-meadow-72602.herokuapp.com/contests?id=" + id)
+    fetch("https://cse-326-project-server.vercel.app/contests?id=" + id)
       .then((res) => res.json())
       .then((data) => {
         if (parseInt(data[0]?.id) == parseInt(idRef?.current.value)) {
@@ -140,7 +140,7 @@ const ArrangeContest = () => {
             contest.problems.push(obj);
           }
           axios
-            .post("https://lit-meadow-72602.herokuapp.com/contests", contest)
+            .post("https://cse-326-project-server.vercel.app/contests", contest)
             .then(({ data }) => {
               console.log(data);
               if (data?.acknowledged) {

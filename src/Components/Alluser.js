@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { useAuthState } from "react-firebase-hooks/auth";
-import auth from "../firebase.init";
 const Alluser = () => {
   const { data, isLoading, refetch } = useQuery("allUsers", () =>
-    fetch("https://lit-meadow-72602.herokuapp.com/users").then((res) =>
+    fetch("https://cse-326-project-server.vercel.app/users").then((res) =>
       res.json()
     )
   );
   const [requests, setRequests] = useState([]);
   useEffect(() => {
-    fetch("https://lit-meadow-72602.herokuapp.com/role")
+    fetch("https://cse-326-project-server.vercel.app/role")
       .then((res) => res.json())
       .then((data) => {
         setRequests(data);
@@ -30,7 +28,7 @@ const Alluser = () => {
     if (!confirm) {
       return;
     }
-    fetch(`https://lit-meadow-72602.herokuapp.com/users/${id}`, {
+    fetch(`https://cse-326-project-server.vercel.app/users/${id}`, {
       method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ role }),

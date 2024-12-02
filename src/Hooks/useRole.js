@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const useRole = (user) => {
   const [role, setRole] = useState("user");
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch(`https://lit-meadow-72602.herokuapp.com/users/${user?.displayName}`)
+    fetch(
+      `https://cse-326-project-server.vercel.app/users/${user?.displayName}`
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data?.role == "admin" || data?.role == "problemSetter") {

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { useQuery } from "react-query";
 import { userContext } from "./Home";
 import Submission from "./Submission";
@@ -7,7 +7,7 @@ const Submissions = () => {
   const { user } = useContext(userContext);
   const { data: submissions, isLoading } = useQuery("all-submissions", () =>
     fetch(
-      `https://lit-meadow-72602.herokuapp.com/submissions/${user?.displayName}`
+      `https://cse-326-project-server.vercel.app/submissions/${user?.displayName}`
     ).then((res) => res.json())
   );
   if (isLoading) {

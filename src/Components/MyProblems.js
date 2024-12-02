@@ -1,22 +1,20 @@
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import auth from "../firebase.init";
 import { useQuery } from "react-query";
-import Preview from "./Preview";
+import auth from "../firebase.init";
 import PreviewOffline from "./PreviewOffline";
-import PreviewProblem from "./PreviewProblem";
 const MyProblems = () => {
   const [user, loading] = useAuthState(auth);
   const { data, isLoading, refetch } = useQuery("myProblems", () =>
-    fetch("https://lit-meadow-72602.herokuapp.com/offline/" + user?.email).then(
-      (res) => res.json()
-    )
+    fetch(
+      "https://cse-326-project-server.vercel.app/offline/" + user?.email
+    ).then((res) => res.json())
   );
   if (isLoading || loading) {
     return <p>Loading....</p>;
   }
   const handleRequest = (id) => {
-    fetch(`https://lit-meadow-72602.herokuapp.com/offline/problems/${id}`, {
+    fetch(`https://cse-326-project-server.vercel.app/offline/problems/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -33,7 +31,7 @@ const MyProblems = () => {
     if (!confirm) {
       return;
     }
-    fetch(`https://lit-meadow-72602.herokuapp.com/offline/problem/${id}`, {
+    fetch(`https://cse-326-project-server.vercel.app/offline/problem/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",

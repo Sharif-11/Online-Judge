@@ -1,8 +1,8 @@
 import axios from "axios";
-import React, { memo, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import auth from "../firebase.init";
 import { toast } from "react-toastify";
+import auth from "../firebase.init";
 
 const OfflineProblem = () => {
   const [user, loading] = useAuthState(auth);
@@ -40,7 +40,10 @@ const OfflineProblem = () => {
     }
     console.log(obj);
     axios
-      .post("https://lit-meadow-72602.herokuapp.com/dashboard/add-problem", obj)
+      .post(
+        "https://cse-326-project-server.vercel.app/dashboard/add-problem",
+        obj
+      )
       .then(({ data }) => {
         if (data?.acknowledged) {
           toast.success("Problem added successfully!");

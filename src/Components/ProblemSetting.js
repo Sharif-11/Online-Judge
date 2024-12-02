@@ -1,8 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
-import auth from "../firebase.init";
-import useRole from "../Hooks/useRole";
 import { userContext } from "./Home";
 
 const ProblemSetting = () => {
@@ -10,7 +7,7 @@ const ProblemSetting = () => {
   const [show, setShow] = useState(true);
   const [sending, setSending] = useState(false);
   const handleRequest = () => {
-    fetch("https://lit-meadow-72602.herokuapp.com/role", {
+    fetch("https://cse-326-project-server.vercel.app/role", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -28,7 +25,7 @@ const ProblemSetting = () => {
       });
   };
   useEffect(() => {
-    fetch("https://lit-meadow-72602.herokuapp.com/role")
+    fetch("https://cse-326-project-server.vercel.app/role")
       .then((res) => res.json())
       .then((data) => {
         let sz = data.length;

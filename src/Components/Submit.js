@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { userContext } from "./Home";
 import MonacoEditor from "./MonacoEditor";
 import PreLoader from "./PreLoader";
-import { userContext } from "./Home";
 const Submit = ({ contests }) => {
   const navigate = useNavigate("");
   const [loader, setLoader] = useState(false);
@@ -74,7 +74,7 @@ const Submit = ({ contests }) => {
       stdin: [sampleInput].concat(testInputSet),
       output: [sampleOutput].concat(testOutputSet),
     };
-    fetch(`https://lit-meadow-72602.herokuapp.com/contests/${id}/submit`, {
+    fetch(`https://cse-326-project-server.vercel.app/contests/${id}/submit`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(info),

@@ -19,7 +19,7 @@ const ContestChart = () => {
 
   let { data, isLoading } = useQuery("ratedContest", () =>
     fetch(
-      `https://lit-meadow-72602.herokuapp.com/profile/contests/${user?.displayName}`
+      `https://cse-326-project-server.vercel.app/profile/contests/${user?.displayName}`
     ).then((res) => res.json())
   );
   if (isLoading || loading) {

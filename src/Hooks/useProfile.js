@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 
 const useProfile = (user) => {
@@ -9,12 +8,12 @@ const useProfile = (user) => {
     isLoading,
     refetch,
   } = useQuery(["profile", user?.email], () =>
-    fetch(`https://lit-meadow-72602.herokuapp.com/profile/${user?.email}`).then(
-      (res) => res.json()
-    )
+    fetch(
+      `https://cse-326-project-server.vercel.app/profile/${user?.email}`
+    ).then((res) => res.json())
   );
   // const refetch = () => {
-  // fetch(`https://lit-meadow-72602.herokuapp.com/profile/${user?.email}`)
+  // fetch(`https://cse-326-project-server.vercel.app/profile/${user?.email}`)
   //   .then((res) => res.json())
   //     .then((data) => {
   //       setProfile(data);

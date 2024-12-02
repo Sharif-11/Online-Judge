@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { userContext } from "./Home";
-import ratings from "../Images/ratings.png";
-import mail from "../Images/mail.png";
-import { profileContext } from "./ProfileDrawer";
-import ContestChart from "./ContestChart";
-import { useQuery } from "react-query";
-import SubmissionPiechart from "./SubmissionPiechart";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useQuery } from "react-query";
 import auth from "../firebase.init";
+import mail from "../Images/mail.png";
+import ratings from "../Images/ratings.png";
+import ContestChart from "./ContestChart";
+import { profileContext } from "./ProfileDrawer";
+import SubmissionPiechart from "./SubmissionPiechart";
 const ProfileInfo = () => {
   const [rank, setRank] = useState("unrated");
   const [color, setColor] = useState("rgba(0,0,0,0.5)");
@@ -16,7 +15,7 @@ const ProfileInfo = () => {
   const { city, country, fullName, institute } = profile;
   const { data, isLoading } = useQuery(["my-rating", user?.displayName], () =>
     fetch(
-      "https://lit-meadow-72602.herokuapp.com/ratings/" + user?.displayName
+      "https://cse-326-project-server.vercel.app/ratings/" + user?.displayName
     ).then((res) => res.json())
   );
   useEffect(() => {

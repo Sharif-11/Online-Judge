@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Chart } from "react-google-charts";
 import { useQuery } from "react-query";
 import auth from "../firebase.init";
-import { useAuthState } from "react-firebase-hooks/auth";
 
 export const options = {
   legend: {
@@ -25,7 +25,7 @@ export default function SubmissionPiechart() {
   const [data, setData] = useState([]);
   const { data: submissions, isLoading } = useQuery("all-submissions", () =>
     fetch(
-      `https://lit-meadow-72602.herokuapp.com/submissions/${user?.displayName}`
+      `https://cse-326-project-server.vercel.app/submissions/${user?.displayName}`
     ).then((res) => res.json())
   );
   useEffect(() => {

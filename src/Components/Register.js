@@ -1,24 +1,26 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   useAuthState,
   useCreateUserWithEmailAndPassword,
   useSignInWithGoogle,
+  useUpdateProfile,
 } from "react-firebase-hooks/auth";
-import { useUpdateProfile } from "react-firebase-hooks/auth";
-import auth from "../firebase.init";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import PreLoader from "./PreLoader";
 import { ClipLoader } from "react-spinners";
+import auth from "../firebase.init";
+
 const Register = () => {
-  const navigate = useNavigate("");
-  const handleRef = useRef("");
-  const emailRef = useRef("");
-  const passwordRef = useRef("");
-  const confirmPasswordRef = useRef("");
+  const navigate = useNavigate();
+  // please assign a random int between 1 and 1000 to the variable random with math.random() dynamically
+  const random = parseInt(Math.random() * 100);
+  const [handle, setHandle] = useState("RandomUser_" + random);
+  const [email, setEmail] = useState(`random${random}@gmail.com`);
+  const [password, setPassword] = useState("123456");
+  const [confirmPassword, setConfirmPassword] = useState("123456");
   const [handleError, setHandleError] = useState(false);
-  const [person, userLoading, userError] = useAuthState(auth);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+
+  const [person, userLoading, userError] = useAuthState(auth);
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth, {
       sendEmailVerification: true,
@@ -26,17 +28,17 @@ const Register = () => {
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
   const [updateProfile, updating, updatingError] = useUpdateProfile(auth);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const handle = handleRef.current.value;
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-    const confirmPassword = confirmPasswordRef.current.value;
     if (password !== confirmPassword) {
       setConfirmPasswordError(true);
       return;
-    } else setConfirmPasswordError(false);
-    fetch("https://lit-meadow-72602.herokuapp.com/users/" + handle)
+    } else {
+      setConfirmPasswordError(false);
+    }
+
+    fetch(`https://cse-326-project-server.vercel.app/users/${handle}`)
       .then((res) => res.json())
       .then((data) => {
         if (data?.handle === handle) {
@@ -46,9 +48,11 @@ const Register = () => {
           setHandleError(false);
         }
       });
+
     if (handleError) {
       return;
     }
+
     await createUserWithEmailAndPassword(email, password);
     await updateProfile({ displayName: handle });
   };
@@ -56,11 +60,12 @@ const Register = () => {
   if (updating || googleLoading || userLoading) {
     return <p>Loading...</p>;
   }
+
   if (person) {
-    fetch("https://lit-meadow-72602.herokuapp.com/users", {
+    fetch("https://cse-326-project-server.vercel.app/users", {
       method: "PUT",
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: person?.email,
@@ -69,16 +74,17 @@ const Register = () => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
+      .then((data) => console.log(data));
   }
+
   if (user) {
     navigate("/login");
   }
+
   if (googleUser) {
     navigate("/");
   }
+
   return (
     <div className="mb-8">
       <div className="register rounded-xl border w-96 max-w-[85vw] mx-auto mt-8 bg-[#3d4451]">
@@ -89,21 +95,20 @@ const Register = () => {
             borderTopRightRadius: "16px",
           }}
         >
-          Register in Coding playground
+          Register in Coding Playground
         </h2>
         <hr />
         <form className="my-8 px-4" onSubmit={handleSubmit}>
-          <div className=" lg:w-4/5 mx-auto flex">
+          <div className="lg:w-4/5 mx-auto flex">
             <span className="pr-4 text-md font-semibold w-2/6 text-right text-white">
               UserName
             </span>
             <div className="w-4/6">
               <input
                 type="text"
-                name=""
-                id=""
+                value={handle}
+                onChange={(e) => setHandle(e.target.value)}
                 className="border w-full text-white bg-transparent border-white px-1"
-                ref={handleRef}
                 required
               />
               <p className="text-[red] text-xs font-bold">
@@ -111,17 +116,16 @@ const Register = () => {
               </p>
             </div>
           </div>
-          <div className=" lg:w-4/5 mx-auto flex my-3">
+          <div className="lg:w-4/5 mx-auto flex my-3">
             <span className="pr-4 text-md font-semibold w-2/6 text-right text-white">
               Email
             </span>
             <div className="w-4/6">
               <input
                 type="email"
-                name=""
-                id=""
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="border w-full border-white bg-transparent text-white px-1"
-                ref={emailRef}
                 required
               />
               <p className="text-[red] text-xs font-bold">
@@ -129,17 +133,16 @@ const Register = () => {
               </p>
             </div>
           </div>
-          <div className=" lg:w-4/5 mx-auto flex my-3">
+          <div className="lg:w-4/5 mx-auto flex my-3">
             <span className="pr-4 text-md font-semibold w-1/3 text-right text-white">
               Password
             </span>
             <div className="w-2/3">
               <input
                 type="password"
-                name=""
-                id=""
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="border w-full bg-transparent px-1 text-white border-white"
-                ref={passwordRef}
                 required
               />
               <p className="text-xs text-[red] font-bold">
@@ -148,17 +151,16 @@ const Register = () => {
               </p>
             </div>
           </div>
-          <div className=" lg:w-4/5 mx-auto flex my-3">
+          <div className="lg:w-4/5 mx-auto flex my-3">
             <span className="pr-4 text-md font-semibold w-1/3 text-right text-white">
               Confirm Password
             </span>
             <div className="w-2/3 flex flex-col justify-center">
               <input
                 type="password"
-                name=""
-                id=""
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 className="border w-full bg-transparent text-white border-white px-1"
-                ref={confirmPasswordRef}
                 required
               />
               <p className="text-xs text-[red] font-bold">

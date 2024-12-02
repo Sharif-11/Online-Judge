@@ -16,7 +16,7 @@ const OfflineSubmit = () => {
   const { id } = useParams();
   useEffect(() => {
     axios
-      .get(`https://lit-meadow-72602.herokuapp.com/offline-problems/${id}`)
+      .get(`https://cse-326-project-server.vercel.app/offline-problems/${id}`)
       .then(({ data }) => {
         setProblem(data);
       });
@@ -63,7 +63,7 @@ const OfflineSubmit = () => {
     };
     // console.log(info);
     fetch(
-      `https://lit-meadow-72602.herokuapp.com/offline-problems/${id}/submit`,
+      `https://cse-326-project-server.vercel.app/offline-problems/${id}/submit`,
       {
         method: "POST",
         headers: { "content-type": "application/json" },

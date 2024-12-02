@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Submission from "./Submission";
 import { userContext } from "./Home";
+import Submission from "./Submission";
 const MySubmission = () => {
   const [submissions, setSubmissions] = useState([]);
   const { user } = useContext(userContext);
 
   const { id } = useParams();
   useEffect(() => {
-    fetch(`https://lit-meadow-72602.herokuapp.com/contests/${id}/my`, {
+    fetch(`https://cse-326-project-server.vercel.app/contests/${id}/my`, {
       method: "GET",
       headers: {
         email: user?.email,

@@ -8,7 +8,7 @@ const Question = ({ contests }) => {
   const [copyInput, setCopyInput] = useState(false);
   const [copyOutput, setCopyOutput] = useState(false);
   // useEffect(() => {
-  //   fetch(`https://lit-meadow-72602.herokuapp.com/contests?status=published&id=${parseInt(id)}`)
+  //   fetch(`https://cse-326-project-server.vercel.app/contests?status=published&id=${parseInt(id)}`)
   //     .then((res) => res.json())
   //     .then((data) => {
   //       console.clear();

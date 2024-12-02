@@ -1,16 +1,16 @@
 import React, { useContext, useEffect } from "react";
 import { useQuery } from "react-query";
-import Preview from "./Preview";
 import { userContext } from "./Home";
+import Preview from "./Preview";
 const AllContest = ({ reload }) => {
   const { user } = useContext(userContext);
   const { data, isLoading, refetch } = useQuery("allContest", () =>
     fetch(
-      "https://lit-meadow-72602.herokuapp.com/contests?requested=requested"
+      "https://cse-326-project-server.vercel.app/contests?requested=requested"
     ).then((res) => res.json())
   );
   const handleStatus = (id, status) => {
-    fetch("https://lit-meadow-72602.herokuapp.com/contests/" + id, {
+    fetch("https://cse-326-project-server.vercel.app/contests/" + id, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

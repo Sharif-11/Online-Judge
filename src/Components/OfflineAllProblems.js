@@ -1,18 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import auth from "../firebase.init";
 import { useQuery } from "react-query";
+import auth from "../firebase.init";
 import PreviewOffline from "./PreviewOffline";
-import Problems from "./Problems";
 const OfflineAllProblems = () => {
   const [user, loading] = useAuthState(auth);
   const { data, isLoading, refetch } = useQuery("AllOfflineProblem", () =>
-    fetch("https://lit-meadow-72602.herokuapp.com/offline-problems").then(
+    fetch("https://cse-326-project-server.vercel.app/offline-problems").then(
       (res) => res.json()
     )
   );
   const handleStatus = (id, status) => {
-    fetch("https://lit-meadow-72602.herokuapp.com/offline-problems/" + id, {
+    fetch("https://cse-326-project-server.vercel.app/offline-problems/" + id, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
